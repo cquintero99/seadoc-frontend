@@ -1,0 +1,179 @@
+//http://localhost:8080
+//https://teacher-test-backend-production.up.railway.app
+//teacher-test-backend-production.up.railway.app
+const urlBasic = "https://teacher-test-backend-production.up.railway.app"
+const login = document.getElementById("login");
+
+login.addEventListener("click", () => {
+  try {
+    let codigo = document.getElementById("inputCodigo").value;
+    let documento = document.getElementById("inputDocumento").value;
+    let password = document.getElementById("inputPassword").value;
+
+    const data = {
+      codigo,
+      documento,
+      password,
+    };
+
+    verificoIngresoDatos(codigo, documento, password);
+
+  } catch (error) {
+    console.log(error)
+  }
+});
+
+function verificoIngresoDatos(codigo, documento, password) {
+
+  if (Number(codigo.length) <= 0 && Number(documento.length) <= 0 && password != "") {
+    body = `<div class="alert alert-danger" role="alert">
+            la informacion esta incompleta
+          </div>`;
+    document.getElementById("alert").innerHTML = body;
+
+    setTimeout(() => {
+      document.getElementById("alert").innerHTML = "";
+    }, 5000);
+  } else {
+    verificoCodigoDocumento(codigo, documento)
+  }
+}
+
+async function verificoCodigoDocumento(codigo, documento) {
+
+  const data = {
+    codigo,
+    documento
+  }
+  await fetch(urlBasic + "/usuario/security/user", {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-type': 'application/json ',
+      'Access-Control-Allow-Headers': 'Authorization',
+      'Cache-Control': 'no-store'
+    },
+    cache: 'no-store'
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data === true) {
+         inciarSesion()
+
+      } else {
+        body = `<div class="alert alert-danger" role="alert">
+        El codigo o documento incorrecto
+      </div>`;
+        document.getElementById("alert").innerHTML = body;
+
+        setTimeout(() => {
+          document.getElementById("alert").innerHTML = "";
+        }, 5000);
+      }
+
+    })
+    .catch(err => console.log(err))
+
+}
+
+
+async function inciarSesion() {
+  let codigo = document.getElementById("inputCodigo").value;
+  let password = document.getElementById("inputPassword").value;
+
+
+
+  const data = {
+    usernameOrEmail: codigo,
+    password: password
+  }
+
+
+  await fetch(urlBasic + '/user/login', {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-type': 'application/json ',
+      'Access-Control-Allow-Headers': 'Authorization',
+      'Cache-Control': 'no-store'
+    },
+    cache: 'no-store'
+  })
+    .then(response => response)
+    .then(JWT => {
+      if (JWT.status === 200 && JWT.headers.has('Authorization')) {
+        const bearerToken = JWT.headers.get('Authorization');
+        const token = bearerToken.replace('Bearer ', '');
+
+        sessionStorage.setItem("id", "100")
+       
+
+
+        localStorage.setItem('token', token);
+        localStorage.setItem("data", JSON.stringify(parseJwt(token)))
+       
+        cargarModuloRol()
+
+      }else{
+
+        body = `<div class="alert alert-danger" role="alert">
+         Contraseña  incorrecta
+      </div>`;
+        document.getElementById("alert").innerHTML = body;
+
+        setTimeout(() => {
+          document.getElementById("alert").innerHTML = "";
+        }, 5000);
+      }
+
+
+
+
+
+
+    })
+    .catch(err => {
+      console.log(err)
+      
+    })
+
+}
+function cargarModuloRol(){
+  
+  const roles=JSON.parse(localStorage.getItem("data")).roles
+  const admin=false
+  for (let i = 0; i < roles.length; i++) {
+    if(roles[i].nombre=="ROLE_ADMIN"){
+      window.location.href = "./administrador/index.html";
+      admin=true
+    }else if(roles[i].nombre=="ROLE_TEACHER" && admin===false){
+        window.location.href = "./docente/index.html";
+      }
+    
+    
+    
+  }
+ 
+
+
+}
+
+function online() {
+  var auxtoken = localStorage.getItem("token")
+  var id = JSON.parse(localStorage.getItem("data")).id
+  if (auxtoken !== undefined && id !== undefined) {
+
+    cargarLista()
+  }
+
+}
+
+function parseJwt(token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+}
