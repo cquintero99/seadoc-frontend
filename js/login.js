@@ -4,6 +4,7 @@
 const urlBasic = "https://teacher-test-backend-production.up.railway.app";
 const login = document.getElementById("login");
 
+// Show the spinner
 function mostrarSpinner() {
   document.getElementById("spinner-container").style.display = "flex";
   document.getElementById(
@@ -15,6 +16,7 @@ function mostrarSpinner() {
   </div>`;
 }
 
+// Hide the spinner
 function ocultarSpinner() {
   document.getElementById("spinner-container").style.display = "none";
   document.getElementById(
@@ -27,8 +29,8 @@ function ocultarSpinner() {
 }
 login.addEventListener("click", () => {
   try {
-    let codigo = parseInt(document.getElementById("inputCodigo").value);
-    let documento = parseInt(document.getElementById("inputDocumento").value);
+    let codigo = document.getElementById("inputCodigo").value;
+    let documento = document.getElementById("inputDocumento").value;
     let password = document.getElementById("inputPassword").value;
 
     const data = {
@@ -37,16 +39,17 @@ login.addEventListener("click", () => {
       password,
     };
 
-    verificoIngresoDatos(codigo, documento, password);
+    verificoIngresoDatos(data);
   } catch (error) {
     console.log(error);
   }
 });
 
-function verificoIngresoDatos(codigo, documento, password) {
+// Verify the data of the user
+function verificoIngresoDatos(data) {
   if (
-    Number(codigo.length) <= 0 &&
-    Number(documento.length) <= 0 &&
+    Number(data.codigo.length) <= 0 &&
+    Number(data.documento.length) <= 0 &&
     password != ""
   ) {
     body = `<div class="alert alert-danger" role="alert">
@@ -58,15 +61,12 @@ function verificoIngresoDatos(codigo, documento, password) {
       document.getElementById("alert").innerHTML = "";
     }, 5000);
   } else {
-    verificoCodigoDocumento(codigo, documento);
+    verificoCodigoDocumento(data);
   }
 }
 
-async function verificoCodigoDocumento(codigo, documento) {
-  const data = {
-    codigo,
-    documento,
-  };
+// Verify the code and document of the user
+async function verificoCodigoDocumento(data) {
   await fetch(urlBasic + "/usuario/security/user", {
     method: "POST",
     body: JSON.stringify(data),
@@ -95,6 +95,7 @@ async function verificoCodigoDocumento(codigo, documento) {
     .catch((err) => console.log(err));
 }
 
+// Sign in the user on the system
 async function inciarSesion() {
   mostrarSpinner();
   let codigo = parseInt(document.getElementById("inputCodigo").value);
@@ -144,6 +145,8 @@ async function inciarSesion() {
       console.log(err);
     });
 }
+
+// Charge the module of the user
 function cargarModuloRol() {
   const roles = JSON.parse(localStorage.getItem("data")).roles;
   const admin = false;
