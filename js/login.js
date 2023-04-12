@@ -4,6 +4,7 @@
 const urlBasic = "https://teacher-test-backend-production.up.railway.app";
 const login = document.getElementById("login");
 
+// Show the spinner
 function mostrarSpinner() {
   document.getElementById("spinner-container").style.display = "flex";
   document.getElementById(
@@ -15,6 +16,7 @@ function mostrarSpinner() {
   </div>`;
 }
 
+// Hide the spinner
 function ocultarSpinner() {
   document.getElementById("spinner-container").style.display = "none";
   document.getElementById(
@@ -37,16 +39,28 @@ login.addEventListener("click", () => {
       password,
     };
 
+<<<<<<< HEAD
     verificoIngresoDatos(codigo, documento, password);
+=======
+    verificoIngresoDatos(data);
+>>>>>>> dev-brayan
   } catch (error) {
     console.log(error);
   }
 });
 
+<<<<<<< HEAD
 function verificoIngresoDatos(codigo, documento, password) {
   if (
     Number(codigo.length) <= 0 &&
     Number(documento.length) <= 0 &&
+=======
+// Verify the data of the user
+function verificoIngresoDatos(data) {
+  if (
+    Number(data.codigo.length) <= 0 &&
+    Number(data.documento.length) <= 0 &&
+>>>>>>> dev-brayan
     password != ""
   ) {
     body = `<div class="alert alert-danger" role="alert">
@@ -58,6 +72,7 @@ function verificoIngresoDatos(codigo, documento, password) {
       document.getElementById("alert").innerHTML = "";
     }, 5000);
   } else {
+<<<<<<< HEAD
     verificoCodigoDocumento(codigo, documento);
   }
 }
@@ -67,6 +82,14 @@ async function verificoCodigoDocumento(codigo, documento) {
     codigo,
     documento,
   };
+=======
+    verificoCodigoDocumento(data);
+  }
+}
+
+// Verify the code and document of the user
+async function verificoCodigoDocumento(data) {
+>>>>>>> dev-brayan
   await fetch(urlBasic + "/usuario/security/user", {
     method: "POST",
     body: JSON.stringify(data),
@@ -95,9 +118,16 @@ async function verificoCodigoDocumento(codigo, documento) {
     .catch((err) => console.log(err));
 }
 
+<<<<<<< HEAD
 async function inciarSesion() {
   mostrarSpinner();
   let codigo = document.getElementById("inputCodigo").value;
+=======
+// Sign in the user on the system
+async function inciarSesion() {
+  mostrarSpinner();
+  let codigo = parseInt(document.getElementById("inputCodigo").value);
+>>>>>>> dev-brayan
   let password = document.getElementById("inputPassword").value;
 
   const data = {
@@ -144,6 +174,11 @@ async function inciarSesion() {
       console.log(err);
     });
 }
+<<<<<<< HEAD
+=======
+
+// Charge the module of the user
+>>>>>>> dev-brayan
 function cargarModuloRol() {
   const roles = JSON.parse(localStorage.getItem("data")).roles;
   const admin = false;
