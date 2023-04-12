@@ -4,6 +4,23 @@
 const urlBasic = "https://teacher-test-backend-production.up.railway.app"
 const login = document.getElementById("login");
 
+function mostrarSpinner() {
+  document.getElementById("spinner-container").style.display = "flex";
+  document.getElementById("sppiner").innerHTML=`<div id="spinner-container" class="d-flex justify-content-center align-items-center ">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Cargando...</span>
+    </div>
+  </div>`
+}
+
+function ocultarSpinner() {
+  document.getElementById("spinner-container").style.display = "none";
+  document.getElementById("sppiner").innerHTML=`<div id="spinner-container" class="d-flex justify-content-center align-items-center d-none">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Cargando...</span>
+    </div>
+  </div>`
+}
 login.addEventListener("click", () => {
   try {
     let codigo = document.getElementById("inputCodigo").value;
@@ -15,6 +32,8 @@ login.addEventListener("click", () => {
       documento,
       password,
     };
+
+    
 
     verificoIngresoDatos(codigo, documento, password);
 
@@ -78,6 +97,7 @@ async function verificoCodigoDocumento(codigo, documento) {
 
 
 async function inciarSesion() {
+  mostrarSpinner()
   let codigo = document.getElementById("inputCodigo").value;
   let password = document.getElementById("inputPassword").value;
 
@@ -115,7 +135,7 @@ async function inciarSesion() {
         cargarModuloRol()
 
       }else{
-
+        ocultarSpinner()
         body = `<div class="alert alert-danger" role="alert">
          Contraseña  incorrecta
       </div>`;
@@ -133,6 +153,7 @@ async function inciarSesion() {
 
     })
     .catch(err => {
+      ocultarSpinner()
       console.log(err)
       
     })
@@ -146,6 +167,7 @@ function cargarModuloRol(){
     if(roles[i].nombre=="ROLE_ADMIN"){
       window.location.href = "./administrador/index.html";
       admin=true
+      
     }else if(roles[i].nombre=="ROLE_TEACHER" && admin===false){
         window.location.href = "./docente/index.html";
       }
@@ -158,15 +180,9 @@ function cargarModuloRol(){
 
 }
 
-function online() {
-  var auxtoken = localStorage.getItem("token")
-  var id = JSON.parse(localStorage.getItem("data")).id
-  if (auxtoken !== undefined && id !== undefined) {
 
-    cargarLista()
-  }
 
-}
+
 
 function parseJwt(token) {
   var base64Url = token.split('.')[1];
@@ -177,3 +193,9 @@ function parseJwt(token) {
 
   return JSON.parse(jsonPayload);
 }
+
+const salir=document.getElementById("salir")
+
+salir.addEventListener('click',()=>{
+  localStorage.clear();
+})
