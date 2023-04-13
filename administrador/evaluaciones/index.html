@@ -8,18 +8,14 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <!-- Page Icon -->
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="../../assets/img/identity/logo_ingsistemas.png"
-    />
+    <link rel="icon" type="image/svg+xml" href="../../assets/img/identity/logo_ingsistemas.png" />
     <title>Admin - SEADOC</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="../../css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    
+
 </head>
 
 <body class="sb-nav-fixed">
@@ -32,8 +28,8 @@
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="input-group" id="nombreUsuario">
-                
-                
+
+
             </div>
         </form>
         <!-- Navbar-->
@@ -110,20 +106,12 @@
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Administrador</li>
                     </ol>
-                    <div class="row">
-                        <div class="col-xl-6 col-md-6">
-                            <form class="form-control">
-                                <div id="sppiner">
-                                    <div id="spinner-container"
-                                        class="d-flex justify-content-center align-items-center d-none">
-                                        <div class="spinner-border text-primary" role="status">
-                                            <span class="sr-only">Cargando...</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-floating mb-3" id="alert">
-
-                                </div>
+                    <hr class="">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <form class="from">
+                                
+                                
                                 <p>1°-Datos de la Evaluacion *</p>
                                 <div class="form-floating mb-3">
 
@@ -146,98 +134,97 @@
                                     <label for="inputEmail">Descripcion</label>
                                 </div>
 
-                                <hr>
                             </form>
 
 
 
                         </div>
-                        <div class="col-xl-6 col-md-6">
-                            <form class="form-control">
-                                <div id="sppiner">
-                                    <div id="spinner-container"
-                                        class="d-flex justify-content-center align-items-center d-none">
-                                        <div class="spinner-border text-primary" role="status">
-                                            <span class="sr-only">Cargando...</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-floating mb-3" id="alert">
-
-                                </div>
-                                <p>2°-Crea las opciones que va tener toda la evaluacion *</p>
-                                <p>
-                                    <a class="btn  bg-danger" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                      OPCIONES
-                                    </a>
-                                   
-                                  </p>
-                                  <div class="collapse" id="collapseExample">
-                                    <div class="card card-body">
-                                        <div class="input-group">
-                                            <label class="form-control" type="text">CREAR OPCION</label>
-                                            <button class="btn btn-success" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#staticBackdropOpcion"><i class="fa fa-plus"
-                                                    aria-hidden="true" ></i></button>
-                                        </div>
-                                        <hr>
-                                        <div>
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Descripcion</th>
-                                                        <th>Valor</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="opcinesRespuesta">
-                                                    
-        
-                                                </tbody>
-                                                
-                                            </table>
-                                        </div>
-                                    </div>
-                                  </div>
-                                
-                                <hr>
-
-
-                            </form>
-
-
-                        </div>
+                        
 
                     </div>
-                    <div class="row mb-3">
-                        <hr>
+                    
+                    <hr>
+                    <div class="row ">
+                      
                         <div class="row">
-
+                            <p>2°-Crea las categorias y preguntas *</p>
                             <div class="col-4">
                                 <form class=" ">
-                                    <p>3°-Crea las categorias de la evaluacion *</p>
-                                        <div class="input-group">
-                
-                                            <input type="text" id="inputCategoriaP" class="form-control" placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example" aria-describedby="btnGroupAddon">
-                                            <button id="crearCategoria" class="input-group-text btn btn-success" type="button"><i class="fa fa-plus"
-                                            aria-hidden="true" ></i></button>
-                                        </div>
-                                        
+
+                                    <div class="input-group">
+
+                                        <input type="text" id="inputCategoriaP" class="form-control"
+                                            placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
+                                            aria-describedby="btnGroupAddon">
+                                        <button id="crearCategoria" class="input-group-text btn btn-success"
+                                            type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                    </div>
+
                                 </form>
                                 <br>
                                 <div id="list-example" class="list-group">
-                                 </div>
+                                </div>
                             </div>
                             <div class="col-8">
-                                <div id="alertCrearCategoria"></div>
+                                
                                 <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true"
                                     class="scrollspy-example" tabindex="0" id="bodyListaCategoria">
-                                    
+
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <hr >
+                    <div class="row">
+                        
+                        <p>3°-Crea los Criteros de evaluacion *</p>
+                        <div class="col-4 ">
+                            
+                                
+                                <form>
+                                    <div class="form-floating mb-3 text-center">
+                                        <input class="form-control" id="inputDescripcionP" type="descripcion"
+                                            placeholder="Insuficiente" />
+                                        <label for="inputEmail">Descripcion</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input class="form-control" id="inputValorP" type="number"
+                                            placeholder="1" />
+                                        <label for="inputEmail">Valor </label>
+                                    </div>
+                                    <div class="form-floating text-center">
+                                    <button type="button" class="btn btn-success "
+                                    id="btnOpcinesRespuesta">Crear Criterio</button>
+                                    </div>
+                                    
+                                </form>
+                                
+                                
+                          
+                        </div>
+                        <div class="col-8">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Descripcion</th>
+                                        <th>Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="opcinesRespuesta">
 
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                    <hr >
+                    <div class="row">
+                        <p>4°-Configurar Evaluacion</p>
+
+                    </div>
+                    <hr>
                     <!-- Modal Categorias Evaluacion-->
                     <div class="modal fade" id="staticBackdropCategoria" data-bs-backdrop="static"
                         data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
