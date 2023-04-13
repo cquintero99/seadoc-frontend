@@ -2,8 +2,25 @@
 const urlBasic = "https://teacher-test-backend-production.up.railway.app";
 const tabla = document.getElementById("tabla-datos");
 const cuerpoTabla = tabla.getElementsByTagName("tbody")[0];
+function mostrarSpinner() {
+  document.getElementById("spinner-container").style.display = "flex";
+  document.getElementById("sppiner").innerHTML=`<div id="spinner-container" class="d-flex justify-content-center align-items-center ">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Cargando...</span>
+    </div>
+  </div>`
+}
 
+function ocultarSpinner() {
+  document.getElementById("spinner-container").style.display = "none";
+  document.getElementById("sppiner").innerHTML=`<div id="spinner-container" class="d-flex justify-content-center align-items-center d-none">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Cargando...</span>
+    </div>
+  </div>`
+}
 async function verSemestres() {
+  mostrarSpinner()
   let token = localStorage.getItem("token");
 
   await fetch(urlBasic + "/semestre", {
@@ -35,6 +52,7 @@ async function verSemestres() {
     })
     .finally((yes) => {
       //loadingElement.style.display = 'none';
+      ocultarSpinner()
     })
     .catch((err) => {
       console.log(err);

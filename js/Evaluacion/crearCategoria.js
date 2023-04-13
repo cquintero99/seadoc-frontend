@@ -7,7 +7,7 @@ crearCategoria.addEventListener('click', () => {
     let pos = sessionStorage.getItem("pos")
     let nombre = document.getElementById("inputCategoriaP").value
     const array = []
-    if (Number(pos) <= 0 || pos === undefined && nombre !=="") {
+    if ((Number(pos) <= 0 || pos === undefined ) && nombre !=="") {
 
         sessionStorage.setItem("pos", 1)
 
@@ -22,17 +22,16 @@ crearCategoria.addEventListener('click', () => {
             innerHTML += `<a class="list-group-item list-group-item-action" href="#list-item-${1}">${nombre}</a>
     `
         document.getElementById("bodyListaCategoria").
-            innerHTML += `<h4 id="list-item-${1}">Categoria ${nombre}</h4>
+            innerHTML += `<h4 id="list-item-${1}">Categoria - ${nombre}</h4>
             <div class="input-group">
                 
             <input type="text" id="crearPreguntaCategoria${1}" class="form-control" placeholder="Crear pregunta para la categoria ${nombre}" aria-label="Input group example" aria-describedby="btnGroupAddon">
-            <button id="btnGroupAddon" class="input-group-text btn btn-success" type="button"><i class="fa fa-plus"
+            <button id="btnGroupAddon" onclick="crearPregunta(1)" class="input-group-text btn btn-success" type="button"><i class="fa fa-plus"
             aria-hidden="true" ></i></button>
         </div>
+        <div id="preguntaC1"></div>
         <hr>`
-        document.getElementById("alertCrearCategoria").innerHTML = `<div class="alert alert-success" role="alert">
-              Categoria ${nombre} se creo 
-            </div>`
+       
 
     } else if (nombre !=="") {
         const primer = sessionStorage.getItem("categoriasEvaluacion")
@@ -59,27 +58,36 @@ crearCategoria.addEventListener('click', () => {
                 innerHTML += `<a class="list-group-item list-group-item-action" href="#list-item-${posicion}">${nombre}</a>
     `
             document.getElementById("bodyListaCategoria").
-                innerHTML += `<h4 id="list-item-${posicion}">Categoria ${nombre}   </h4>
+                innerHTML += `<h4 id="list-item-${posicion}">Categoria - ${nombre}   </h4>
                 <div class="input-group">
                 
                 <input type="text" class="form-control" id="crearPreguntaCategoria${posicion}" placeholder="Crear pregunta para la categoria ${nombre}" aria-label="Input group example" aria-describedby="btnGroupAddon">
-                <button id="btnGroupAddon" class="input-group-text btn btn-success" type="button"><i class="fa fa-plus"
+                <button id="btnAddPregunta" onclick="crearPregunta(${posicion})" class="input-group-text btn btn-success" type="button"><i class="fa fa-plus"
                 aria-hidden="true" ></i></button>
             </div>
+            <div id="preguntaC${posicion}">
+            
+            </div>
             <hr>`
-            document.getElementById("alertCrearCategoria").innerHTML = `<div class="alert alert-success" role="alert">
-              Categoria ${nombre} se creo 
-            </div>`
+            
         }
     } else {
-        document.getElementById("alertCrearCategoria").innerHTML = `<div class="alert alert-danger" role="alert">
-        Ingrese Nombre de la categoria
-      </div>`
+        //Nombre vacio
     }
+    
 
     
 
 })
+
+function crearPregunta(pos){
+    let pregunta=document.getElementById("crearPreguntaCategoria"+pos).value
+    //alert(pregunta)
+    console.log(pregunta+"_____" +pos)
+   document.getElementById("preguntaC"+pos).innerHTML+=`<p>${pregunta}</p>`
+   document.getElementById("crearPreguntaCategoria"+pos).value=""
+
+}
 
 window.addEventListener('load', ()=> {
     let nombre=JSON.parse(localStorage.getItem("data")).nombre
