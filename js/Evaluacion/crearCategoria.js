@@ -21,8 +21,14 @@ crearCategoria.addEventListener('click', () => {
             innerHTML += `<a class="list-group-item list-group-item-action" href="#list-item-${1}">${nombre}</a>
     `
         document.getElementById("bodyListaCategoria").
-        innerHTML+=`<h4 id="list-item-${1}">Categoria ${nombre}</h4>
-        <p>...</p>`
+            innerHTML += `<h4 id="list-item-${1}">Categoria ${nombre}</h4>
+            <div class="input-group">
+                
+            <input type="text" class="form-control" placeholder="Crear pregunta para la categoria ${nombre}" aria-label="Input group example" aria-describedby="btnGroupAddon">
+            <button id="btnGroupAddon" class="input-group-text btn btn-success" type="button"><i class="fa fa-plus"
+            aria-hidden="true" ></i></button>
+        </div>
+        <hr>`
 
     } else {
         const primer = sessionStorage.getItem("categoriasEvaluacion")
@@ -50,8 +56,14 @@ crearCategoria.addEventListener('click', () => {
                 innerHTML += `<a class="list-group-item list-group-item-action" href="#list-item-${posicion}">${nombre}</a>
     `
             document.getElementById("bodyListaCategoria").
-            innerHTML+=`<h4 id="list-item-${posicion}">Categoria ${nombre}</h4>
-            <p>...</p>`
+                innerHTML += `<h4 id="list-item-${posicion}">Categoria ${nombre}</h4>
+                <div class="input-group">
+                
+                <input type="text" class="form-control" placeholder="Crear pregunta para la categoria ${nombre}" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                <button id="btnGroupAddon" class="input-group-text btn btn-success" type="button"><i class="fa fa-plus"
+                aria-hidden="true" ></i></button>
+            </div>
+            <hr>`
         }
     }
 
