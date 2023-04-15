@@ -42,7 +42,7 @@
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="/index.html" id="salir">Salir</a></li>
+                    <li><a class="dropdown-item" href="../../index.html" id="salir">Salir</a></li>
                 </ul>
             </li>
         </ul>
@@ -52,13 +52,13 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark bg-danger" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">SEMESTRES</div>
+                        <div class="sb-sidenav-menu-heading text-light">SEMESTRES</div>
                         <a class="nav-link p-3" href="../semestre/index.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Semestre
                         </a>
 
-                        <div class="sb-sidenav-menu-heading">EVALUACIONES</div>
+                        <div class="sb-sidenav-menu-heading text-light">EVALUACIONES</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                             data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -72,7 +72,7 @@
                                 <a class="nav-link" href="#">Lista de Evaluaciones</a>
                             </nav>
                         </div>
-                        <div class="sb-sidenav-menu-heading">DOCENTES</div>
+                        <div class="sb-sidenav-menu-heading text-light">DOCENTES</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
                             aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
@@ -83,7 +83,7 @@
                             data-bs-parent="#sidenavAccordion">
 
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="login.html">Invitar</a>
+                                <a class="nav-link" href="#">Invitar</a>
                                 <a class="nav-link" href="../docente/index.html">Lista</a>
                             </nav>
 
@@ -108,10 +108,19 @@
                     </ol>
                     <hr class="">
                     <div class="row mb-3">
+
                         <div class="col">
                             <form class="from">
-                                
-                                
+                                <!-- Spinner -->
+                                <div id="sppiner">
+                                    <div id="spinner-container"
+                                        class="d-flex justify-content-center align-items-center d-none">
+                                        <div class="spinner-border text-danger" role="status">
+                                            <span class="sr-only">Cargando...</span>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <p>1°-Datos de la Evaluacion *</p>
                                 <div class="form-floating mb-3">
 
@@ -139,34 +148,38 @@
 
 
                         </div>
-                        
+
 
                     </div>
-                    
+
                     <hr>
-                    <div class="row ">
-                      
+                    <div class="row mb-3 ">
+                        <p>2°-Crea las categorias y preguntas *</p>
+                        <form class=" ">
+
+                            <div class="input-group">
+
+                                <input type="text" id="inputCategoriaP" class="form-control"
+                                    placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
+                                    aria-describedby="btnGroupAddon">
+                                <button id="crearCategoria" class="input-group-text btn btn-success" type="button"><i
+                                        class="fa fa-plus" aria-hidden="true"></i></button>
+                            </div>
+
+                        </form>
+
+
+
+
                         <div class="row">
-                            <p>2°-Crea las categorias y preguntas *</p>
-                            <div class="col-4">
-                                <form class=" ">
 
-                                    <div class="input-group">
-
-                                        <input type="text" id="inputCategoriaP" class="form-control"
-                                            placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
-                                            aria-describedby="btnGroupAddon">
-                                        <button id="crearCategoria" class="input-group-text btn btn-success"
-                                            type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                                    </div>
-
-                                </form>
+                            <div class="col-xl-4">
                                 <br>
-                                <div id="list-example" class="list-group">
+                                <div id="list-example" class="list-group list-group-numbered">
                                 </div>
                             </div>
-                            <div class="col-8">
-                                
+                            <div class="col-xl-8">
+
                                 <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true"
                                     class="scrollspy-example" tabindex="0" id="bodyListaCategoria">
 
@@ -174,33 +187,32 @@
                             </div>
                         </div>
                     </div>
-                    <hr >
+                    <hr>
                     <div class="row">
-                        
+
                         <p>3°-Crea los Criteros de evaluacion *</p>
                         <div class="col-4 ">
-                            
-                                
-                                <form>
-                                    <div class="form-floating mb-3 text-center">
-                                        <input class="form-control" id="inputDescripcionP" type="descripcion"
-                                            placeholder="Insuficiente" />
-                                        <label for="inputEmail">Descripcion</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="inputValorP" type="number"
-                                            placeholder="1" />
-                                        <label for="inputEmail">Valor </label>
-                                    </div>
-                                    <div class="form-floating text-center">
-                                    <button type="button" class="btn btn-success "
-                                    id="btnOpcinesRespuesta">Crear Criterio</button>
-                                    </div>
-                                    
-                                </form>
-                                
-                                
-                          
+
+
+                            <form>
+                                <div class="form-floating mb-3 text-center">
+                                    <input class="form-control" id="inputDescripcionP" type="descripcion"
+                                        placeholder="Insuficiente" />
+                                    <label for="inputEmail">Descripcion</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="inputValorP" type="number" placeholder="1" />
+                                    <label for="inputEmail">Valor </label>
+                                </div>
+                                <div class="form-floating text-center">
+                                    <button type="button" class="btn btn-success " id="btnOpcinesRespuesta">Crear
+                                        Criterio</button>
+                                </div>
+
+                            </form>
+
+
+
                         </div>
                         <div class="col-8">
                             <table class="table">
@@ -219,7 +231,7 @@
                             </table>
                         </div>
                     </div>
-                    <hr >
+                    <hr>
                     <div class="row">
                         <p>4°-Configurar Evaluacion</p>
 
