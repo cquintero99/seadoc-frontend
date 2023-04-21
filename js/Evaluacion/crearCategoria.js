@@ -16,71 +16,52 @@ function ocultarSpinner() {
 
 
 const crearCategoria = document.getElementById("crearCategoria")
-
+// CREAR CATEGORIA
 crearCategoria.addEventListener('click', () => {
     mostrarSpinner()
+
     let pos = sessionStorage.getItem("pos")
     let nombre = document.getElementById("inputCategoriaP").value
-    const array = []
-    if ((Number(pos) <= 0 || pos === undefined) && nombre !== "") {
+    let array = []
+    //Verifico si no hay Categorias
+    if (pos === null) {
+        pos = 0
+    }
+    if (nombre !== "") {
 
-        sessionStorage.setItem("pos", 1)
-
-        const catg = {
-            "id": 1,
-            "nombre": nombre,
-
-        }
-
-        sessionStorage.setItem("categoriasEvaluacion", JSON.stringify(catg))
-        document.getElementById("list-example").
-            innerHTML += `<a class="list-group-item list-group-item-action" href="#list-item-${1}">${nombre}</a>
-    `
-        document.getElementById("bodyListaCategoria").
-            innerHTML += `<h4 id="list-item-${1}">Categoria - ${nombre}</h4>
-            <div class="input-group">
-                
-            <input type="text" id="crearPreguntaCategoria${1}" class="form-control" placeholder="Crear pregunta para la categoria ${nombre}" aria-label="Input group example" aria-describedby="btnGroupAddon">
-            <button id="btnGroupAddon" onclick="crearPregunta(1)" class="input-group-text btn btn-success" type="button"><i class="fa fa-plus"
-            aria-hidden="true" ></i></button>
-        </div>
-        </br>
-        <ol class="list-group " id="preguntaC1">
-                
-        </ol>
-        <hr>`
-
-        setTimeout(() => {
-            ocultarSpinner()
-            document.getElementById("inputCategoriaP").value = ""
-        }, 150)
-
-    } else if (nombre !== "") {
         const primer = sessionStorage.getItem("categoriasEvaluacion")
 
-        if (primer != undefined) {
+        //Verifico que el arreglo de categorias no esta vacio
+        if (primer != null) {
+          array=  array.concat(JSON.parse(primer))
+        }
+
+        //Obtengo el nombre
+        let nombre = document.getElementById("inputCategoriaP").value
+        //Obtengo la posicion
+        let posicion = Number(pos) + 1
+        //Creo el objeto categoria
+        const catg = {
+            "id": posicion,
+            "nombre": nombre,
+            "preguntas": []
+
+        }
+        //Agrego la categoria al array
+        array.push(catg)
 
 
-            let nombre = document.getElementById("inputCategoriaP").value
-            let posicion = Number(pos) + 1
-            const catg = {
-                "id": posicion,
-                "nombre": nombre,
-
-            }
-            array.push(primer)
-            array.push(JSON.stringify(catg))
+        //Guardo en sessionStorage
+        sessionStorage.setItem("categoriasEvaluacion", JSON.stringify(array))
+        sessionStorage.setItem("pos", posicion)
 
 
-            sessionStorage.setItem("categoriasEvaluacion", array)
-            sessionStorage.setItem("pos", posicion)
-
-
-            document.getElementById("list-example").
-                innerHTML += `<a class="list-group-item list-group-item-action" href="#list-item-${posicion}">${nombre}</a>
+        document.getElementById("list-example").
+            innerHTML += `<a class="list-group-item list-group-item-action" href="#list-item-${posicion}">${nombre}</a>
     `
-            document.getElementById("bodyListaCategoria").
-                innerHTML += `<h4 id="list-item-${posicion}"  class="text-center">Categoria - ${nombre}   </h4>
+
+        document.getElementById("bodyListaCategoria").
+            innerHTML += `<h4 id="list-item-${posicion}"  class="text-center"> # ${posicion} - ${nombre}   </h4>
                 <div class="input-group">
                 
                 <input type="text" class="form-control" id="crearPreguntaCategoria${posicion}" placeholder="Crear pregunta para la categoria ${nombre}" aria-label="Input group example" aria-describedby="btnGroupAddon">
@@ -88,17 +69,20 @@ crearCategoria.addEventListener('click', () => {
                 aria-hidden="true" ></i></button>
             </div>
             </br>
-            <ol class="list-group list-group-numbered" id="preguntaC${posicion}">
+            
+            <ol class="list-group list-group-numbered list-group-flush" id="preguntaC${posicion}">
                 
                 </ol>
+                
             
             <hr>`
 
-        }
+
         setTimeout(() => {
             ocultarSpinner()
             document.getElementById("inputCategoriaP").value = ""
         }, 100)
+
     } else {
         //Nombre vacio
         ocultarSpinner()
@@ -110,22 +94,55 @@ crearCategoria.addEventListener('click', () => {
 })
 
 function crearPregunta(pos) {
+    //Obtengo el texto de la pregunta
     let pregunta = document.getElementById("crearPreguntaCategoria" + pos).value
+    //Busco las preguntas guardadas
+    const preguntasEvaluacion = sessionStorage.getItem("preguntasEvaluacion")
+    //Busco numero de pregunta
+    let nPregunta=sessionStorage.getItem("nPregunta")
+    
+    //Verifico el numero de preguntas
+    if(nPregunta===null){
+        nPregunta=0;
+    }else{
+        
+    }
+    if (pregunta != "") {
+       //Creo la posicion que es nPregunta+1
+       let posicion=Number(nPregunta)+1
+       //Creo el array Pregunta
+       let arrayPregunta=[]
+        //Creo el objeto pregunto
+        
+        const newPregunta = {
+            id:posicion,
+            idCategoria:pos,
+            pregunta
+        }
+        //Si la el array no esta vacio
+        if(preguntasEvaluacion!=null){
+         arrayPregunta=  arrayPregunta.concat(JSON.parse(preguntasEvaluacion))
+        }
+        //Guardo la pregunta nueva
+        arrayPregunta.push(newPregunta)
+        sessionStorage.setItem("preguntasEvaluacion",JSON.stringify(arrayPregunta))
+        sessionStorage.setItem("nPregunta",posicion)
 
-    document.getElementById("preguntaC" + pos).innerHTML += `
-   <li class="list-group-item">
-   <div class="input-group">
+        //Agrego la vista
+        document.getElementById("preguntaC" + pos).innerHTML += `
+            <li class="list-group-item" id="${pos}-${posicion}" >
+            <div class="input-group">
 
-         <input type="text" id="inputCategoriaP" class="form-control" value="${pregunta}"
-         placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
-        aria-describedby="btnGroupAddon">
-         <button id="crearCategoria" class="input-group-text btn btn-danger" type="button">
-         <i class="fa fa-times" aria-hidden="true"></i></button>
-    </div>
-   
-   </li>`
-    document.getElementById("crearPreguntaCategoria" + pos).value = ""
-
+                    <input type="text" id="inputCategoriaP" class="form-control" value="${pregunta}"
+                    placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
+                    aria-describedby="btnGroupAddon">
+                    <button id="crearCategoria" onclick="eliminarPregunta('${pos}-${posicion}')" class="input-group-text btn btn-danger" type="button">
+                    <i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+            
+            </li>`
+        document.getElementById("crearPreguntaCategoria" + pos).value = ""
+    }
 }
 /*
 window.addEventListener('load', () => {
@@ -134,6 +151,19 @@ window.addEventListener('load', () => {
     document.getElementById("nombreUsuario").innerHTML = `<h5 class="mt-3 p-3 mb-3  text-light " >Bienvenido _ ${nombre} </h5>`
 });
 */
+function eliminarPregunta(id){
+    document.getElementById(id).remove()
+    let con=id.split("-")
+    let pregunta=con[1]
+    const array=[]
+    const ListaP = sessionStorage.getItem('preguntasEvaluacion')
+    ListaP.slice(pregunta,1)
+    array.push(ListaP)
+    sessionStorage.setItem('preguntasEvaluacion',JSON.stringify(array ))
+
+
+   
+}
 
 
 const salir = document.getElementById("salir")
@@ -142,4 +172,17 @@ const salir = document.getElementById("salir")
 salir.addEventListener('click', () => {
     localStorage.clear();
 })
+
+window.addEventListener('beforeunload', function (event) {
+    // Aquí puedes realizar alguna acción antes de que el usuario abandone la página.
+    // Por ejemplo, puedes preguntarle si realmente desea recargar la página.
+    // Si deseas mostrar un mensaje personalizado, debes asignarlo a la propiedad `event.returnValue`.
+    event.returnValue = '¿Estás seguro de que deseas recargar la página?';
+});
+
+window.addEventListener('unload', function (event) {
+    // Aquí puedes realizar alguna acción después de que el usuario haya abandonado la página.
+    // Ten en cuenta que esta acción se ejecutará incluso si el usuario ha cerrado la pestaña o el navegador.
+    sessionStorage.clear()
+});
 

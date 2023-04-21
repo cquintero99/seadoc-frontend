@@ -4,11 +4,11 @@ opcinesRespuesta.addEventListener('click',()=>{
     let valor=document.getElementById("inputValorP").value
     let descripcion=document.getElementById("inputDescripcionP").value
 
-    console.log(valor,descripcion)
-    const body=""
+    if(valor!="" && descripcion!=""){
     document.getElementById("opcinesRespuesta").innerHTML+=`<tr><td>${"#"}</td>
     <td>${valor}</td>
     <td>${descripcion}</td></tr>`
+    }
 
 
     
