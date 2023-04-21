@@ -24,3 +24,8 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+window.addEventListener('load', () => {
+    let nombre = JSON.parse(localStorage.getItem("data")).nombre
+
+    document.getElementById("nombreUsuario").innerHTML = `<h5 class="mt-3 p-3 mb-3  text-light " >Bienvenido _ ${nombre} </h5>`
+});
