@@ -28,7 +28,7 @@ document
 
 
 function cargarLista(jsonObject) {
-    sessionStorage.setItem("listaDocente",jsonObject)
+    sessionStorage.setItem("listaDocente", jsonObject)
     var body = ""
     for (let i = 0; i < JSON.parse(jsonObject).length; i++) {
         let nombre = JSON.parse(jsonObject)[i].Nombre
@@ -52,25 +52,45 @@ function cargarLista(jsonObject) {
 document
     .getElementById("uploadExcel")
     .addEventListener("click", function () {
-        let listaDocente=sessionStorage.getItem("listaDocente")
-        console.log(listaDocente)
-       for (let i = 0; i < JSON.parse(listaDocente).length; i++) {
-        document.getElementById("F"+JSON.parse(listaDocente)[i].Codigo).innerHTML=`<p>Enviado</p>`
+        document.getElementById("alertInvitar").innerHTML=`<div class="alert alert-success" role="alert">
+        <i class="fa fa-file-excel-o" aria-hidden="true"></i> Enviando Invitacion 
+      </div>`
+
+      setTimeout(()=>{
+        document.getElementById("alertInvitar").innerHTML=""
+      },5000)
+
+        let listaDocente = sessionStorage.getItem("listaDocente")
         
-       }
-       sessionStorage.clear()
+        if(listaDocente!=null){
+        for (let i = 0; i < JSON.parse(listaDocente).length; i++) {
+            document.getElementById("F" + JSON.parse(listaDocente)[i].Codigo).innerHTML = `<p>Enviado</p>`
+
+        }
+        document.getElementById("fileUpload").value = ""
+        sessionStorage.clear()
+    }else{
+        document.getElementById("alertInvitar").innerHTML=`<div class="alert alert-warning" role="alert">
+        <i class="fa fa-file-excel-o" aria-hidden="true"></i> Lista Vacia Cargue un archivo EXCEL 
+      </div>`
+
+      setTimeout(()=>{
+        document.getElementById("alertInvitar").innerHTML=""
+      },5000)
+    }
 
     });
+/*
+window.addEventListener('beforeunload', function(event) {
+    // Aquí puedes realizar alguna acción antes de que el usuario abandone la página.
+    // Por ejemplo, puedes preguntarle si realmente desea recargar la página.
+    // Si deseas mostrar un mensaje personalizado, debes asignarlo a la propiedad `event.returnValue`.
+    event.returnValue = '¿Estás seguro de que deseas recargar la página?';
+  });
+  */
 
-    window.addEventListener('beforeunload', function(event) {
-        // Aquí puedes realizar alguna acción antes de que el usuario abandone la página.
-        // Por ejemplo, puedes preguntarle si realmente desea recargar la página.
-        // Si deseas mostrar un mensaje personalizado, debes asignarlo a la propiedad `event.returnValue`.
-        event.returnValue = '¿Estás seguro de que deseas recargar la página?';
-      });
-      
-      window.addEventListener('unload', function(event) {
-        // Aquí puedes realizar alguna acción después de que el usuario haya abandonado la página.
-        // Ten en cuenta que esta acción se ejecutará incluso si el usuario ha cerrado la pestaña o el navegador.
-        sessionStorage.clear()
-      });
+window.addEventListener('unload', function (event) {
+    // Aquí puedes realizar alguna acción después de que el usuario haya abandonado la página.
+    // Ten en cuenta que esta acción se ejecutará incluso si el usuario ha cerrado la pestaña o el navegador.
+    sessionStorage.clear()
+});
