@@ -7,7 +7,7 @@ const login = document.getElementById("login");
 function mostrarSpinner() {
   document.getElementById("spinner-container").style.display = "flex";
   document.getElementById("sppiner").innerHTML=`<div id="spinner-container" class="d-flex justify-content-center align-items-center ">
-    <div class="spinner-border text-primary" role="status">
+    <div class="spinner-border text-danger" role="status">
       <span class="sr-only">Cargando...</span>
     </div>
   </div>`
@@ -16,13 +16,16 @@ function mostrarSpinner() {
 function ocultarSpinner() {
   document.getElementById("spinner-container").style.display = "none";
   document.getElementById("sppiner").innerHTML=`<div id="spinner-container" class="d-flex justify-content-center align-items-center d-none">
-    <div class="spinner-border text-primary" role="status">
+    <div class="spinner-border text-danger" role="status">
       <span class="sr-only">Cargando...</span>
     </div>
   </div>`
 }
+//ENTRAR LOGIN
 login.addEventListener("click", () => {
+  mostrarSpinner()
   try {
+    //Obtengo los datos
     let codigo = document.getElementById("inputCodigo").value;
     let documento = document.getElementById("inputDocumento").value;
     let password = document.getElementById("inputPassword").value;
@@ -39,20 +42,22 @@ login.addEventListener("click", () => {
 
   } catch (error) {
     console.log(error)
+    ocultarSpinner()
   }
 });
 
 function verificoIngresoDatos(codigo, documento, password) {
 
-  if (Number(codigo.length) <= 0 && Number(documento.length) <= 0 && password != "") {
+  if (Number(codigo.length) == 0 || Number(documento.length) == 0 || password == "") {
     body = `<div class="alert alert-danger" role="alert">
             la informacion esta incompleta
           </div>`;
     document.getElementById("alert").innerHTML = body;
-
+    ocultarSpinner()
     setTimeout(() => {
       document.getElementById("alert").innerHTML = "";
     }, 5000);
+
   } else {
     verificoCodigoDocumento(codigo, documento)
   }
@@ -84,14 +89,17 @@ async function verificoCodigoDocumento(codigo, documento) {
         El codigo o documento incorrecto
       </div>`;
         document.getElementById("alert").innerHTML = body;
-
+        ocultarSpinner()
         setTimeout(() => {
           document.getElementById("alert").innerHTML = "";
         }, 5000);
       }
 
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      ocultarSpinner()
+      console.log(err)
+    })
 
 }
 
