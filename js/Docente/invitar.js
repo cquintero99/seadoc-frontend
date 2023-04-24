@@ -89,25 +89,64 @@ document
 
 
 
+
+
+var encabezado = { Nombre: "", Codigo: "", Documento: "", Email: "" };
+
+
+
 function descargarExcel() {
-    // Ruta del archivo de Excel relativa a la raíz del proyecto
-    var rutaArchivo = "/js/Docente/formato_pre_registro.xlsx";
+    /* Crea un libro de Excel vacío */
+    var libro = XLSX.utils.book_new();
+  
+    /* Crea una hoja de cálculo en el libro */
+    var hoja = XLSX.utils.json_to_sheet([encabezado]);
+  
+    /* Agrega la hoja de cálculo al libro */
+    XLSX.utils.book_append_sheet(libro, hoja, 'Hoja1');
+  
+    /* Convierte el libro a un archivo binario de Excel */
+    var archivo = XLSX.write(libro, { bookType: 'xlsx', type: 'binary' });
+  
+    /* Crea un objeto Blob con el archivo binario */
+    var blob = new Blob([s2ab(archivo)], { type: 'application/octet-stream' });
+  
+    /* Descarga el archivo Excel */
+    saveAs(blob, 'formato_invitacion_docente.xlsx');
+  }
+  
+  /* Convierte una cadena en formato binario */
+  function s2ab(s) {
+    var buf = new ArrayBuffer(s.length);
+    var view = new Uint8Array(buf);
+    for (var i=0; i<s.length; i++) {
+      view[i] = s.charCodeAt(i) & 0xFF;
+    }
+    return buf;
+  }
 
-    // Crear un enlace de descarga
-    var linkDescarga = document.createElement("a");
+  function saveAs(blob, filename) {
+    if (navigator.msSaveBlob) { // para Internet Explorer
+      navigator.msSaveBlob(blob, filename);
+    } else {
+      var link = document.createElement('a');
+      if (link.download !== undefined) { // para navegadores modernos
+        var url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', filename);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      } else { // para navegadores antiguos
+        alert('Lo siento, tu navegador no soporta la descarga de archivos.');
+      }
+    }
+  }
+  
+  
 
-    // Establecer la URL del archivo de Excel como la URL del enlace de descarga
-    linkDescarga.href = rutaArchivo;
-
-    // Establecer el nombre de archivo del archivo de Excel como el nombre de descarga del enlace de descarga
-    linkDescarga.download = "formato_pre_registro.xlsx";
-
-    // Hacer clic automáticamente en el enlace de descarga para iniciar la descarga
-    linkDescarga.click();
-}
-
-var btn = document.getElementById("btn-descargar-excel");
-btn.addEventListener("click", descargarExcel);
 
 async function savePreRegistro(registro) {
 
