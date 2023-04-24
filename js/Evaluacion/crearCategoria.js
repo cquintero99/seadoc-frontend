@@ -61,7 +61,7 @@ crearCategoria.addEventListener('click', () => {
     `
 
         document.getElementById("bodyListaCategoria").
-            innerHTML += `<h4 id="list-item-${posicion}"  class="text-center"> # ${posicion} - ${nombre}   </h4>
+            innerHTML += `<h4 id="list-item-${posicion}"  class="text-center fw-medium">  ${posicion}° - ${nombre}   </h4>
                 <div class="input-group mb-3">
                 
                 <input type="text" class="form-control" id="crearPreguntaCategoria${posicion}" placeholder="Crear pregunta para la categoria ${nombre}" aria-label="Input group example" aria-describedby="btnGroupAddon">
