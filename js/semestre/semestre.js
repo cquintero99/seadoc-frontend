@@ -1,10 +1,10 @@
 //CONEXION CON EL BACK
-const urlBasic = "https://teacher-test-backend-production.up.railway.app";
+const urlBasic = "https://teacher-test-backend-production-e58a.up.railway.app";
 const tabla = document.getElementById("tabla-datos");
 const cuerpoTabla = tabla.getElementsByTagName("tbody")[0];
 function mostrarSpinner() {
   document.getElementById("sppiner").innerHTML=`<div id="spinner-container" class="d-flex justify-content-center align-items-center ">
-    <div class="spinner-border text-primary" role="status">
+    <div class="spinner-border text-danger" role="status">
       <span class="sr-only">Cargando...</span>
     </div>
   </div>`
@@ -12,7 +12,7 @@ function mostrarSpinner() {
 
 function ocultarSpinner() {
   document.getElementById("sppiner").innerHTML=`<div id="spinner-container" class="d-flex justify-content-center align-items-center d-none">
-    <div class="spinner-border text-primary" role="status">
+    <div class="spinner-border text-danger" role="status">
       <span class="sr-only">Cargando...</span>
     </div>
   </div>`
