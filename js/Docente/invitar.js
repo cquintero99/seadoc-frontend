@@ -1,4 +1,4 @@
-const urlBasic = "http://localhost:8080"
+const urlBasic = "https://teacher-test-backend-production-e58a.up.railway.app"
 // "https://teacher-test-backend-production-e58a.up.railway.app"
 var selectedFile;
 document
