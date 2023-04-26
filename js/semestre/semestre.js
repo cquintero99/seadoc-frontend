@@ -59,7 +59,16 @@ function mostrarData(data){
   let actual=false;
   for (let i = data.length-1; i >=0 ; i--) {
     if(data[i].estado=="ACTUAL"){
-      document.getElementById("semestreActual").innerHTML=data[i].nombre+" --"+data[i].visibilidad
+      if(data[i].visibilidad=="PRIVADO"){
+        document.getElementById("semestreActual").innerHTML=data[i].nombre+" "+`<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+      <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+    </svg>`
+      }else{
+        document.getElementById("semestreActual").innerHTML=data[i].nombre+" "+`<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
+      <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z"/>
+    </svg>`
+      }
+      
       body += `
       <tr>
       <td>${i+1}</td>
@@ -84,6 +93,7 @@ function mostrarData(data){
       </tr>
 
       `
+      actual=true
     }else{
     body += `
       <tr>
@@ -103,8 +113,37 @@ function mostrarData(data){
      
     }
   }
+  if(actual==false){
+    body=""
+    document.getElementById("semestreActual").innerHTML="No hay Semestre actual"
+   // noHayActual(data)
+   for (let i = data.length-1; i >=0 ; i--) {
+    
+    body += `
+      <tr>
+      <td>${i+1}</td>
+      <td>${data[i].nombre}</td>
+      <td>${new Date(data[i].fechaInicio).toLocaleDateString()}</td>
+      <td>${new Date(data[i].fechaFin).toLocaleDateString()}</td>
+      <td>${data[i].estado}</td>
+      <td>${new Date(data[i].fechaRegistro).toLocaleDateString()}</td>
+      <td>${data[i].visibilidad}</td>
+      <td>
+      <button type="button" class="btn btn-outline-warning">Actualizar</button>
+      </td>
+      </tr>
+
+      `
+  }
+  
+  }
  
   document.getElementById("tabla_semestres").innerHTML = body;
+}
+
+function noHayActual(data){
+ 
+
 }
 
 function mostrarSpinner() {
