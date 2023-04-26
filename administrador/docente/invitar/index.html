@@ -8,21 +8,20 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Admin - SEADOC</title>
-    <!-- Page Icon -->
-    <link rel="icon" type="image/svg+xml" href="../../assets/img/identity/logo_ingsistemas.png" />
+    <link rel="icon" type="image/svg+xml" href="../../../assets/img/identity/logo_ingsistemas.png" />
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="../../css/styles.css" rel="stylesheet" />
-    <link href="styles_semestre.css" rel="stylesheet" />
+    <link href="../../../css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body class="sb-nav-fixed">
-
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="../index.html">SEADOC</a>
+        <a class="navbar-brand ps-3" href="../../index.html">SEADOC</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 class="fas fa-bars"></i></button>
@@ -43,7 +42,7 @@
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="../../index.html" id="salir">Salir</a></li>
+                    <li><a class="dropdown-item" href="../../../index.html" id="salir">Salir</a></li>
                 </ul>
             </li>
         </ul>
@@ -54,7 +53,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">SEMESTRES</div>
-                        <a class="nav-link p-3" href="index.html">
+                        <a class="nav-link p-3" href="../../semestre/index.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Semestre
                         </a>
@@ -69,7 +68,7 @@
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="../evaluaciones/index.html">Crear Evaluacion</a>
+                                <a class="nav-link" href="../../evaluaciones/index.html">Crear Evaluacion</a>
                                 <a class="nav-link" href="#">Lista de Evaluaciones</a>
                             </nav>
                         </div>
@@ -84,8 +83,8 @@
                             data-bs-parent="#sidenavAccordion">
 
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="../docente/invitar/index.html">Invitar</a>
-                                <a class="nav-link" href="../docente/index.html">Lista</a>
+                                <a class="nav-link" href="index.html">Invitar</a>
+                                <a class="nav-link" href="../index.html">Lista</a>
                             </nav>
 
 
@@ -103,7 +102,7 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Semestres</h1>
+                    <h1 class="mt-4">Invitar Docentes</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Administrador</li>
                     </ol>
@@ -115,100 +114,52 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-inline">
-                        <p>SEMESTRE ACTUAL  : <a class="h3 link-underline link-underline-opacity-0" id="semestreActual">  </a></p>
 
-                    </div>
-                    <hr>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">
-                        Registrar Semestre
-                    </button>
-                    <hr>
+                    <div class="row">
+                        <hr>
+                        
+                        <p>1°- Descargar el formato EXCEL para invitar Docentes <a href="#" onclick="descargarExcel()" id="btn-descargar-excel" class=" "
+                                type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Click para descargar
+                            </a></p>
 
-                    
-                    <!-- Contenido pestaña semestres -->
-                    <div class="overflow-scroll">
-                       
+                        <hr>
+                        <p>2°- Ingresar la platilla con la informacion de los docentes</p>
+                        <div id="alertInvitar"></div>
+                        <div class="mb-3">
+                            <input class="form-control" id="fileUpload" type="file" id="formFile" accept=".xls,.xlsx">
 
-                        <table id="tabla-datos">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Semestre</th>
-                                    <th> Inicio</th>
-                                    <th>Finalización</th>
-                                    <th>Estado</th>
-                                    <th>Registro</th>
-                                    <th>Visibilidad</th>
-                                    <th>Accion</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabla_semestres">
-                                <!-- Aquí se agregarán las filas de la tabla de manera dinamica  -->
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Modal Normal -->
-                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Ingresar los datos del semestre</h1>
-                                    
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                  </div>
-                                
-                                <div class="modal-body text-center">
-                                    <div id="alertSemestre"></div>
-                                  
-                                   
-                                        <div class="form-group">
-                                            <label for="fechaInicioS">Fecha de inicio:</label>
-                                            <input type="date" id="fechaInicio" name="fechaInicio" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="fechaFinS">Fecha final:</label>
-                                            <input type="date" id="fechaFin" name="fechaFin" required>
-                                        </div>
-                                   
-                                   
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn  btn-success" id="agregarSemestre">Agregar</button>
-                                </div>
-                                
-                            </div>
                         </div>
+                        <div class="mb-3 text-center">
+                            <button class="btn btn-success  " id="uploadExcel">ENVIAR INVITACION</button>
+
+                        </div>
+                        <div class="overflow-scroll">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>NOMBRE</th>
+                                        <th>CODIGO</th>
+                                        <th>DOCUMENTO</th>
+                                        <th>EMAIL</th>
+                                        <th>ACCION</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="datosInvitados">
+                                 
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+
+
                     </div>
 
-                      <!-- Modal pantalla completa -->
-                    <div id="modal" class="modal">
-                        <div class="modal-contenido">
-                            <span id="cerrar" class="cerrar">&times;</span>
-                            <h2 id="titulo_modal">Ingresar los datos del semestre</h2>
-                            <form class="datos-semestre" id="datos-semestre">
-                                <div class="form-group">
-                                    <label for="fechaInicio">Fecha de inicio:</label>
-                                    <input type="date" id="fechaInicio" name="fechaInicio" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="fechaFin">Fecha final:</label>
-                                    <input type="date" id="fechaFin" name="fechaFin" required>
-                                </div>
-                                <button type="submit" class="btn-submit" id="agregar">Agregar</button>
-                                <!-- BOTON QUE ENVÍA LA FECHA PARA PODER AGREGAR EL SEMESTRE -->
-                            </form>
-                        </div>
-                    </div>
-                    
+
                 </div>
-
-                <!-- Contenido pestaña semestres -->
-
 
             </main>
             <footer class="py-4 bg-light mt-auto">
@@ -225,18 +176,17 @@
             </footer>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
-    <script src="../../js/scripts.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.3/xlsx.full.min.js"></script>
+
+    <script src="../../../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="../../assets/demo/chart-area-demo.js"></script>
-    <script src="../../assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
-    <script src="../../js/datatables-simple-demo.js"></script>
-    <script src="../../js/semestre/semestre.js"></script>
-    <script src="../../js/semestre/saveSemestres.js"></script>
+    <script src="../../../js/Docente/invitar.js"></script>
 
-    </div>
+</body>
 
 </html>
