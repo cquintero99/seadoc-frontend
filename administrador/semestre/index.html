@@ -102,11 +102,9 @@
         </div>
         <div id="layoutSidenav_content">
             <main>
-                <div class="container-fluid px-4">
-                    <h1 class="mt-4">Semestres</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">Administrador</li>
-                    </ol>
+                <div class="container-fluid px-4 text-center">
+                    <h2 class="mt-4 fw-medium  text-uppercase ">Semestre</h2>
+                    <hr>
                     <!-- Spinner -->
                     <div id="sppiner">
                         <div id="spinner-container" class="d-flex justify-content-center align-items-center d-none">
@@ -115,19 +113,28 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-inline">
-                        <p>SEMESTRE ACTUAL  : <a class="h3 link-underline link-underline-opacity-0" id="semestreActual">  </a></p>
+                  
+                    <div class="row mt-3 ">
+                        <div class="col-xl-6 mt-3">
+                            <p>SEMESTRE ACTUAL  : <a class="h3 link-underline link-underline-opacity-0" id="semestreActual">  </a></p>
+                            
+                        </div>
+                       
+                        <div class="col-xl-6 mt-3">
+
+                            
+                    <!-- Button trigger modal -->
+                            <p>REGISTRAR SEMESTRE : <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">
+                                +
+                            </button></p>
+                        </div>
 
                     </div>
-                    <hr>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">
-                        Registrar Semestre
-                    </button>
+                    
                     <hr>
 
-                    
+                    <p class="fw-medium text-center">HISTORIAL DE SEMESTRES </p>
                     <!-- Contenido pestaña semestres -->
                     <div class="overflow-scroll ">
                         <table id="example" class="display " >
@@ -184,25 +191,7 @@
                         </div>
                     </div>
 
-                      <!-- Modal pantalla completa -->
-                    <div id="modal" class="modal">
-                        <div class="modal-contenido">
-                            <span id="cerrar" class="cerrar">&times;</span>
-                            <h2 id="titulo_modal">Ingresar los datos del semestre</h2>
-                            <form class="datos-semestre" id="datos-semestre">
-                                <div class="form-group">
-                                    <label for="fechaInicio">Fecha de inicio:</label>
-                                    <input type="date" id="fechaInicio" name="fechaInicio" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="fechaFin">Fecha final:</label>
-                                    <input type="date" id="fechaFin" name="fechaFin" required>
-                                </div>
-                                <button type="submit" class="btn-submit" id="agregar">Agregar</button>
-                                <!-- BOTON QUE ENVÍA LA FECHA PARA PODER AGREGAR EL SEMESTRE -->
-                            </form>
-                        </div>
-                    </div>
+                    
                     
                 </div>
 
@@ -228,12 +217,10 @@
         crossorigin="anonymous"></script>
     <script src="../../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
-    <script src="../../assets/demo/chart-area-demo.js"></script>
-    <script src="../../assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
-        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-    <script src="../../js/datatables-simple-demo.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+   
     <script src="../../js/semestre/semestre.js"></script>
     <script src="../../js/semestre/saveSemestres.js"></script>
 
