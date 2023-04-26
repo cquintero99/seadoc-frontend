@@ -1,5 +1,15 @@
 const opcinesRespuesta=document.getElementById('btnOpcinesRespuesta')
 
+const inputValorP=document.getElementById('inputValorP')
+
+inputValorP.addEventListener('input',async()=>{
+    let valor=document.getElementById('inputValorP').value;
+    if(Number(valor)<=0 || Number(valor)>5){
+        inputValorP.value=""
+    }
+    
+})
+
 opcinesRespuesta.addEventListener('click',()=>{
     //Obtengo los datos
     let valor=document.getElementById("inputValorP").value
@@ -60,6 +70,8 @@ opcinesRespuesta.addEventListener('click',()=>{
 
     
 })
+
+
 
 function eliminarCriterio(pos){
     document.getElementById("criterio"+pos).remove()
