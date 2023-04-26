@@ -36,12 +36,16 @@ async function verSemestreEstado(estado){
   return result
   
 }
+function compararFechasInicioDescendente(a, b) {
+  return new Date(a.fechaInicio) - new Date(b.fechaInicio);
+}
 async function verSemestres() {
   mostrarSpinner()
     listaSemestres()
     .then((response) => response.json())
     .then((data) => {
-      mostrarData(data)
+
+      mostrarData(data.sort(compararFechasInicioDescendente))
     })
     .finally((yes) => {
       //loadingElement.style.display = 'none';
@@ -71,7 +75,7 @@ function mostrarData(data){
       
       body += `
       <tr>
-      <td>${i+1}</td>
+      <td>${data.length-i}</td>
       <td>${data[i].nombre}</td>
       <td>${new Date(data[i].fechaInicio).toLocaleDateString()}</td>
       <td>${new Date(data[i].fechaFin).toLocaleDateString()}</td>
@@ -97,7 +101,7 @@ function mostrarData(data){
     }else{
     body += `
       <tr>
-      <td>${i+1}</td>
+      <td>${data.length-i}</td>
       <td>${data[i].nombre}</td>
       <td>${new Date(data[i].fechaInicio).toLocaleDateString()}</td>
       <td>${new Date(data[i].fechaFin).toLocaleDateString()}</td>
