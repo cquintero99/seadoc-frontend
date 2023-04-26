@@ -16,7 +16,8 @@ agregarSemestre.addEventListener('click', () => {
         usuarioId
 
     }
-    registrarSemestre(semestre)
+    if(usuarioId!=null && fechaFin!=="" && fechaInicio!==""){
+        registrarSemestre(semestre)
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -47,6 +48,19 @@ agregarSemestre.addEventListener('click', () => {
 
 
         })
+    }else{
+        body = `<div class="alert alert-danger" role="alert">
+        Seleccione las fechas del semestre
+      </div>`;
+            document.getElementById("alertSemestre").innerHTML = body;
+            ocultarSpinner()
+            setTimeout(() => {
+                document.getElementById("alertSemestre").innerHTML = "";
+            }, 7000);
+        
+
+    }
+   
 
 
 
