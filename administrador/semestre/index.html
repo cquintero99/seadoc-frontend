@@ -113,31 +113,40 @@
                             </div>
                         </div>
                     </div>
-                  
+
                     <div class="row mt-3 ">
                         <div class="col-xl-6 mt-3">
-                            <p>SEMESTRE ACTUAL  : <a class="h3 link-underline link-underline-opacity-0" id="semestreActual">  </a></p>
-                            
+                            <p>SEMESTRE ACTUAL : <a class="h3 link-underline link-underline-opacity-0"
+                                    id="semestreActual">
+                                    <button class="input-group-text btn btn-danger"  id="btnActivarSemestre"  data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop2"type="button">
+                                        <i class="fa fa-plus" aria-hidden="true"></i></button>
+                                     </a>
+
+                            </p>
+
+
                         </div>
-                       
+
                         <div class="col-xl-6 mt-3">
 
-                            
-                    <!-- Button trigger modal -->
-                            <p>REGISTRAR SEMESTRE : <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop">
-                                +
-                            </button></p>
+
+                            <!-- Button trigger modal -->
+                            <p>REGISTRAR SEMESTRE : 
+                                <button class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop" type="button">
+                                    <i class="fa fa-plus" aria-hidden="true"></i></button>
+                                </p>
                         </div>
 
                     </div>
-                    
+
                     <hr>
 
                     <p class="fw-medium text-center">HISTORIAL DE SEMESTRES </p>
                     <!-- Contenido pestaña semestres -->
                     <div class="overflow-scroll ">
-                        <table id="example" class="display " >
+                        <table id="example" class="display ">
                             <thead class="bg-danger text-light">
                                 <tr>
                                     <th>#</th>
@@ -147,52 +156,100 @@
                                     <th>Estado</th>
                                     <th>Registro</th>
                                     <th>Visibilidad</th>
-                                    <th>Accion</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
-                            
-                            
+
+
                         </table>
-                        
+
                     </div>
 
+                    <!-- Button trigger modal -->
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Asignar semestre actual</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="alertActivoSemestre">
+                                        
+                                    </div>
+                                    <div id="bodySemestreActivo" >
+                                        <div class="overflow-scroll ">
+                                            <table id="tablaRegistrados" class="display ">
+                                                <thead class="bg-danger text-light">
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Semestre</th>
+                                                        <th> Inicio</th>
+                                                        <th>Finalización</th>
+                                                        <th>Acciones</th>
+                                                        
+                                                    </tr>
+                                                </thead>
+                    
+                    
+                                            </table>
+                    
+                                        </div>
+
+                                    </div>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Modal Normal -->
                     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Ingresar los datos del semestre</h1>
-                                    
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                  </div>
-                                
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Ingresar los datos del
+                                        semestre</h1>
+
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+
                                 <div class="modal-body text-center">
                                     <div id="alertSemestre"></div>
                                     <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Fecha de Inicio</label>
-                                        <input type="date" class="form-control" id="fechaInicio" >
-                                      </div>
-                                      <div class="mb-3">
+                                        <input type="date" class="form-control" id="fechaInicio">
+                                    </div>
+                                    <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Fecha de Final</label>
-                                        <input type="date" class="form-control" id="fechaFin" >
-                                      </div>
-                                  
-                                   
-                                      
-                                   
-                                   
+                                        <input type="date" class="form-control" id="fechaFin">
+                                    </div>
+
+
+
+
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn  btn-success" id="agregarSemestre">Agregar</button>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
 
-                    
-                    
+
+
                 </div>
 
                 <!-- Contenido pestaña semestres -->
@@ -220,9 +277,10 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-   
+
     <script src="../../js/semestre/semestre.js"></script>
     <script src="../../js/semestre/saveSemestres.js"></script>
+    <script src="../../js/semestre/semestreActual.js"></script>
 
     </div>
 

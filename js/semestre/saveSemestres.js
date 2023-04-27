@@ -16,51 +16,52 @@ agregarSemestre.addEventListener('click', () => {
         usuarioId
 
     }
-    if(usuarioId!=null && fechaFin!=="" && fechaInicio!==""){
+    if (usuarioId != null && fechaFin !== "" && fechaInicio !== "") {
         registrarSemestre(semestre)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-            body = `<div class="alert alert-success" role="alert">
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("fechaInicio").value=""
+                document.getElementById("fechaFin").value=""
+                body = `<div class="alert alert-success" role="alert">
         Semestre se guardo con exito
       </div>`;
-            document.getElementById("alertSemestre").innerHTML = body;
+                document.getElementById("alertSemestre").innerHTML = body;
 
-            setTimeout(() => {
-                document.getElementById("alertSemestre").innerHTML = "";
-            }, 5000);
-            verSemestres()
-        })
-        .catch(err => {
-            console.log(err)
-            body = `<div class="alert alert-danger" role="alert">
+                setTimeout(() => {
+                    document.getElementById("alertSemestre").innerHTML = "";
+                }, 5000);
+                verSemestres()
+            })
+            .catch(err => {
+                console.log(err)
+                body = `<div class="alert alert-danger" role="alert">
         Error Solo se pueden registrar 2 semestres en un año
       </div>`;
-            document.getElementById("alertSemestre").innerHTML = body;
-            ocultarSpinner()
-            setTimeout(() => {
-                document.getElementById("alertSemestre").innerHTML = "";
-            }, 7000);
-        })
-        .finally(final => {
+                document.getElementById("alertSemestre").innerHTML = body;
+                ocultarSpinner()
+                setTimeout(() => {
+                    document.getElementById("alertSemestre").innerHTML = "";
+                }, 7000);
+            })
+            .finally(final => {
 
-            ocultarSpinner()
+                ocultarSpinner()
 
 
-        })
-    }else{
+            })
+    } else {
         body = `<div class="alert alert-danger" role="alert">
         Seleccione las fechas del semestre
       </div>`;
-            document.getElementById("alertSemestre").innerHTML = body;
-            ocultarSpinner()
-            setTimeout(() => {
-                document.getElementById("alertSemestre").innerHTML = "";
-            }, 7000);
-        
+        document.getElementById("alertSemestre").innerHTML = body;
+        ocultarSpinner()
+        setTimeout(() => {
+            document.getElementById("alertSemestre").innerHTML = "";
+        }, 7000);
+
 
     }
-   
+
 
 
 
