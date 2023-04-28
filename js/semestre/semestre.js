@@ -40,13 +40,15 @@ function compararFechasInicioDescendente(a, b) {
   return new Date(b.fechaInicio) - new Date(a.fechaInicio);
 }
 
-async function verSemestres() {
+
+ function verSemestres() {
   mostrarSpinner()
   listaSemestres()
     .then((response) => response.json())
     .then((data) => {
 
       mostrarData(data.sort(compararFechasInicioDescendente))
+      
     })
     .finally((yes) => {
       //loadingElement.style.display = 'none';
@@ -55,6 +57,8 @@ async function verSemestres() {
     .catch((err) => {
       console.log(err);
     });
+
+    
 }
 
 
@@ -63,12 +67,12 @@ async function mostrarData(data) {
   var t = $('#example').DataTable();
   t.clear().draw();
 
+  let hay=0
 
-  
   for (let i = 0; i < data.length; i++) {
     let estado = data[i].estado
-    let id=data[i].id
-    let  acciones = `<div class="input-group " >
+    let id = data[i].id
+    let acciones = `<div class="input-group " >
     
     <button onclick="verSemestre(${id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop3"
      class="input-group-text btn btn-warning" type="button">
@@ -82,19 +86,21 @@ async function mostrarData(data) {
 </div> `
     
     if (estado == 'ACTUAL') {
+    
       
- 
       if (data[i].visibilidad == "PRIVADO") {
         document.getElementById("semestreActual").innerHTML = data[i].nombre + " " + `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
         <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
       </svg>`
+
       } else {
         document.getElementById("semestreActual").innerHTML = data[i].nombre + " " + `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
         <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z"/>
       </svg>`
       }
-
-    } 
+     
+    }
+    
 
     t.row.add([i + 1
       , data[i].nombre
@@ -106,11 +112,24 @@ async function mostrarData(data) {
 
     counter++;
   }
+  
+ 
+
+ 
+
+
 
 
 }
 
-function eliminarSemestre(id){
+async function cargarBotonSemestreActual(){
+  document.getElementById("semestreActual").innerHTML=`<button class="input-group-text btn btn-danger" id="btnActivarSemestre"
+  data-bs-toggle="modal" data-bs-target="#staticBackdrop2" type="button">
+  <i class="fa fa-plus" aria-hidden="true"></i></button>`
+
+}
+
+function eliminarSemestre(id) {
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
       confirmButton: 'btn btn-success',
@@ -118,7 +137,7 @@ function eliminarSemestre(id){
     },
     buttonsStyling: false
   })
-  
+
   swalWithBootstrapButtons.fire({
     title: 'Estas Seguro?',
     text: "Esta accion elimina el semestre!",
@@ -134,7 +153,7 @@ function eliminarSemestre(id){
         'El semestre se elimino.',
         'success'
       )
-    } 
+    }
   })
 
 }

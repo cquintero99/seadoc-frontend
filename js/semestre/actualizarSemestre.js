@@ -1,5 +1,5 @@
 
-
+//ACTUALIZAR SEMESTRE recibe un objeto semestre
 async function updateSemestre(semestre) {
     let token = localStorage.getItem("token")
 
@@ -14,6 +14,8 @@ async function updateSemestre(semestre) {
     return result;
 
 }
+//OBTENER SEMESTRE POR ID 
+
 async function getSemestreId(id) {
     let token = localStorage.getItem("token")
 
@@ -27,11 +29,14 @@ async function getSemestreId(id) {
 
 }
 
+
+//Funcion para Buscar  los datos de un semestre en el y cargarlo en el modal actulizar semestre
 function verSemestre(id) {
     mostrarSpinner()
     getSemestreId(id)
         .then(response => response.json())
         .then(data => {
+            //Cargo los datos del semestre
             cargarDatosModal(data)
 
         })
@@ -160,14 +165,13 @@ function putSemestre(id) {
             console.log(data)
         })
         .finally(final => {
+           //verSemestres()
             ocultarSpinner()
 
-            //const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-
-           // toastBootstrap.show()
+            //Actualizo la pestaña
 
             window.location.reload()
-            // verSemestres()
+         
 
         })
 }

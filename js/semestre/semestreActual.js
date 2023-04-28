@@ -1,15 +1,15 @@
 
 
-const btnActivarSemestre = document.getElementById("btnActivarSemestre")
-
+var btnActivarSemestre = document.getElementById("btnActivarSemestre")
+//Boton para buscar semestres REGISTRADOS
 btnActivarSemestre.addEventListener('click', () => {
-  
 
+    //Busco si hay un semestre actual
     verSemestreEstado("ACTUAL")
         .then(response => response.json())
         .then(actual => {
 
-
+            //Si no hay un semestre cargo el metodo semestreRegistrados
             if (actual.lenght === undefined) {
                 semestreRegistrados()
 
@@ -31,6 +31,30 @@ btnActivarSemestre.addEventListener('click', () => {
 
 
 })
+
+function buscarSemestreActual(){
+    verSemestreEstado("ACTUAL")
+    .then(response => response.json())
+    .then(actual => {
+
+
+        if (actual.lenght === undefined) {
+            console.log(actual)
+
+        } else {
+
+            console.log("HAY UN SEMESTRE ACTUAL"+actual)
+        }
+    })
+    .catch(err => {
+        console.log(err)
+
+    })
+    .finally(final => {
+
+    })
+}
+
 function semestreRegistrados() {
     mostrarSpinner()
     verSemestreEstado("REGISTRADO")
@@ -42,7 +66,8 @@ function semestreRegistrados() {
             n = 0;
             let acciones = ""
             while (data[n] != null) {
-                acciones = `<button onclick="asignarSemestreActual(${data[n].id})" type="button" class="btn btn-outline-success">Volver Actual</button>`
+                acciones = `<button onclick="asignarSemestreActual(${data[n].id})" data-bs-dismiss="modal" 
+                type="button" class="btn btn-outline-success">Volver Actual</button>`
 
                 tabla.row.add([n + 1
                     , data[n].nombre
@@ -58,10 +83,12 @@ function semestreRegistrados() {
 
         })
         .catch(err => {
-
+            console.log(err)
         })
         .finally(final => {
             ocultarSpinner()
+            
+
 
         })
 }
@@ -70,34 +97,33 @@ function asignarSemestreActual(id) {
     mostrarSpinner()
 
     getSemestreId(id)
-    .then(response=>response.json())
-    .then(semestre=>{
-                    semestre.estado="ACTUAL"
-                    updateSemestre(semestre)
-                    .then(res=>res.json())
-                    .then(data=>{
-                        console.log("Actualizo"+data)
-                        
-                    })
-                    .catch(err=>{
-                        console.log(err)
-                    })
-                    .finally(final=>{
-                        window.location.reload()
-                        ocultarSpinner()
+        .then(response => response.json())
+        .then(semestre => {
+            semestre.estado = "ACTUAL"
+            updateSemestre(semestre)
+                .then(res => res.json())
+                .then(data => {
 
-                    })
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+                .finally(final => {
+                    //window.location.reload()
+                    verSemestres()
+                    ocultarSpinner()
+
+                })
 
 
-    })
-    .catch(err=>{
-        console.log(err)
-    })
-    .finally(final=>{
-        ocultarSpinner()
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        .finally(final => {
+            
+        })
 
-    })
- 
 
 }
 
