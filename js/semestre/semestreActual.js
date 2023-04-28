@@ -32,6 +32,7 @@ btnActivarSemestre.addEventListener('click', () => {
 
 })
 function semestreRegistrados() {
+    mostrarSpinner()
     verSemestreEstado("REGISTRADO")
         .then(res => res.json())
         .then(data => {
@@ -60,6 +61,7 @@ function semestreRegistrados() {
 
         })
         .finally(final => {
+            ocultarSpinner()
 
         })
 }

@@ -28,6 +28,7 @@ async function getSemestreId(id) {
 }
 
 function verSemestre(id) {
+    mostrarSpinner()
     getSemestreId(id)
         .then(response => response.json())
         .then(data => {
@@ -40,7 +41,7 @@ function verSemestre(id) {
 
         })
         .finally(final => {
-
+            ocultarSpinner()
         })
 }
 
