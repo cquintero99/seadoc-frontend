@@ -137,7 +137,7 @@ function putSemestre(id) {
     const estado = optionSeleccionado.text;
     //Obtengo visibilidad
     const selectV = document.getElementById('selectV');
-    const visibilidadOption = select.options[select.selectedIndex];
+    const visibilidadOption = selectV.options[selectV.selectedIndex];
     const visibilidad = visibilidadOption.text;
     //Creo semestre
     const semestre = {
