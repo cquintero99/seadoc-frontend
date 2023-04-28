@@ -1,3 +1,6 @@
+//CONEXION CON EL BACK
+const urlBasic = "https://teacher-test-backend-production-e58a.up.railway.app";
+
 function mostrarSpinner() {
     document.getElementById("sppiner").innerHTML = `<div id="spinner-container" class="d-flex justify-content-center align-items-center ">
       <div class="spinner-border text-primary" role="status">
@@ -13,6 +16,7 @@ function ocultarSpinner() {
       </div>
     </div>`
 }
+
 
 
 const crearCategoria = document.getElementById("crearCategoria")
@@ -241,12 +245,14 @@ salir.addEventListener('click', () => {
     localStorage.clear();
 })
 
+/*
 window.addEventListener('beforeunload', function (event) {
     // Aquí puedes realizar alguna acción antes de que el usuario abandone la página.
     // Por ejemplo, puedes preguntarle si realmente desea recargar la página.
     // Si deseas mostrar un mensaje personalizado, debes asignarlo a la propiedad `event.returnValue`.
     event.returnValue = '¿Estás seguro de que deseas recargar la página?';
 });
+*/
 
 window.addEventListener('unload', function (event) {
     // Aquí puedes realizar alguna acción después de que el usuario haya abandonado la página.
@@ -254,3 +260,20 @@ window.addEventListener('unload', function (event) {
     sessionStorage.clear()
 });
 
+
+
+
+async function verSemestreEstado(estado) {
+
+    let token = localStorage.getItem("token")
+    const result = await fetch(urlBasic + "/semestre/estado/" + estado, {
+      method: 'GET',
+  
+      headers: {
+        "Authorization": "Bearer " + token,
+        "Content-type": "application/json"
+      }
+    })
+    return result
+  
+  }

@@ -122,9 +122,12 @@
                                 </div>
 
                                 <p>1°-Datos de la Evaluacion *</p>
+                                <div class="row text-center p-3"  id="datosSemestreActual">
+                                    
+                                </div>
                                 <div class="form-floating mb-3">
 
-                                    <select class="form-select" aria-label="Default select example">
+                                    <select class="form-select" aria-label="Default select example" id="selectCategoriaEvaluacion">
                                         <option selected>Seleccione una categoria de Evaluacion</option>
                                         <option value="1">Autoevaluacion</option>
                                         <option value="2">Evaluacion de Pares</option>
@@ -138,7 +141,7 @@
                                     <label for="inputEmail">Titulo</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="textareaDescripcion"></textarea>
                                     <label for="floatingTextarea">Descripcion</label>
                                   </div>
 
@@ -235,6 +238,14 @@
                     <hr>
                     <div class="row">
                         <p>4°-Configurar Evaluacion</p>
+                        <div id="alertE"></div>
+                        <div class="row" id="nombreAdmin">
+                            
+                        </div>
+                        <div class="form-floating text-center">
+                            <button type="button" class="btn btn-success " id="btnEvaluacion">Crear
+                                Evaluacion</button>
+                        </div>
 
                     </div>
                     <hr>
@@ -336,6 +347,8 @@
         crossorigin="anonymous"></script>
     <script src="../../js/Evaluacion/crearCategoria.js"></script>
     <script src="../../js/Evaluacion/opcionesRespuesta.js"></script>
+    <script src="../../js/Evaluacion/informacionEvaluacion.js"></script>
+    <script src="../../js/Evaluacion/saveEvaluacion.js"></script>
 
 </body>
 
