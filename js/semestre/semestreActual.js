@@ -3,9 +3,7 @@
 const btnActivarSemestre = document.getElementById("btnActivarSemestre")
 
 btnActivarSemestre.addEventListener('click', () => {
-    document.getElementById("alertActivoSemestre")
-
-    document.getElementById("bodySemestreActivo")
+  
 
     verSemestreEstado("ACTUAL")
         .then(response => response.json())
@@ -101,30 +99,5 @@ function asignarSemestreActual(id) {
 
 }
 
-async function updateSemestre(semestre) {
-    let token = localStorage.getItem("token")
-   
-    const result = await fetch(urlBasic + "/semestre/"+semestre.id+"/update", {
-        method: 'PUT',
-        body: JSON.stringify(semestre),
-        headers: {
-            "Content-type": "application/json",
-            "Authorization": "Bearer " + token
-        }
-    })
-    return result;
 
-}
-async function getSemestreId(id) {
-    let token = localStorage.getItem("token")
-
-    const result = await fetch(urlBasic + "/semestre/" + id, {
-        headers: {
-            "Content-type": "application/json",
-            "Authorization": "Bearer " + token
-        }
-    })
-    return result;
-
-}
 

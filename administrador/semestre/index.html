@@ -118,10 +118,10 @@
                         <div class="col-xl-6 mt-3">
                             <p>SEMESTRE ACTUAL : <a class="h3 link-underline link-underline-opacity-0"
                                     id="semestreActual">
-                                    <button class="input-group-text btn btn-danger"  id="btnActivarSemestre"  data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop2"type="button">
+                                    <button class="input-group-text btn btn-danger" id="btnActivarSemestre"
+                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop2" type="button">
                                         <i class="fa fa-plus" aria-hidden="true"></i></button>
-                                     </a>
+                                </a>
 
                             </p>
 
@@ -132,11 +132,11 @@
 
 
                             <!-- Button trigger modal -->
-                            <p>REGISTRAR SEMESTRE : 
-                                <button class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop" type="button">
+                            <p>REGISTRAR SEMESTRE :
+                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                    type="button">
                                     <i class="fa fa-plus" aria-hidden="true"></i></button>
-                                </p>
+                            </p>
                         </div>
 
                     </div>
@@ -164,11 +164,25 @@
                         </table>
 
                     </div>
-
+                    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                        <div id="liveToast" class="toast" role="alert" aria-live="assertive"
+                            aria-atomic="true">
+                            <div class="toast-header">
+                                <img src="..." class="rounded me-2" alt="...">
+                                <strong class="me-auto">Administrador</strong>
+                                <small>Ahora</small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                Semestre se actualizo con exito
+                            </div>
+                        </div>
+                    </div>
                     <!-- Button trigger modal -->
 
 
-                    <!-- Modal -->
+                    <!-- Modal Asignar Semestre Actual-->
                     <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false"
                         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
@@ -180,9 +194,9 @@
                                 </div>
                                 <div class="modal-body">
                                     <div id="alertActivoSemestre">
-                                        
+
                                     </div>
-                                    <div id="bodySemestreActivo" >
+                                    <div id="bodySemestreActivo">
                                         <div class="overflow-scroll ">
                                             <table id="tablaRegistrados" class="display ">
                                                 <thead class="bg-danger text-light">
@@ -192,17 +206,17 @@
                                                         <th> Inicio</th>
                                                         <th>Finalización</th>
                                                         <th>Acciones</th>
-                                                        
+
                                                     </tr>
                                                 </thead>
-                    
-                    
+
+
                                             </table>
-                    
+
                                         </div>
 
                                     </div>
-                                    
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -211,7 +225,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Modal Normal -->
+                    <!-- Modal Registrar Semestre -->
                     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -247,6 +261,34 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Button trigger modal -->
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Actualizar Informacion
+                                        Semestre </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body form-control text-center">
+                                    <div id="alertActualizarSemestre">
+
+                                       
+                                    </div>
+                                    <div id="actualizarSemestre">
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer" id="footerActualizarS">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
 
@@ -277,10 +319,11 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../js/semestre/semestre.js"></script>
     <script src="../../js/semestre/saveSemestres.js"></script>
     <script src="../../js/semestre/semestreActual.js"></script>
+    <script src="../../js/semestre/actualizarSemestre.js"></script>
 
     </div>
 

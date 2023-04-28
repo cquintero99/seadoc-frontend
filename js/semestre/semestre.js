@@ -37,7 +37,7 @@ async function verSemestreEstado(estado) {
 
 }
 function compararFechasInicioDescendente(a, b) {
-  return new Date(a.fechaInicio) - new Date(b.fechaInicio);
+  return new Date(b.fechaInicio) - new Date(a.fechaInicio);
 }
 
 async function verSemestres() {
@@ -58,7 +58,7 @@ async function verSemestres() {
 }
 
 
-function mostrarData(data) {
+async function mostrarData(data) {
   var counter = 1;
   var t = $('#example').DataTable();
   t.clear().draw();
@@ -67,17 +67,23 @@ function mostrarData(data) {
   
   for (let i = 0; i < data.length; i++) {
     let estado = data[i].estado
-    let acciones = ""
-    if (estado == 'ACTUAL') {
-      acciones = `<div class="input-group " >
-      
-      <button   class="input-group-text btn btn-warning" type="button">
-      <i class="fa fa-pencil" aria-hidden="true"></i></button>
-      <button class="input-group-text btn btn-danger" type="button">
-      <i class="fa fa-times" aria-hidden="true"></i></button>
-      </div>
-      
+    let id=data[i].id
+    let  acciones = `<div class="input-group " >
+    
+    <button onclick="verSemestre(${id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop3"
+     class="input-group-text btn btn-warning" type="button">
+    <i class="fa fa-pencil" aria-hidden="true"></i></button>
+    <button class="input-group-text btn btn-danger" onclick="eliminarSemestre(${id})" 
+     type="button" >
+    <i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+    
+    
 </div> `
+    
+    if (estado == 'ACTUAL') {
+      
+ 
       if (data[i].visibilidad == "PRIVADO") {
         document.getElementById("semestreActual").innerHTML = data[i].nombre + " " + `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
         <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
@@ -88,18 +94,7 @@ function mostrarData(data) {
       </svg>`
       }
 
-    } else {
-      acciones = `<div class="input-group " >
-      
-      <button   class="input-group-text btn btn-warning" type="button">
-      <i class="fa fa-pencil" aria-hidden="true"></i></button>
-      <button class="input-group-text btn btn-danger" type="button">
-      <i class="fa fa-times" aria-hidden="true"></i></button>
-      </div>
-      
-</div> `
-
-    }
+    } 
 
     t.row.add([i + 1
       , data[i].nombre
@@ -114,6 +109,37 @@ function mostrarData(data) {
 
 
 }
+
+function eliminarSemestre(id){
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+  })
+  
+  swalWithBootstrapButtons.fire({
+    title: 'Estas Seguro?',
+    text: "Esta accion elimina el semestre!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Eliminar!',
+    cancelButtonText: 'Cancelar!',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      swalWithBootstrapButtons.fire(
+        'Eliminar!',
+        'El semestre se elimino.',
+        'success'
+      )
+    } 
+  })
+
+}
+
+
 
 
 function mostrarSpinner() {
