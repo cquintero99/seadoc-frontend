@@ -1,5 +1,10 @@
 const btnEvaluacion = document.getElementById("btnEvaluacion")
+const alertEvaluacion = document.getElementById("alertEvaluacion")
+const alertInformacion = document.getElementById("alertE")
+const alertCategoria = document.getElementById("validCategoria")
+const alertCriterios = document.getElementById("alertCriterios")
 
+const fechaActual = new Date()
 btnEvaluacion.addEventListener("click", () => {
     //Obtengo el id usuario
     let usuarioId = JSON.parse(localStorage.getItem("data")).id
@@ -22,11 +27,31 @@ btnEvaluacion.addEventListener("click", () => {
         fechaRegistro
 
     }
-    console.log("Guardar datos de la evaluacion" + JSON.stringify(evaluacion))
-    saveCategoria(evaluacion)
+    validarEvaluacion(evaluacion)
+    validarCategoria(evaluacion)
+    validarCriterios(evaluacion)
 })
 
-function saveCategoria(evaluacion) {
+function validarEvaluacion(evaluacion) {
+    if (evaluacion.titulo == "" || evaluacion.descripcion == "" || evaluacion.categoriaEvaluacionId.length > 3) {
+
+        alertEvaluacion.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Verifica el titulo , descripcion o la categoria</strong> .
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>`
+        alertInformacion.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Datos de la evaluacion Incompletos</strong> 
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>`
+    } else {
+
+        console.log("Evaluacion Aceptada")
+        console.log(evaluacion)
+    }
+
+}
+
+function validarCategoria(evaluacion) {
     const categorias = sessionStorage.getItem("categoriasEvaluacion")
     let array = []
     if (categorias != null) {
@@ -41,35 +66,127 @@ function saveCategoria(evaluacion) {
 
 
             }
+            console.log("se crea la categoria")
+            console.log(categoriaPregunta)
             const preguntas = sessionStorage.getItem("preguntasEvaluacion")
             let arrayPregunta = []
 
 
-           console.log(preguntas)
+
 
             if (preguntas != null) {
 
                 arrayPregunta = arrayPregunta.concat(JSON.parse(preguntas))
-               
-                for (let j = 0; j < arrayPregunta.length; j++) {
-                    if (arrayPregunta[j].idCategoria == array[i].id){
 
-                        const pregunta={
-                            criterioId:"",
-                            evaluacionId:evaluacion.id,
-                            categoriaId:"",
-                            descripcion:arrayPregunta[j].pregunta,
-                            fechaRegistro:new Date(),
+                for (let j = 0; j < arrayPregunta.length; j++) {
+                    if (arrayPregunta[j].idCategoria == array[i].id) {
+
+                        const pregunta = {
+                            criterioId: "",
+                            evaluacionId: evaluacion.id,
+                            categoriaId: "",
+                            descripcion: arrayPregunta[j].pregunta,
+                            fechaRegistro: new Date(),
 
 
                         }
                         console.log(pregunta)
+                    } else {
+                        alertCategoria.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>La categoria ${categoriaPregunta.nombre} no tiene preguntas</strong> .
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>`
+                        alertInformacion.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <strong>La categoria ${categoriaPregunta.nombre} debe tener minimo una pregunta</strong> 
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>`
+
                     }
-                       
+
                 }
+            } else {
+                console.log("No hay preguntas")
+                alertCategoria.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>La categoria ${categoriaPregunta.nombre} no tiene preguntas</strong> .
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>`
+                alertInformacion.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>La categoria ${categoriaPregunta.nombre} debe tener minimo una pregunta</strong> 
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>`
             }
 
-            console.log(categoriaPregunta)
+            // console.log(categoriaPregunta)
         }
+    } else {
+        alertCategoria.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>No hay categorias</strong> .
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>`
+        alertInformacion.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Debe crear minimo una categoria</strong> 
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>`
+    }
+}
+
+function validarCriterios(evaluacion) {
+    console.log("Criterios .-.-")
+    console.log(evaluacion)
+    const criterios = sessionStorage.getItem("criterios")
+    let descripcionGeneral = document.getElementById("textareaDescripcionCriterio").value
+    console.log(descripcionGeneral)
+    if (descripcionGeneral != "") {
+
+
+        if (criterios != null) {
+
+            let array=[]
+            array = array.concat(JSON.parse(criterios))
+            if(array.length>=3){
+            for (let i = 0; i < array.length; i++) {
+                const newCriterio={
+                    valor:array[i].valor,
+                    descripcion:array[i].descripcion,
+                    comentario:"",
+                    criterioId:""
+
+                }
+                console.log(newCriterio)
+                
+            }
+        }else{
+            alertCriterios.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Criterios incompletos </strong> 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`
+            alertInformacion.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Minimo debe crear 3 criterios</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`
+
+        }
+
+            
+        } else {
+            alertCriterios.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Criterios incompletos </strong> 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`
+            alertInformacion.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Minimo debe crear 3 criterios</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`
+        }
+    } else {
+        alertCriterios.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Falta la Descripcion de los criterios </strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>`
+        alertInformacion.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>Falta la Descripcion  de los criterios</strong> 
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>`
+
     }
 }
