@@ -1,5 +1,5 @@
 //CONEXION CON EL BACK
-const urlBasic = "https://teacher-test-backend-production-e58a.up.railway.app";
+
 
 function mostrarSpinner() {
     document.getElementById("sppiner").innerHTML = `<div id="spinner-container" class="d-flex justify-content-center align-items-center ">

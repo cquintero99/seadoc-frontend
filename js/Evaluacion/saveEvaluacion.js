@@ -1,11 +1,86 @@
+const urlBasic = "https://teacher-test-backend-production-e58a.up.railway.app";
 const btnEvaluacion = document.getElementById("btnEvaluacion")
 const alertEvaluacion = document.getElementById("alertEvaluacion")
 const alertInformacion = document.getElementById("alertE")
 const alertCategoria = document.getElementById("validCategoria")
 const alertCriterios = document.getElementById("alertCriterios")
 
+// SAVE EVALUACION
+async function saveEvaluacion(evaluacion) {
+    let token = localStorage.getItem("token")
+
+    const result = await fetch(urlBasic + "/evaluacion/save", {
+        method: 'POST',
+        body: JSON.stringify(evaluacion),
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-type": "application/json"
+        }
+    })
+    return result
+}
+//SAVE CRITERIO
+async function saveCriterio(criterio) {
+    let token = localStorage.getItem("token")
+
+    const result = await fetch(urlBasic + "/criterio/save", {
+        method: 'POST',
+        body: JSON.stringify(criterio),
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-type": "application/json"
+        }
+    })
+    return result
+}
+//SAVE OPCION
+async function saveOpcion(opcion) {
+    let token = localStorage.getItem("token")
+
+    const result = await fetch(urlBasic + "/opcion/save", {
+        method: 'POST',
+        body: JSON.stringify(opcion),
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-type": "application/json"
+        }
+    })
+    return result
+}
+//SAVE CATEGORIA
+async function saveCategoria(categoria) {
+    let token = localStorage.getItem("token")
+
+    const result = await fetch(urlBasic + "/categoria/pregunta/save", {
+        method: 'POST',
+        body: JSON.stringify(categoria),
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-type": "application/json"
+        }
+    })
+    return result
+}
+//SAVE PREGUNTA
+async function savePregunta(pregunta) {
+    let token = localStorage.getItem("token")
+
+    const result = await fetch(urlBasic + "/pregunta/save", {
+        method: 'POST',
+        body: JSON.stringify(pregunta),
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-type": "application/json"
+        }
+    })
+    return result
+}
+
+
 const fechaActual = new Date()
+
 btnEvaluacion.addEventListener("click", () => {
+    alertInformacion.innerHTML=""
     //Obtengo el id usuario
     let usuarioId = JSON.parse(localStorage.getItem("data")).id
     //Obtengo el id sel semestre
@@ -27,9 +102,24 @@ btnEvaluacion.addEventListener("click", () => {
         fechaRegistro
 
     }
-    validarEvaluacion(evaluacion)
-    validarCategoria(evaluacion)
-    validarCriterios(evaluacion)
+    if (validarEvaluacion(evaluacion)) {
+        if (validarCriterios(evaluacion)) {
+            if (validarCategoria(evaluacion)) {
+
+                alertInformacion.innerHTML += `<div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>La evaluacion cumple con la informacion y los criterios</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>`
+                enviarDataEvaluacion()
+            }
+
+
+        }
+    }
+
+
+
+
 })
 
 function validarEvaluacion(evaluacion) {
@@ -43,10 +133,12 @@ function validarEvaluacion(evaluacion) {
       <strong>Datos de la evaluacion Incompletos</strong> 
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>`
+        return false
     } else {
 
-        console.log("Evaluacion Aceptada")
-        console.log(evaluacion)
+
+        
+        return true
     }
 
 }
@@ -59,6 +151,8 @@ function validarCategoria(evaluacion) {
 
 
         for (let i = 0; i < array.length; i++) {
+
+
             const categoriaPregunta = {
                 evaluacionId: evaluacion.id,
                 nombre: array[i].nombre,
@@ -66,8 +160,7 @@ function validarCategoria(evaluacion) {
 
 
             }
-            console.log("se crea la categoria")
-            console.log(categoriaPregunta)
+           
             const preguntas = sessionStorage.getItem("preguntasEvaluacion")
             let arrayPregunta = []
 
@@ -77,33 +170,40 @@ function validarCategoria(evaluacion) {
             if (preguntas != null) {
 
                 arrayPregunta = arrayPregunta.concat(JSON.parse(preguntas))
+                const elementosConIdCategoria = arrayPregunta.filter(elemento => elemento.idCategoria === array[i].id)
+                if (elementosConIdCategoria.length > 0) {
 
-                for (let j = 0; j < arrayPregunta.length; j++) {
-                    if (arrayPregunta[j].idCategoria == array[i].id) {
+                    for (let j = 0; j < arrayPregunta.length; j++) {
+                        if (arrayPregunta[j].idCategoria == array[i].id) {
 
-                        const pregunta = {
-                            criterioId: "",
-                            evaluacionId: evaluacion.id,
-                            categoriaId: "",
-                            descripcion: arrayPregunta[j].pregunta,
-                            fechaRegistro: new Date(),
+                            const pregunta = {
+                                criterioId: "",
+                                evaluacionId: evaluacion.id,
+                                categoriaId: "",
+                                descripcion: arrayPregunta[j].pregunta,
+                                fechaRegistro: new Date(),
 
+
+                            }
+                         
 
                         }
-                        console.log(pregunta)
-                    } else {
-                        alertCategoria.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong>La categoria ${categoriaPregunta.nombre} no tiene preguntas</strong> .
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                      </div>`
-                        alertInformacion.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                      <strong>La categoria ${categoriaPregunta.nombre} debe tener minimo una pregunta</strong> 
-                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>`
 
                     }
+                    return true
+
+                } else {
+                    alertCategoria.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>La categoria ${categoriaPregunta.nombre} no tiene preguntas</strong> .
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>`
+                    alertInformacion.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <strong>La categoria ${categoriaPregunta.nombre} debe tener minimo una pregunta</strong> 
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`
 
                 }
+
             } else {
                 console.log("No hay preguntas")
                 alertCategoria.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -130,9 +230,8 @@ function validarCategoria(evaluacion) {
     }
 }
 
+
 function validarCriterios(evaluacion) {
-    console.log("Criterios .-.-")
-    console.log(evaluacion)
     const criterios = sessionStorage.getItem("criterios")
     let descripcionGeneral = document.getElementById("textareaDescripcionCriterio").value
     console.log(descripcionGeneral)
@@ -141,33 +240,34 @@ function validarCriterios(evaluacion) {
 
         if (criterios != null) {
 
-            let array=[]
+            let array = []
             array = array.concat(JSON.parse(criterios))
-            if(array.length>=3){
-            for (let i = 0; i < array.length; i++) {
-                const newCriterio={
-                    valor:array[i].valor,
-                    descripcion:array[i].descripcion,
-                    comentario:"",
-                    criterioId:""
+            if (array.length >= 3) {
+                for (let i = 0; i < array.length; i++) {
+                    const newCriterio = {
+                        valor: array[i].valor,
+                        descripcion: array[i].descripcion,
+                        comentario: "",
+                        criterioId: ""
+
+                    }
+
 
                 }
-                console.log(newCriterio)
-                
-            }
-        }else{
-            alertCriterios.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                return true
+            } else {
+                alertCriterios.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <strong>Criterios incompletos </strong> 
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>`
-            alertInformacion.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                alertInformacion.innerHTML += `<div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong>Minimo debe crear 3 criterios</strong> 
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>`
+                return false
+            }
 
-        }
 
-            
         } else {
             alertCriterios.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <strong>Criterios incompletos </strong> 
@@ -177,6 +277,7 @@ function validarCriterios(evaluacion) {
             <strong>Minimo debe crear 3 criterios</strong> 
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>`
+            return false
         }
     } else {
         alertCriterios.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -187,6 +288,6 @@ function validarCriterios(evaluacion) {
       <strong>Falta la Descripcion  de los criterios</strong> 
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>`
-
+        return false
     }
 }

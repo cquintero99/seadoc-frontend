@@ -8,7 +8,8 @@ window.addEventListener('load', function () {
     verSemestreEstado("ACTUAL")
         .then(response => response.json())
         .then(data => {
-
+            sessionStorage.setItem("semestreActual",JSON.stringify(data))
+            
             seeDataEvaluacion(data)
         })
         .catch(err => {
