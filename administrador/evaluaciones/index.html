@@ -101,11 +101,10 @@
         </div>
         <div id="layoutSidenav_content">
             <main>
-                <div class="container-fluid px-4">
-                    <h1 class="mt-4">Crear Evaluacion</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">Administrador</li>
-                    </ol>
+                <div class="container-fluid px-4 ">
+                    <h2 class="mt-4 fw-medium  text-uppercase text-center"> CREAR EVALUACION</h2>
+
+
                     <hr class="">
                     <div class="row mb-3">
 
@@ -120,14 +119,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row text-center p-3 fw-bold" id="datosSemestreActual">
 
-                                <p>1°-Datos de la Evaluacion *</p>
-                                <div class="row text-center p-3"  id="datosSemestreActual">
-                                    
                                 </div>
+                                <p class="fw-bold">1°-Datos de la Evaluacion *</p>
+                                <div id="alertEvaluacion"></div>
                                 <div class="form-floating mb-3">
 
-                                    <select class="form-select" aria-label="Default select example" id="selectCategoriaEvaluacion">
+                                    <select class="form-select" aria-label="Default select example"
+                                        id="selectCategoriaEvaluacion">
                                         <option selected>Seleccione una categoria de Evaluacion</option>
                                         <option value="1">Autoevaluacion</option>
                                         <option value="2">Evaluacion de Pares</option>
@@ -141,9 +141,10 @@
                                     <label for="inputEmail">Titulo</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <textarea class="form-control" placeholder="Leave a comment here" id="textareaDescripcion"></textarea>
+                                    <textarea class="form-control" placeholder="Leave a comment here"
+                                        id="textareaDescripcion"></textarea>
                                     <label for="floatingTextarea">Descripcion</label>
-                                  </div>
+                                </div>
 
                             </form>
 
@@ -156,9 +157,9 @@
 
                     <hr>
                     <div class="row mb-3 ">
-                        <p>2°-Crea las categorias y preguntas *</p>
+                        <p class="fw-bold"> 2°-Crea las categorias y preguntas *</p>
                         <div id="validCategoria"></div>
-                        
+
                         <form class=" ">
 
                             <div class="input-group">
@@ -168,44 +169,51 @@
                                     aria-describedby="btnGroupAddon">
                                 <button id="crearCategoria" class="input-group-text btn btn-success" type="button"><i
                                         class="fa fa-plus" aria-hidden="true"></i></button>
-                                        
+
                             </div>
-                            
+
                         </form>
-                        
 
 
-                            <div class="col-xl-4">
-                                <br>
-                                <div id="list-example" class="list-group list-group-numbered">
-                                </div>
+
+                        <div class="col-xl-4">
+                            <br>
+                            <div id="list-example" class="list-group list-group-numbered">
                             </div>
-                            <div class="col-xl-8">
+                        </div>
+                        <div class="col-xl-8">
 
-                                <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true"
-                                    class="scrollspy-example" tabindex="0" id="bodyListaCategoria">
+                            <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true"
+                                class="scrollspy-example" tabindex="0" id="bodyListaCategoria">
 
-                                </div>
                             </div>
-                        
+                        </div>
+
                     </div>
                     <hr>
                     <div class="row">
-
-                        <p>3°-Crea los Criteros de evaluacion *</p>
+                        
+                        <p class="fw-bold">3°-Crea los Criteros de evaluacion *</p>
+                        <div id="alertCriterios"></div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Leave a comment here"
+                                id="textareaDescripcionCriterio"></textarea>
+                            <label for="floatingTextarea">Descripcion de los criterios</label>
+                        </div>
                         <div class="col-xl-4 ">
 
 
                             <form>
-                                
+
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" id="inputValorP"  type="number"  placeholder="1" />
+                                    <input class="form-control" id="inputValorP" type="number" placeholder="1" />
                                     <label for="inputEmail">Valor de 1 a 5 </label>
                                 </div>
                                 <div class="form-floating mb-3 text-center">
-                                    <textarea class="form-control" placeholder="Leave a comment here" id="inputDescripcionP" type="descripcion"></textarea>
-                                    
-                                    
+                                    <textarea class="form-control" placeholder="Leave a comment here"
+                                        id="inputDescripcionP" type="descripcion"></textarea>
+
+
                                     <label for="inputEmail">Descripcion</label>
                                 </div>
                                 <div class="form-floating text-center">
@@ -228,7 +236,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="opcinesRespuesta">
-                                 
+
 
                                 </tbody>
 
@@ -237,18 +245,23 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <p>4°-Configurar Evaluacion</p>
+                        <p class="fw-bold">4°-Configurar Evaluacion</p>
                         <div id="alertE"></div>
                         <div class="row" id="nombreAdmin">
-                            
+
                         </div>
-                        <div class="form-floating text-center">
-                            <button type="button" class="btn btn-success " id="btnEvaluacion">Crear
-                                Evaluacion</button>
+                        <div class="form-floating text-center" id="accionesEvaluacion">
+                            <button type="button" class="btn btn-success " id="btnEvaluacion">
+                                Crear Evaluacion</button>
+                                
                         </div>
 
                     </div>
+
+
                     <hr>
+
+
                     <!-- Modal Categorias Evaluacion-->
                     <div class="modal fade" id="staticBackdropCategoria" data-bs-backdrop="static"
                         data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -349,6 +362,7 @@
     <script src="../../js/Evaluacion/opcionesRespuesta.js"></script>
     <script src="../../js/Evaluacion/informacionEvaluacion.js"></script>
     <script src="../../js/Evaluacion/saveEvaluacion.js"></script>
+    <script src="../../js/Evaluacion/enviarInformacion.js"></script>
 
 </body>
 
