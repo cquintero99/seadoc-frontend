@@ -3,7 +3,7 @@ const urlBasic = "https://teacher-test-backend-production-e58a.up.railway.app";
 //"http://localhost:8080"
 
 
-
+//OBTENER LISTA DE SEMESTRE
 async function listaSemestres() {
     let token = localStorage.getItem("token");
 
@@ -164,21 +164,21 @@ function mostrarEvaluaciones(id) {
     getEvaluacionesSemestre(id)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             data.sort(compararFechasRegistro)
-            let acciones = `<div class="input-group " >
+            //href="./editar/index.html"
+            for (let i = 0; i < data.length; i++) {
+                let acciones = `<div class="input-group " >
     
-            <button onclick="verSemestre(${id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop3"
+            <a href="#"  onclick="editarEvaluacion(${data[i].id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"
              class="input-group-text btn btn-warning" type="button">
-            <i class="fa fa-pencil" aria-hidden="true"></i></button>
-            <button class="input-group-text btn btn-danger" onclick="eliminarSemestre(${id})" 
+            <i class="fa fa-pencil" aria-hidden="true"></i></a>
+            <button class="input-group-text btn btn-danger"  
              type="button" >
             <i class="fa fa-times" aria-hidden="true"></i></button>
             </div>
             
             
         </div> `
-            for (let i = 0; i < data.length; i++) {
 
                 t.row.add([i + 1
                     , data[i].titulo
@@ -199,6 +199,8 @@ function mostrarEvaluaciones(id) {
             ocultarSpinner()
         })
 }
+
+
 
 function mostrarSpinner() {
     document.getElementById("sppiner").innerHTML = `<div id="spinner-container" class="d-flex justify-content-center align-items-center ">
