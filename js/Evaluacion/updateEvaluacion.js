@@ -9,22 +9,34 @@ async function getEvalucionById(id) {
     })
     return result
 }
+//OBTENER CATEGORIAS Y PREGUNTAS DE LA EVALUACION
+async function getListaCategoriasEvalucionById(id) {
+    let token = localStorage.getItem("token")
+    const result = await fetch(urlBasic + "/categoria/pregunta/" + id + "/evaluacion", {
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    })
+    return result
+}
+
+
+
 
 function editarEvaluacion(idEvaluacion) {
     mostrarSpinner()
     getEvalucionById(idEvaluacion)
         .then(response => response.json())
         .then(evaluacion => {
-            console.log(evaluacion)
             //Busco la categoria de la evaluacion
-            let categoria=evaluacion.categoriaId
-            let op1=""
-            let op2=""
+            let categoria = evaluacion.categoriaId
+            let op1 = ""
+            let op2 = ""
             console.log(categoria)
-            if(categoria=="1"){
-                op1="selected"
-            }else{
-                op2="selected"
+            if (categoria == "1") {
+                op1 = "selected"
+            } else {
+                op2 = "selected"
             }
             //PARTE 1 EVALUACION
             modalActualizarE.innerHTML = `
@@ -48,10 +60,6 @@ function editarEvaluacion(idEvaluacion) {
                     
                     <button class="input-group-text btn btn-warning" type="button">
                     <i class="fa fa-pencil" aria-hidden="true"></i></button>
-
-                    <button  class="input-group-text btn btn-danger" type="button">
-                    <i class="fa fa-times" aria-hidden="true"></i></button>
-
                     </div>
             <label class=" text-center" for="floatingTextarea">DESCRICION</label>
                     <div class="input-group " >
@@ -61,18 +69,14 @@ function editarEvaluacion(idEvaluacion) {
                     
                     <button class="input-group-text btn btn-warning" type="button">
                     <i class="fa fa-pencil" aria-hidden="true"></i></button>
-                    
-                    <button  class="input-group-text btn btn-danger" type="button">
-                    <i class="fa fa-times" aria-hidden="true"></i></button>
-
                     </div>
 
                   
 
     `
-    //PARTE 2 
-    //DESCRIPCION DE LOS CRITERIOS
-            modalActualizarE.innerHTML+=`  <p class=" mt-3  fw-medium  text-uppercase">2°-Crea los Criteros de evaluacion *</p>
+            //PARTE 2 
+            //DESCRIPCION DE LOS CRITERIOS
+            modalActualizarE.innerHTML += `  <p class=" mt-3  fw-medium  text-uppercase">2°-Crea los Criteros de evaluacion *</p>
                                             <div id="alertCriterios"></div>
                                             <label class=" text-center" >DESCRIPCION DE LOS CRITERIOS</label>
                                                 <div class="input-group " >
@@ -82,14 +86,12 @@ function editarEvaluacion(idEvaluacion) {
                                                 <button class="input-group-text btn btn-warning" type="button">
                                                 <i class="fa fa-pencil" aria-hidden="true"></i></button>
 
-                                                <button  class="input-group-text btn btn-danger" type="button">
-                                                <i class="fa fa-times" aria-hidden="true"></i></button>
-
+                                                
                                                 </div>
                                                 </br>
             `
-        //OPCIONES
-            modalActualizarE.innerHTML+=`<div class="row">
+            //OPCIONES
+            modalActualizarE.innerHTML += `<div class="row">
             <div class="col-xl-4 ">
 
 
@@ -133,9 +135,9 @@ function editarEvaluacion(idEvaluacion) {
                             </table>
                         </div>
             </div>`
-            let body=""
+            let body = ""
             for (let i = 0; i < evaluacion.criterio[0].opciones.length; i++) {
-                body+=`<tr>
+                body += `<tr>
                 <td>${evaluacion.criterio[0].opciones[i].descripcion}</td>
                 <td>${evaluacion.criterio[0].opciones[i].valor}</td>
                 <td>
@@ -144,9 +146,106 @@ function editarEvaluacion(idEvaluacion) {
                 <button  class="input-group-text btn btn-danger" type="button">
                 <i class="fa fa-times" aria-hidden="true"></i></button></td>
                 </tr>`
-                
+
             }
-            document.getElementById("opcinesRespuesta").innerHTML=body
+            document.getElementById("opcinesRespuesta").innerHTML = body
+
+            //Muestro las categorias
+            verCategoriasEvaluacion(evaluacion.id)
+
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        .finally(final => {
+
+        })
+
+}
+function verCategoriasEvaluacion(id) {
+    getListaCategoriasEvalucionById(id)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            modalActualizarE.innerHTML += `
+<div class="row mb-3 ">
+    <p class=" mt-3  fw-medium  text-uppercase"> 3°-Crea las categorias y preguntas *</p>
+        <div id="validCategoria"></div>
+          <form class=" ">
+          <div class="input-group">
+
+                <input type="text" id="inputCategoriaP" class="form-control"
+                    placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
+                    aria-describedby="btnGroupAddon">
+                <button id="crearCategoria" class="input-group-text btn btn-success" type="button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+
+            </div>
+            </form>
+                
+                
+            <div class="col-xl-4">
+                <br>
+                <div id="list-example" class="list-group list-group-numbered">
+                </div>
+            </div>
+
+            <div class="col-xl-8">
+
+                <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true"
+                    class="scrollspy-example" tabindex="0" id="bodyListaCategoria">
+                </div>
+            </div>
+
+</div>
+           `
+
+            for (let i = 0; i < data.length; i++) {
+                document.getElementById("list-example").innerHTML += `<a class="list-group-item list-group-item-action" href="#list-item-${i}">${data[i].nombre}</a>`
+                document.getElementById("bodyListaCategoria").innerHTML += `<h4 id="list-item-${i}"  class="text-center fw-medium">  ${i}° - ${data[i].nombre}   </h4>
+                <div class="input-group mb-3">
+                
+                <input type="text" class="form-control" id="crearPreguntaCategoria${i}" placeholder="Crear pregunta para la categoria ${data[i].nombre}" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                <button id="btnAddPregunta" onclick="crearPregunta(${i})" class="input-group-text btn btn-success" type="button"><i class="fa fa-plus"
+                aria-hidden="true" ></i></button>
+            </div>
+            </br>
+            
+            <ol class="list-group list-group-numbered list-group-flush" >
+                
+                </ol>
+            <div  class="list-group list-group-numbered list-group-flush" id="preguntaC${i}"><div>
+                
+            `
+                for (let j = 0; j < data[i].preguntas.length; j++) {
+                    document.getElementById("preguntaC" + i).innerHTML += `
+            <div id="${i}-${j}">
+            <div class="input-group " >
+                    <input type="text" id="input${i}-${j}" class="form-control" value="${data[i].preguntas[j].descripcion}"
+                    placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
+                    aria-describedby="btnGroupAddon" disabled readonly>
+                    
+                    <button  onclick="actualizarPregunta('${i}-${j}')" class="input-group-text btn btn-warning" type="button">
+                    <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                    <button id="crearCategoria" onclick="eliminarPregunta('${i}-${j}')" class="input-group-text btn btn-danger" type="button">
+                    <i class="fa fa-times" aria-hidden="true"></i></button>
+                    </div>
+                    <hr>
+           </div> 
+                 `
+
+
+                }
+
+            }
+            modalActualizarE.innerHTML += `<div class="row">
+            <p class=" mt-3  fw-medium  text-uppercase">4°-Configurar Evaluacion</p>
+            <div id="alertE"></div>
+            
+
+        </div>`
+            
 
         })
         .catch(err => {
@@ -154,8 +253,8 @@ function editarEvaluacion(idEvaluacion) {
             ocultarSpinner()
         })
         .finally(final => {
+           
             ocultarSpinner()
-
         })
 
 }
