@@ -114,7 +114,12 @@ btnEvaluacion.addEventListener("click", () => {
             }
 
 
+        }else{
+            validarCategoria(evaluacion)
         }
+    }else{
+        validarCriterios(evaluacion)
+        validarCategoria(evaluacion)
     }
 
 

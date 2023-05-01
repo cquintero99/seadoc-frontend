@@ -119,10 +119,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row text-center p-3 fw-bold" id="datosSemestreActual">
+                                <div class="row text-center  mt-3  fw-medium  text-uppercase" id="datosSemestreActual">
 
                                 </div>
-                                <p class="fw-bold">1°-Datos de la Evaluacion *</p>
+                                <p class=" mt-3  fw-medium  text-uppercase">1°-Datos de la Evaluacion *</p>
                                 <div id="alertEvaluacion"></div>
                                 <div class="form-floating mb-3">
 
@@ -130,8 +130,7 @@
                                         id="selectCategoriaEvaluacion">
                                         <option selected>Seleccione una categoria de Evaluacion</option>
                                         <option value="1">Autoevaluacion</option>
-                                        <option value="2">Evaluacion de Pares</option>
-                                        <option value="3">Evaluacion Desempeño</option>
+                                        <option value="2">HeteroEvaluacion</option>
                                     </select>
                                     <label for="inputLastName">Categoria</label>
                                 </div>
@@ -156,44 +155,10 @@
                     </div>
 
                     <hr>
-                    <div class="row mb-3 ">
-                        <p class="fw-bold"> 2°-Crea las categorias y preguntas *</p>
-                        <div id="validCategoria"></div>
-
-                        <form class=" ">
-
-                            <div class="input-group">
-
-                                <input type="text" id="inputCategoriaP" class="form-control"
-                                    placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
-                                    aria-describedby="btnGroupAddon">
-                                <button id="crearCategoria" class="input-group-text btn btn-success" type="button"><i
-                                        class="fa fa-plus" aria-hidden="true"></i></button>
-
-                            </div>
-
-                        </form>
-
-
-
-                        <div class="col-xl-4">
-                            <br>
-                            <div id="list-example" class="list-group list-group-numbered">
-                            </div>
-                        </div>
-                        <div class="col-xl-8">
-
-                            <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true"
-                                class="scrollspy-example" tabindex="0" id="bodyListaCategoria">
-
-                            </div>
-                        </div>
-
-                    </div>
                     <hr>
                     <div class="row">
                         
-                        <p class="fw-bold">3°-Crea los Criteros de evaluacion *</p>
+                        <p class=" mt-3  fw-medium  text-uppercase">2°-Crea los Criteros de evaluacion *</p>
                         <div id="alertCriterios"></div>
                         <div class="form-floating mb-3">
                             <textarea class="form-control" placeholder="Leave a comment here"
@@ -243,9 +208,44 @@
                             </table>
                         </div>
                     </div>
+                    <div class="row mb-3 ">
+                        <p class=" mt-3  fw-medium  text-uppercase"> 3°-Crea las categorias y preguntas *</p>
+                        <div id="validCategoria"></div>
+
+                        <form class=" ">
+
+                            <div class="input-group">
+
+                                <input type="text" id="inputCategoriaP" class="form-control"
+                                    placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
+                                    aria-describedby="btnGroupAddon">
+                                <button id="crearCategoria" class="input-group-text btn btn-success" type="button"><i
+                                        class="fa fa-plus" aria-hidden="true"></i></button>
+
+                            </div>
+
+                        </form>
+
+
+
+                        <div class="col-xl-4">
+                            <br>
+                            <div id="list-example" class="list-group list-group-numbered">
+                            </div>
+                        </div>
+                        <div class="col-xl-8">
+
+                            <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true"
+                                class="scrollspy-example" tabindex="0" id="bodyListaCategoria">
+
+                            </div>
+                        </div>
+
+                    </div>
+                    
                     <hr>
                     <div class="row">
-                        <p class="fw-bold">4°-Configurar Evaluacion</p>
+                        <p class=" mt-3  fw-medium  text-uppercase">4°-Configurar Evaluacion</p>
                         <div id="alertE"></div>
                         <div class="row" id="nombreAdmin">
 

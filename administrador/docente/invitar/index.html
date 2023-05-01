@@ -102,10 +102,8 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Invitar Docentes</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">Administrador</li>
-                    </ol>
+                  
+                    
                     <!-- Spinner -->
                     <div id="sppiner">
                         <div id="spinner-container" class="d-flex justify-content-center align-items-center d-none">
@@ -115,15 +113,16 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mb-3">
+                        <h2 class="mt-4 fw-medium  text-uppercase text-center">Invitar Docentes</h2>
                         <hr>
                         
-                        <p>1°- Descargar el formato EXCEL para invitar Docentes <a href="#" onclick="descargarExcel()" id="btn-descargar-excel" class=" "
+                        <p class="mt-3 fw-medium  text-uppercase ">1°- Descargar el formato EXCEL para invitar Docentes <a href="#" onclick="descargarExcel()" id="btn-descargar-excel" class=" "
                                 type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Click para descargar
                             </a></p>
 
                         <hr>
-                        <p>2°- Ingresar la platilla con la informacion de los docentes</p>
+                        <p class="mt-3 fw-medium  text-uppercase ">2°- Ingresar la platilla con la informacion de los docentes</p>
                         <div id="alertInvitar"></div>
                         <div class="mb-3">
                             <input class="form-control" id="fileUpload" type="file" id="formFile" accept=".xls,.xlsx">

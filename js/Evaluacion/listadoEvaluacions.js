@@ -45,6 +45,14 @@ async function getEvaluacionesSemestre(id) {
 
 
 }
+function compararFechasInicioDescendente(a, b) {
+    return new Date(b.fechaInicio) - new Date(a.fechaInicio);
+  }
+  function compararFechasRegistro(a, b) {
+    return new Date(b.fechaRegistro) - new Date(a.fechaRegistro);
+  }
+  
+
 
 
 const selectSemestres = document.getElementById("selectSemestres")
@@ -54,7 +62,8 @@ function listadoSemestre() {
     listaSemestres()
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            data.sort(compararFechasInicioDescendente)
+            
             let body = ""
             let dataSemestre = ""
             var siActual = false
@@ -73,7 +82,7 @@ function listadoSemestre() {
                             VISIBILIDAD: ${data[i].visibilidad}
                         </div>
                         <div class="col-xl-4">
-                        FECHA:${fechaInicio} - ${fechaFin}
+                        ${fechaInicio} - ${fechaFin}
                     </div>
                         
                         `
@@ -88,7 +97,7 @@ function listadoSemestre() {
                             VISIBILIDAD: ${data[i].visibilidad}
                         </div>
                         <div class="col-xl-4">
-                        FECHA:${fechaInicio} - ${fechaFin}
+                        ${fechaInicio} - ${fechaFin}
                     </div>
                         
                         `
@@ -118,7 +127,6 @@ function listadoSemestre() {
 selectSemestres.addEventListener('change', () => {
     mostrarSpinner()
     let idSemestre = selectSemestres.value
-    console.log("CAMBIO" + idSemestre)
     getSemestreId(idSemestre)
         .then(response => response.json())
         .then(data => {
@@ -131,7 +139,7 @@ selectSemestres.addEventListener('change', () => {
                                                         VISIBILIDAD: ${data.visibilidad}
                                                     </div>
                                                     <div class="col-xl-4">
-                                                    FECHA:${fechaInicio} - ${fechaFin}
+                                                    ${fechaInicio} - ${fechaFin}
                                                 </div>
                                                     
                                                     `
@@ -157,6 +165,7 @@ function mostrarEvaluaciones(id) {
         .then(response => response.json())
         .then(data => {
             console.log(data)
+            data.sort(compararFechasRegistro)
             let acciones = `<div class="input-group " >
     
             <button onclick="verSemestre(${id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop3"

@@ -3,7 +3,7 @@
     * Copyright 2013-2023 Start Bootstrap
     * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin/blob/master/LICENSE)
     */
-    // 
+// 
 // Scripts
 // 
 
@@ -24,8 +24,26 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
 window.addEventListener('load', () => {
     let nombre = JSON.parse(localStorage.getItem("data")).nombre
+    try {
+        document.getElementById("nombreUsuario").innerHTML = `<h5 class="mt-3 p-3 mb-3  text-light " >Bienvenido _ ${nombre} </h5>`
 
-    document.getElementById("nombreUsuario").innerHTML = `<h5 class="mt-3 p-3 mb-3  text-light " >Bienvenido _ ${nombre} </h5>`
+    } catch (error) {
+
+    }
+
+
 });
+
+try {
+
+    const salir = document.getElementById("salir")
+
+    salir.addEventListener('click', () => {
+        localStorage.clear()
+    })
+} catch (error) {
+
+}
