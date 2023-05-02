@@ -101,9 +101,9 @@ function cargarDatosModal(semestre) {
     </div>
     `
     document.getElementById("actualizarSemestre").innerHTML = body;
-    document.getElementById("footerActualizarS").innerHTML = ` <button type="button" class="btn btn-secondary"
+    document.getElementById("footerActualizarS").innerHTML = ` <button type="button" class="btn btn-outline-secondary"
     data-bs-dismiss="modal">Cerrar</button>
-<button type="button" class="btn btn-success" onclick="putSemestre(${semestre.id})" data-bs-dismiss="modal"
+<button type="button" class="btn btn-outline-success" onclick="putSemestre(${semestre.id})" data-bs-dismiss="modal"
 aria-label="Close" >Actualizar</button>
 `
     // Obtener el elemento select Estado 

@@ -170,9 +170,9 @@ function mostrarEvaluaciones(id) {
                 let acciones = `<div class="input-group " >
     
             <a href="#"  onclick="editarEvaluacion(${data[i].id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-             class="input-group-text btn btn-warning" type="button">
+             class="input-group-text btn btn-outline-warning" type="button">
             <i class="fa fa-pencil" aria-hidden="true"></i></a>
-            <button class="input-group-text btn btn-danger"  
+            <button class="input-group-text btn btn-outline-danger"  
              type="button" >
             <i class="fa fa-times" aria-hidden="true"></i></button>
             </div>
