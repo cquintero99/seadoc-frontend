@@ -33,6 +33,7 @@ function seeDataEvaluacion(data) {
         <div class="col-xl-6">
             ${new Date(data[0].fechaInicio).toLocaleDateString()} - ${new Date(data[0].fechaFin).toLocaleDateString()}
         </div>`
+        
 
     } else {
         body = `<div class="col-xl-6">
@@ -41,9 +42,11 @@ function seeDataEvaluacion(data) {
         <div class="col-xl-6">
             -
         </div>`
+        document.getElementById("accionesEvaluacion").innerHTML=``
 
     }
     document.getElementById("datosSemestreActual").innerHTML = body
+    
     let nombre = JSON.parse(localStorage.getItem("data")).nombre
     document.getElementById("nombreAdmin").innerHTML = `<div class="col-xl-6">
         <p> <a href="#" > ${nombre} </a></p>

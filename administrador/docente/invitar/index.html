@@ -19,7 +19,7 @@
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-red">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="../../index.html">SEADOC</a>
         <!-- Sidebar Toggle-->
@@ -49,16 +49,16 @@
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark bg-danger" id="sidenavAccordion">
+            <nav class="sb-sidenav accordion sb-sidenav-dark bg-red" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">SEMESTRES</div>
+                        <div class="sb-sidenav-menu-heading text-light">SEMESTRES</div>
                         <a class="nav-link p-3" href="../../semestre/index.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Semestre
                         </a>
 
-                        <div class="sb-sidenav-menu-heading">EVALUACIONES</div>
+                        <div class="sb-sidenav-menu-heading text-light">EVALUACIONES</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                             data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -69,10 +69,10 @@
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="../../evaluaciones/index.html">Crear Evaluacion</a>
-                                <a class="nav-link" href="#">Lista de Evaluaciones</a>
+                                <a class="nav-link" href="../../evaluaciones/listado/index.html">Lista de Evaluaciones</a>
                             </nav>
                         </div>
-                        <div class="sb-sidenav-menu-heading">DOCENTES</div>
+                        <div class="sb-sidenav-menu-heading text-light">DOCENTES</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
                             aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
@@ -93,7 +93,7 @@
 
                     </div>
                 </div>
-                <div class="sb-sidenav-footer bg-danger text-center">
+                <div class="sb-sidenav-footer bg-red text-center">
                     Evaluacion Docente
                     <div class="small">Universidad Francisco de Paula Santander</div>
                 </div>
@@ -102,10 +102,8 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Invitar Docentes</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">Administrador</li>
-                    </ol>
+                  
+                    
                     <!-- Spinner -->
                     <div id="sppiner">
                         <div id="spinner-container" class="d-flex justify-content-center align-items-center d-none">
@@ -115,27 +113,28 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mb-3">
+                        <h2 class="mt-4 fw-medium  text-uppercase text-center">Invitar Docentes</h2>
                         <hr>
                         
-                        <p>1°- Descargar el formato EXCEL para invitar Docentes <a href="#" onclick="descargarExcel()" id="btn-descargar-excel" class=" "
+                        <p class="mt-3 fw-medium  text-uppercase ">1°- Descargar el formato EXCEL para invitar Docentes <a href="#" onclick="descargarExcel()" id="btn-descargar-excel" class="btn btn-outline-info "
                                 type="button"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Click para descargar
                             </a></p>
 
                         <hr>
-                        <p>2°- Ingresar la platilla con la informacion de los docentes</p>
+                        <p class="mt-3 fw-medium  text-uppercase ">2°- Ingresar la platilla con la informacion de los docentes</p>
                         <div id="alertInvitar"></div>
                         <div class="mb-3">
                             <input class="form-control" id="fileUpload" type="file" id="formFile" accept=".xls,.xlsx">
 
                         </div>
                         <div class="mb-3 text-center">
-                            <button class="btn btn-success  " id="uploadExcel">ENVIAR INVITACION</button>
+                            <button class="btn btn-outline-success  " id="uploadExcel">ENVIAR INVITACION</button>
 
                         </div>
                         <div class="overflow-scroll">
                             <table class="table">
-                                <thead>
+                                <thead class="bg-red text-light">
                                     <tr>
                                         <th>NOMBRE</th>
                                         <th>CODIGO</th>

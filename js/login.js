@@ -203,8 +203,3 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
-const salir=document.getElementById("salir")
-
-salir.addEventListener('click',()=>{
-  localStorage.clear();
-})

@@ -52,7 +52,7 @@ opcinesRespuesta.addEventListener('click',()=>{
         <td >${array[i].valor}</td>
         <td>
         
-        <button   class="input-group-text btn btn-danger text-center" type="button" onclick="eliminarCriterio(${array[i].id})">
+        <button   class="input-group-text btn btn-outline-danger text-center" type="button" onclick="eliminarCriterio(${array[i].id})">
         <i class="fa fa-times" aria-hidden="true"></i></button>
         </tr>
         `

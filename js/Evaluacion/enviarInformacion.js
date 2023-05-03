@@ -30,9 +30,9 @@ function enviarDataEvaluacion() {
             console.log(newEvaluacion)
             alertInformacion.innerHTML +=
                 `<div class="alert alert-success alert-dismissible fade show" role="alert">
-             <strong>Titulo de la evaluacion: ${newEvaluacion.titulo}</strong> 
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                        </div>`
+                     <strong>Titulo de la evaluacion: ${newEvaluacion.titulo}</strong> 
+                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                 </div>`
             const criterios = sessionStorage.getItem("criterios")
             let descripcionGeneral = document.getElementById("textareaDescripcionCriterio").value
 
@@ -52,16 +52,14 @@ function enviarDataEvaluacion() {
                         saveCriterio(criterio)
                             .then(response => response.json())
                             .then(newCriterio => {
-                                console.log("Criterio nuevo")
-                                console.log(newCriterio)
                                 alertInformacion.innerHTML +=
                                     `<div class="alert alert-success alert-dismissible fade show" role="alert">
-             <strong>Criterio :${newCriterio.descripcion}</strong> 
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                        </div>`
+                                             <strong>Criterio :${newCriterio.descripcion}</strong> 
+                                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>`
                                 for (let i = 0; i < arrayOpcion.length; i++) {
                                     //Creo la opcion
-                                    const pregunta = {
+                                    const opcion = {
                                         valor: arrayOpcion[i].valor,
                                         descripcion: arrayOpcion[i].descripcion,
                                         comentario: "",
@@ -69,14 +67,12 @@ function enviarDataEvaluacion() {
 
                                     }
                                     //Cuado las opciones
-                                    saveOpcion(pregunta)
+                                    saveOpcion(opcion)
                                         .then(res => res.json())
-                                        .then(newPregunta => {
-                                            console.log("opcion nueva")
-                                            console.log(newPregunta)
+                                        .then(newOpcion => {
                                             alertInformacion.innerHTML +=
                                                 `<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                <strong>Opcion: ${newPregunta.descripcion}</strong> 
+                                                <strong>Opcion: ${newOpcion.descripcion}</strong> 
                                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                                                             </div>`
 
@@ -120,15 +116,13 @@ function enviarDataEvaluacion() {
                                                 saveCategoria(categoriaPregunta)
                                                     .then(response => response.json())
                                                     .then(newCategoria => {
-                                                        console.log("categoria nueva")
-                                                        console.log(newCategoria)
                                                         alertInformacion.innerHTML +=
                                                             `<div class="alert alert-success alert-dismissible fade show" role="alert">
                                                         <strong>Categoria: ${newCategoria.nombre}</strong> 
                                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                         </div>`
                                                         for (let j = 0; j < arrayPregunta.length; j++) {
-                                                           
+
                                                             if (arrayPregunta[j].idCategoria == array[i].id) {
 
                                                                 const pregunta = {
@@ -144,35 +138,36 @@ function enviarDataEvaluacion() {
                                                                     .then(res => res.json())
                                                                     .then(data => {
                                                                         mostrarSpinner()
-                                                                        console.log("new pregunta")
-                                                                        console.log(data)
-                                                                        alertInformacion.innerHTML +=
-                                                                            `<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                                                <strong>Pregunta: ${data.descripcion}</strong> 
-                                                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                                               </div>`
+                                                                        
                                                                     })
                                                                     .catch(err => {
                                                                         console.log(err)
                                                                     })
                                                                     .finally(final => {
                                                                         ocultarSpinner()
+                                                                        alertInformacion.innerHTML= `<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                                        <strong>Evaluacion con titutlo: ${newEvaluacion.titulo}</strong> 
+                                                                        <p>SE CREO CON EXITO !</p>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                                       </div>`
+                                                                    document.getElementById("accionesEvaluacion").innerHTML = `
+                                                                    <a class="btn btn-info" href="./index.html">CREAR OTRA EVALUACION</a>
+                                                                     <a class="btn btn-info" href="./listado/index.html">VER EVALUACION</a>
+                                                                    `
                                                                     })
 
                                                             }
 
                                                         }
-                                                        document.getElementById("accionesEvaluacion").innerHTML=`
-                                                        <a class="btn btn-info" href="./index.html">CREAR OTRA EVALUACION</a>
-                                <a class="btn btn-info" href="./listado/index.html">VER EVALUACION</a>
-                                                        `
-                                                        
+                                                  
 
                                                     })
                                                     .catch(err => {
                                                         console.log(err)
                                                     })
                                                     .finally(final => {
+                                                       
+
                                                     })
 
                                             }

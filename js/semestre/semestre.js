@@ -75,9 +75,9 @@ async function mostrarData(data) {
     let acciones = `<div class="input-group " >
     
     <button onclick="verSemestre(${id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop3"
-     class="input-group-text btn btn-warning" type="button">
+     class="input-group-text btn btn-outline-warning" type="button">
     <i class="fa fa-pencil" aria-hidden="true"></i></button>
-    <button class="input-group-text btn btn-danger" onclick="eliminarSemestre(${id})" 
+    <button class="input-group-text btn btn-outline-danger" onclick="eliminarSemestre(${id})" 
      type="button" >
     <i class="fa fa-times" aria-hidden="true"></i></button>
     </div>

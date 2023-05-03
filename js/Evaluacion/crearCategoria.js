@@ -69,7 +69,7 @@ crearCategoria.addEventListener('click', () => {
                 <div class="input-group mb-3">
                 
                 <input type="text" class="form-control" id="crearPreguntaCategoria${posicion}" placeholder="Crear pregunta para la categoria ${nombre}" aria-label="Input group example" aria-describedby="btnGroupAddon">
-                <button id="btnAddPregunta" onclick="crearPregunta(${posicion})" class="input-group-text btn btn-success" type="button"><i class="fa fa-plus"
+                <button id="btnAddPregunta" onclick="crearPregunta(${posicion})" class="input-group-text btn btn-outline-success" type="button"><i class="fa fa-plus"
                 aria-hidden="true" ></i></button>
             </div>
             </br>
@@ -146,9 +146,9 @@ function crearPregunta(pos) {
                     placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
                     aria-describedby="btnGroupAddon" disabled readonly>
                     
-                    <button  onclick="actualizarPregunta('${pos}-${posicion}')" class="input-group-text btn btn-warning" type="button">
+                    <button  onclick="actualizarPregunta('${pos}-${posicion}')" class="input-group-text btn btn-outline-warning" type="button">
                     <i class="fa fa-pencil" aria-hidden="true"></i></button>
-                    <button id="crearCategoria" onclick="eliminarPregunta('${pos}-${posicion}')" class="input-group-text btn btn-danger" type="button">
+                    <button id="crearCategoria" onclick="eliminarPregunta('${pos}-${posicion}')" class="input-group-text btn btn-outline-danger" type="button">
                     <i class="fa fa-times" aria-hidden="true"></i></button>
                     </div>
                     <hr>
@@ -173,9 +173,9 @@ function actualizarPregunta(id) {
     placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
     aria-describedby="btnGroupAddon" >
     
-    <button  onclick="cambiarPregunta('${id}')" class="input-group-text btn btn-success" type="button">
+    <button  onclick="cambiarPregunta('${id}')" class="input-group-text btn btn-outline-success" type="button">
     <i class="fa fa-check" aria-hidden="true"></i></button>
-    <button id="crearCategoria" onclick="eliminarPregunta('${id}')" class="input-group-text btn btn-danger" type="button">
+    <button id="crearCategoria" onclick="eliminarPregunta('${id}')" class="input-group-text btn btn-outline-danger" type="button">
     <i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
     <hr>`
@@ -202,9 +202,9 @@ function cambiarPregunta(id) {
     placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
     aria-describedby="btnGroupAddon" disabled readonly>
     
-    <button  onclick="actualizarPregunta('${id}')" class="input-group-text btn btn-warning" type="button">
+    <button  onclick="actualizarPregunta('${id}')" class="input-group-text btn btn-outline-warning" type="button">
     <i class="fa fa-pencil" aria-hidden="true"></i></button>
-    <button id="crearCategoria" onclick="eliminarPregunta('${id}')" class="input-group-text btn btn-danger" type="button">
+    <button id="crearCategoria" onclick="eliminarPregunta('${id}')" class="input-group-text btn btn-outline-danger" type="button">
     <i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
     <hr>`
