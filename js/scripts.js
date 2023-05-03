@@ -32,10 +32,12 @@ window.addEventListener('load', () => {
         document.getElementById("nombreUsuario").innerHTML = `<h5 class="mt-3 p-3 mb-3  text-light " >Bienvenido _ ${nombre} </h5>`
 
     } catch (error) {
+        /*
         let URLactual = window.location.pathname
         if (URLactual != "/index.html" && URLactual !="/forgotPassword.html" && URLactual!="/register.html") {
             window.location.href = "/index.html"
         }
+        */
     }
 
 
