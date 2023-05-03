@@ -11,7 +11,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
  .bg-red{
-  background-color: #BF1F00;
+  background-color: #ff6f6f;
   background-image: linear-gradient(to bottom, #BF1F00, #8B0000);
 }
  #spinner-container {

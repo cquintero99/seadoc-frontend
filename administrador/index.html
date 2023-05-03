@@ -13,8 +13,8 @@
         <link href="../css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
-    <body class="sb-nav-fixed ">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-red">
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html">SEADOC</a>
             <!-- Sidebar Toggle-->
@@ -40,10 +40,9 @@
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark bg-red  text-white  "  id="sidenavAccordion">
-                    <div class="sb-sidenav-menu bg-red">
+                <nav class="sb-sidenav accordion sb-sidenav-dark bg-danger p-2 text-white  "  id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
                         <div class="nav">
-                          
                             <div class="sb-sidenav-menu-heading text-light">SEMESTRES</div>
                             <a class="nav-link p-3" href="./semestre/index.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
@@ -81,25 +80,35 @@
                           
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer bg-red text-center">
+                    <div class="sb-sidenav-footer bg-danger text-center">
                         Evaluacion Docente
                         <div class="small">Universidad Francisco de Paula Santander</div>
                     </div>
                 </nav>
             </div>
-            
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4 fw-medium  text-uppercase text-center">Administrador</h1>
-                        <hr>
-                        
+                        <h1 class="mt-4">Administrador</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
                         <div class="row">
                             <div class="col-xl-4 col-md-6">
                                 <div class="card bg-light text-dark mb-4">
                                     <div class="card-body">SEMESTRES
-                                        
-                                    
+                                        <div class="position-relative m-4">
+                                            <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 1px;">
+                                              <div class="progress-bar" style="width: 50%"></div>
+                                            </div>
+                                            <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 2rem; height:2rem;">1</button>
+                                            <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 2rem; height:2rem;">2</button>
+                                            <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">3</button>
+                                          </div>
+                                         <p> ESTADOS DEL SEMESTRES</p>
+                                          1°-REGISTRADO
+                                          2°-ACTIVO
+                                          3°-FINALIZADO
 
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
@@ -109,7 +118,7 @@
                                 </div>
                             </div>
                             <div class="col-xl-4 col-md-6">
-                                <div class="card bg-red text-white mb-4">
+                                <div class="card bg-danger text-white mb-4">
                                     <div class="card-body">EVALUACIONES</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
@@ -128,14 +137,6 @@
                             </div>
                             
                         </div>
-                        <div class="position-relative m-4">
-                            <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 1px;">
-                              <div class="progress-bar" style="width: 100%"></div>
-                            </div>
-                            <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 2rem; height:2rem;">1</button>
-                            <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 2rem; height:2rem;">2</button>
-                            <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 2rem; height:2rem;">3</button>
-                          </div>
                         
                         
                     </div>
