@@ -42,6 +42,10 @@ function editarEvaluacion(idEvaluacion) {
 
             //OPCIONES
             let body = ""
+            //oreno el array
+            evaluacion.criterio[0].opciones.sort((a, b) => {
+                return a.valor - b.valor;
+            });
             for (let i = 0; i < evaluacion.criterio[0].opciones.length; i++) {
                 body += `<tr>
                 <td>${evaluacion.criterio[0].opciones[i].descripcion}</td>
@@ -70,12 +74,12 @@ function editarEvaluacion(idEvaluacion) {
 }
 
 function verCategoriasEvaluacion(id) {
-    document.getElementById("list-example").innerHTML=""
-    document.getElementById("bodyListaCategoria").innerHTML=""
+    document.getElementById("list-example").innerHTML = ""
+    document.getElementById("bodyListaCategoria").innerHTML = ""
     getListaCategoriasEvalucionById(id)
         .then(response => response.json())
         .then(data => {
-          
+
             for (let i = 0; i < data.length; i++) {
 
                 document.getElementById("list-example").innerHTML += `<a class="list-group-item list-group-item-action" href="#list-item-${i}">${data[i].nombre}</a>`
@@ -94,7 +98,7 @@ function verCategoriasEvaluacion(id) {
                 
             `
 
-                 pregun = ""
+                pregun = ""
                 for (let j = 0; j < data[i].preguntas.length; j++) {
                     pregun += `
         <div id="${i}-${j}">
@@ -132,7 +136,7 @@ function verCategoriasEvaluacion(id) {
             ocultarSpinner()
         })
         .finally(final => {
-           
+
 
             ocultarSpinner()
         })

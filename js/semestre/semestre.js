@@ -36,6 +36,18 @@ async function verSemestreEstado(estado) {
   return result
 
 }
+
+async function deleteSemestre(id){
+  let token=localStorage.getItem("token")
+  const result=await fetch(urlBasic+"/semestre/"+id,{
+    method:'DELETE',
+    headers:{
+      "Authorization":"Bearer "+token
+    }
+
+  })
+  return result;
+}
 function compararFechasInicioDescendente(a, b) {
   return new Date(b.fechaInicio) - new Date(a.fechaInicio);
 }
@@ -62,12 +74,16 @@ function compararFechasInicioDescendente(a, b) {
 }
 
 
+
+
 async function mostrarData(data) {
   var counter = 1;
   var t = $('#example').DataTable();
   t.clear().draw();
+ 
 
-  let hay=0
+
+
 
   for (let i = 0; i < data.length; i++) {
     let estado = data[i].estado
@@ -148,11 +164,23 @@ function eliminarSemestre(id) {
     reverseButtons: true
   }).then((result) => {
     if (result.isConfirmed) {
-      swalWithBootstrapButtons.fire(
-        'Eliminar!',
-        'El semestre se elimino.',
-        'success'
-      )
+      deleteSemestre(id)
+      .then(response=>response.json())
+      .then(data=>{
+        swalWithBootstrapButtons.fire(
+          'Eliminado!',
+          'El semestre '+data.nombre+' se elimino',
+          'success'
+        )
+      })
+      .catch(err=>{
+        alert(err)
+      })
+      .finally(final=>{
+        verSemestres()
+
+      })
+      
     }
   })
 
@@ -177,5 +205,61 @@ function ocultarSpinner() {
     </div>
   </div>`
 }
+$(document).ready( function () {
+  $('#tablaRegistrados').DataTable({
+      "language": {
+          "decimal":        "",
+          "emptyTable":     "No hay datos disponibles en la tabla",
+          "info":           "Mostrando _START_ a _END_ de _TOTAL_ registros",
+          "infoEmpty":      "Mostrando 0 a 0 de 0 registros",
+          "infoFiltered":   "(filtrado de _MAX_ registros totales)",
+          "infoPostFix":    "",
+          "thousands":      ",",
+          "lengthMenu":     "Mostrar _MENU_ registros",
+          "loadingRecords": "Cargando...",
+          "processing":     "Procesando...",
+          "search":         "Buscar:",
+          "zeroRecords":    "No se encontraron registros coincidentes",
+          "paginate": {
+              "first":      "Primero",
+              "last":       "Último",
+              "next":       "Siguiente",
+              "previous":   "Anterior"
+          },
+          "aria": {
+              "sortAscending":  ": activar para ordenar de manera ascendente",
+              "sortDescending": ": activar para ordenar de manera descendente"
+          }
+      }
+  });
+})
+$(document).ready( function () {
+  $('#example').DataTable({
+      "language": {
+          "decimal":        "",
+          "emptyTable":     "No hay datos disponibles en la tabla",
+          "info":           "Mostrando _START_ a _END_ de _TOTAL_ registros",
+          "infoEmpty":      "Mostrando 0 a 0 de 0 registros",
+          "infoFiltered":   "(filtrado de _MAX_ registros totales)",
+          "infoPostFix":    "",
+          "thousands":      ",",
+          "lengthMenu":     "Mostrar _MENU_ registros",
+          "loadingRecords": "Cargando...",
+          "processing":     "Procesando...",
+          "search":         "Buscar:",
+          "zeroRecords":    "No se encontraron registros coincidentes",
+          "paginate": {
+              "first":      "Primero",
+              "last":       "Último",
+              "next":       "Siguiente",
+              "previous":   "Anterior"
+          },
+          "aria": {
+              "sortAscending":  ": activar para ordenar de manera ascendente",
+              "sortDescending": ": activar para ordenar de manera descendente"
+          }
+      }
+  });
+})
 
 

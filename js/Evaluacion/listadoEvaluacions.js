@@ -45,13 +45,28 @@ async function getEvaluacionesSemestre(id) {
 
 
 }
+//ELIMINAR EVALUACION POR ID
+async function deleteEvaluacion(id) {
+    let token = localStorage.getItem("token")
+
+    const result = await fetch(urlBasic + "/evaluacion/" + id , {
+        method:'DELETE',
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    })
+
+    return result
+
+
+}
 function compararFechasInicioDescendente(a, b) {
     return new Date(b.fechaInicio) - new Date(a.fechaInicio);
-  }
-  function compararFechasRegistro(a, b) {
+}
+function compararFechasRegistro(a, b) {
     return new Date(b.fechaRegistro) - new Date(a.fechaRegistro);
-  }
-  
+}
+
 
 
 
@@ -63,7 +78,7 @@ function listadoSemestre() {
         .then(response => response.json())
         .then(data => {
             data.sort(compararFechasInicioDescendente)
-            
+
             let body = ""
             let dataSemestre = ""
             var siActual = false
@@ -103,7 +118,7 @@ function listadoSemestre() {
                         `
 
                 }
-                if(!siActual && Number(i)==data.length-1){
+                if (!siActual && Number(i) == data.length - 1) {
                     mostrarEvaluaciones(data[i].id)
                 }
 
@@ -119,7 +134,7 @@ function listadoSemestre() {
             ocultarSpinner()
         })
         .finally(final => {
-          //  ocultarSpinner()
+            //  ocultarSpinner()
         })
 
 
@@ -149,7 +164,7 @@ selectSemestres.addEventListener('change', () => {
             ocultarSpinner()
         })
         .finally(final => {
-           // ocultarSpinner()
+            // ocultarSpinner()
         })
 
 })
@@ -173,7 +188,7 @@ function mostrarEvaluaciones(id) {
              class="input-group-text btn btn-outline-warning" type="button">
             <i class="fa fa-pencil" aria-hidden="true"></i></a>
             <button class="input-group-text btn btn-outline-danger"  
-             type="button" >
+             type="button" onclick="eliminarEvaluacion(${data[i].id})" >
             <i class="fa fa-times" aria-hidden="true"></i></button>
             </div>
             
@@ -184,12 +199,12 @@ function mostrarEvaluaciones(id) {
                     , data[i].titulo
                     , data[i].descripcion
                     , data[i].categoriaId
-                    ,  new Date(data[i].fechaRegistro).toLocaleDateString()
-                    ,acciones
-                    ]).draw(false);
-              
-                  counter++;
-                
+                    , new Date(data[i].fechaRegistro).toLocaleDateString()
+                    , acciones
+                ]).draw(false);
+
+                counter++;
+
             }
         })
         .catch(err => {
@@ -198,6 +213,51 @@ function mostrarEvaluaciones(id) {
         .finally(final => {
             ocultarSpinner()
         })
+}
+
+function eliminarEvaluacion(id){
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+    
+      swalWithBootstrapButtons.fire({
+        title: 'Estas Seguro?',
+        text: "Esta accion elimina la evaluación!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Eliminar!',
+        cancelButtonText: 'Cancelar!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+          deleteEvaluacion(id)
+          .then(response=>response)
+          .then(data=>{
+            console.log(data)
+            swalWithBootstrapButtons.fire(
+              'Eliminado!',
+              'La evaluacion se elimino',
+              'success'
+            )
+          })
+          .catch(err=>{
+            console.log(err)
+          })
+          .finally(final=>{
+           // verSemestres()
+           listadoSemestre()
+    
+          })
+          
+        }
+      })
+    
+  
 }
 
 
@@ -218,4 +278,31 @@ function ocultarSpinner() {
       </div>
     </div>`
 }
-
+$(document).ready(function () {
+    $('#tablaEvaluaciones').DataTable({
+        "language": {
+            "decimal": "",
+            "emptyTable": "No hay datos disponibles en la tabla",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "No se encontraron registros coincidentes",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "aria": {
+                "sortAscending": ": activar para ordenar de manera ascendente",
+                "sortDescending": ": activar para ordenar de manera descendente"
+            }
+        }
+    });
+})
