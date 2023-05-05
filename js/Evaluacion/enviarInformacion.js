@@ -146,7 +146,7 @@ function enviarDataEvaluacion() {
                                                                     .finally(final => {
                                                                         ocultarSpinner()
                                                                         alertInformacion.innerHTML= `<div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                                        <strong>Evaluacion con titutlo: ${newEvaluacion.titulo}</strong> 
+                                                                        <strong>Evaluacion con titulo: ${newEvaluacion.titulo}</strong> 
                                                                         <p>SE CREO CON EXITO !</p>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                                        </div>`
