@@ -1,4 +1,5 @@
-const urlBasic = "https://teacher-test-backend-production-e58a.up.railway.app";
+const urlBasic = "https://teacher2023.herokuapp.com"
+//"https://teacher-test-backend-production-e58a.up.railway.app";
 const btnEvaluacion = document.getElementById("btnEvaluacion")
 const alertEvaluacion = document.getElementById("alertEvaluacion")
 const alertInformacion = document.getElementById("alertE")

@@ -1,8 +1,6 @@
-//http://localhost:8080
-//https://teacher-test-backend-production.up.railway.app
-//teacher-test-backend-production.up.railway.app
-const urlBasic = "https://teacher-test-backend-production-e58a.up.railway.app";
-//"https://teacher-test-backend-production-e58a.up.railway.app"
+
+const urlBasic = "https://teacher2023.herokuapp.com"
+//"https://teacher-test-backend-production-e58a.up.railway.app";
 const login = document.getElementById("login");
 
 function mostrarSpinner() {
