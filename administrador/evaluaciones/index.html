@@ -102,50 +102,26 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4 ">
-                    <h2 class="mt-4 fw-medium  text-uppercase text-center"> CREAR EVALUACION</h2>
-
-
-                    <hr class="">
-                    <div class="row mb-3">
-
+                    
+                    
+                    <!-- Spinner -->
+                    <div id="sppiner">
+                        <div id="spinner-container" class="d-flex justify-content-center align-items-center d-none">
+                            <div class="spinner-border text-danger" role="status">
+                                <span class="sr-only">Cargando...</span>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="row mb-3 mt-3 border  border-3  rounded">
+                        
+                    <h2 class=" fw-medium  text-uppercase text-center"> CREAR EVALUACION</h2>
+                    <hr>
                         <div class="col">
-                            <form class="from">
-                                <!-- Spinner -->
-                                <div id="sppiner">
-                                    <div id="spinner-container"
-                                        class="d-flex justify-content-center align-items-center d-none">
-                                        <div class="spinner-border text-danger" role="status">
-                                            <span class="sr-only">Cargando...</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row text-center  mt-3  fw-medium  text-uppercase" id="datosSemestreActual">
+                            <div class="row text-center  mt-3  fw-medium  text-uppercase" id="datosSemestreActual">
 
-                                </div>
-                                <p class=" mt-3  fw-medium  text-uppercase">1°-Datos de la Evaluación *</p>
-                                <div id="alertEvaluacion"></div>
-                                <div class="form-floating mb-3">
+                            </div>
 
-                                    <select class="form-select" aria-label="Default select example"
-                                        id="selectCategoriaEvaluacion">
-                                        <option selected>Seleccione una categoria de Evaluación</option>
-                                        <option value="1">Autoevaluacion</option>
-                                        <option value="2">HeteroEvaluacion</option>
-                                    </select>
-                                    <label for="inputLastName">Categoria</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input class="form-control" id="inputTitulo" type="text" placeholder="11521542"
-                                        required />
-                                    <label for="inputEmail">Título</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <textarea class="form-control" placeholder="Leave a comment here"
-                                        id="textareaDescripcion"></textarea>
-                                    <label for="floatingTextarea">Descripción</label>
-                                </div>
-
-                            </form>
 
 
 
@@ -153,12 +129,43 @@
 
 
                     </div>
+                    <div class=" row mb-3 border border-3  rounded">
+                        
+
+
+                            <p class=" mt-3  fw-medium  text-uppercase">1°-Datos de la Evaluación *</p>
+                            <hr>
+                            <div id="alertEvaluacion"></div>
+                            <div class="form-floating mb-3">
+
+                                <select class="form-select" aria-label="Default select example"
+                                    id="selectCategoriaEvaluacion">
+                                    <option selected>Seleccione una categoria de Evaluación</option>
+                                    <option value="1">Autoevaluacion</option>
+                                    <option value="2">HeteroEvaluacion</option>
+                                </select>
+                                <label for="inputLastName">Categoria</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="inputTitulo" type="text" placeholder="11521542"
+                                    required />
+                                <label for="inputEmail">Título</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" placeholder="Leave a comment here"
+                                    id="textareaDescripcion"></textarea>
+                                <label for="floatingTextarea">Descripción</label>
+                            </div>
+                            <hr class="p-3">
+
+                    </div>
+
 
                     
-                    <hr>
-                    <div class="row">
-                        
+                    <div class="row mb-3 border border-3  rounded">
+
                         <p class=" mt-3  fw-medium  text-uppercase">2°-Crea los Criterios de evaluación *</p>
+                        <hr>
                         <div id="alertCriterios"></div>
                         <div class="form-floating mb-3">
                             <textarea class="form-control" placeholder="Leave a comment here"
@@ -182,7 +189,8 @@
                                     <label for="inputEmail">Descripcion</label>
                                 </div>
                                 <div class="form-floating text-center">
-                                    <button type="button" class="btn btn-outline-success " id="btnOpcinesRespuesta">Crear
+                                    <button type="button" class="btn btn-outline-success "
+                                        id="btnOpcinesRespuesta">Crear
                                         Criterio</button>
                                 </div>
 
@@ -207,10 +215,12 @@
 
                             </table>
                         </div>
+                        <hr class="mt-3 p-3">
                     </div>
-                    <hr>
-                    <div class="row mb-3 ">
+                    
+                    <div class="row mb-3 border border-3  rounded">
                         <p class=" mt-3  fw-medium  text-uppercase"> 3°-Crea las categorias y preguntas *</p>
+                        <hr>
                         <div id="validCategoria"></div>
 
                         <form class=" ">
@@ -220,8 +230,8 @@
                                 <input type="text" id="inputCategoriaP" class="form-control"
                                     placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
                                     aria-describedby="btnGroupAddon">
-                                <button id="crearCategoria" class="input-group-text btn btn-outline-success" type="button"><i
-                                        class="fa fa-plus" aria-hidden="true"></i></button>
+                                <button id="crearCategoria" class="input-group-text btn btn-outline-success"
+                                    type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
 
                             </div>
 
@@ -242,11 +252,14 @@
                             </div>
                         </div>
 
+                        
+                        <hr class="mb-3 p-3">
                     </div>
+
                     
-                    <hr>
-                    <div class="row">
-                        <p class=" mt-3  fw-medium  text-uppercase">4°-Configurar Evaluación</p>
+                    <div class="row mb-3 border border-3  rounded">
+                        <p class="  fw-medium  text-uppercase">4°-Configurar Evaluación</p>
+                        <hr>
                         <div id="alertE"></div>
                         <div class="row" id="nombreAdmin">
 
@@ -254,8 +267,9 @@
                         <div class="form-floating text-center" id="accionesEvaluacion">
                             <button type="button" class="btn btn-outline-success " id="btnEvaluacion">
                                 Crear Evaluación</button>
-                                
+
                         </div>
+                        <hr class="mt-3 p-3">
 
                     </div>
 
