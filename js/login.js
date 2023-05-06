@@ -46,6 +46,19 @@ login.addEventListener("click", () => {
 });
 
 function verificoIngresoDatos(codigo, documento, password) {
+  
+  if(codigo.charAt(0)=="0" || documento.charAt(0)=="0"){
+    
+    body = `<div class="alert alert-danger" role="alert">
+        El codigo o documento incorrecto
+      </div>`;
+        document.getElementById("alert").innerHTML = body;
+        ocultarSpinner()
+        setTimeout(() => {
+          document.getElementById("alert").innerHTML = "";
+        }, 5000);
+    
+  }else
 
   if (Number(codigo.length) == 0 || Number(documento.length) == 0 || password == "") {
     body = `<div class="alert alert-danger" role="alert">
@@ -58,7 +71,7 @@ function verificoIngresoDatos(codigo, documento, password) {
     }, 5000);
 
   } else {
-    verificoCodigoDocumento(codigo, documento)
+   verificoCodigoDocumento(codigo, documento)
   }
 }
 
@@ -68,6 +81,7 @@ async function verificoCodigoDocumento(codigo, documento) {
     codigo,
     documento
   }
+  
   await fetch(urlBasic + "/usuario/security/user", {
     method: 'POST',
     body: JSON.stringify(data),

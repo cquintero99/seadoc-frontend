@@ -84,39 +84,20 @@ function listadoSemestre() {
             let dataSemestre = ""
             var siActual = false
             for (let i = 0; i < data.length; i++) {
-                let fechaInicio = new Date(data[i].fechaInicio).toLocaleDateString()
-                let fechaFin = new Date(data[i].fechaFin).toLocaleDateString()
                 let actual = ""
 
                 if (data[i].estado == "ACTUAL") {
                     siActual = true
                     actual = "selected"
-                    dataSemestre = ` <div class="col-xl-4">
-                            ESTADO: ${data[i].estado}
-                        </div>
-                        <div class="col-xl-4">
-                            VISIBILIDAD: ${data[i].visibilidad}
-                        </div>
-                        <div class="col-xl-4">
-                        ${fechaInicio} - ${fechaFin}
-                    </div>
-                        
-                        `
+                    
+                        document.getElementById("fechaSemestre").innerHTML=`<p > ESTADO: ${data[i].estado}</p>`
                     mostrarEvaluaciones(data[i].id)
                 }
                 if (!siActual) {
                     actual = "selected"
-                    dataSemestre = ` <div class="col-xl-4">
-                            ESTADO: ${data[i].estado}
-                        </div>
-                        <div class="col-xl-4">
-                            VISIBILIDAD: ${data[i].visibilidad}
-                        </div>
-                        <div class="col-xl-4">
-                        ${fechaInicio} - ${fechaFin}
-                    </div>
-                        
-                        `
+                   
+                        document.getElementById("fechaSemestre").innerHTML=`<p > ESTADO: ${data[i].estado}</p>`
+                   
 
                 }
                 if (!siActual && Number(i) == data.length - 1) {
@@ -146,19 +127,10 @@ selectSemestres.addEventListener('change', () => {
     getSemestreId(idSemestre)
         .then(response => response.json())
         .then(data => {
-            let fechaInicio = new Date(data.fechaInicio).toLocaleDateString()
-            let fechaFin = new Date(data.fechaFin).toLocaleDateString()
-            dataSemestreActual.innerHTML = ` <div class="col-xl-4">
-                                                        ESTADO: ${data.estado}
-                                                    </div>
-                                                    <div class="col-xl-4">
-                                                        VISIBILIDAD: ${data.visibilidad}
-                                                    </div>
-                                                    <div class="col-xl-4">
-                                                    ${fechaInicio} - ${fechaFin}
-                                                </div>
-                                                    
-                                                    `
+           
+          
+         document.getElementById("fechaSemestre").innerHTML=`<p > ESTADO: ${data.estado}</p>`
+                   
             mostrarEvaluaciones(data.id)
         })
         .catch(err => {

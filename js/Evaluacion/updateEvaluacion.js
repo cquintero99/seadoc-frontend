@@ -19,10 +19,35 @@ async function getListaCategoriasEvalucionById(id) {
     })
     return result
 }
+//ACTULIZAR INFORMACION DE LA EVALUACION
+async function updateInfoEvalucionById(evaluacion) {
+    let token = localStorage.getItem("token")
+    const result = await fetch(urlBasic + "/evaluacion/" + evaluacion.id + "/update", {
+        method: 'PUT',
+        body: JSON.stringify(evaluacion),
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-type": "application/json"
+        }
+    })
+    return result
+}
+//ACTUALIZAR CRITERIO GENERAL DESCRICIPCION
+async function updateCriterioById(criterio) {
+    let token = localStorage.getItem("token")
+    const result = await fetch(urlBasic + "/criterio/" + criterio.id + "/update", {
+        method: 'PUT',
+        body: JSON.stringify(criterio),
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-type": "application/json"
+        }
+    })
+    return result
+}
 
 
-
-
+//MUESTRA LA INFORMACION DE LA EVALUACION EN EL MODAL
 function editarEvaluacion(idEvaluacion) {
     mostrarSpinner()
     getEvalucionById(idEvaluacion)
@@ -31,6 +56,7 @@ function editarEvaluacion(idEvaluacion) {
             //Busco la categoria de la evaluacion
 
             //PARTE 1 EVALUACION
+            sessionStorage.setItem("evaluacionId", evaluacion.id)
             const selectCategoria = document.getElementById("selectCategoriaEvaluacion")
             document.getElementById("inputTitulo").value = evaluacion.titulo
             document.getElementById("textareaDescripcion").value = evaluacion.descripcion
@@ -38,6 +64,7 @@ function editarEvaluacion(idEvaluacion) {
 
             //PARTE 2 
             //DESCRIPCION DE LOS CRITERIOS
+            sessionStorage.setItem("criterioId", evaluacion.criterio[0].id)
             document.getElementById("textareaDescripcionCriterio").value = evaluacion.criterio[0].descripcion
 
             //OPCIONES
@@ -72,7 +99,7 @@ function editarEvaluacion(idEvaluacion) {
         })
 
 }
-
+//MUESTRA LAS CATEGORIAS DE LA EVALUACION EN EL MODAL
 function verCategoriasEvaluacion(id) {
     document.getElementById("list-example").innerHTML = ""
     document.getElementById("bodyListaCategoria").innerHTML = ""
@@ -141,4 +168,123 @@ function verCategoriasEvaluacion(id) {
             ocultarSpinner()
         })
 
+}
+
+//ACTUALIZAR INFORMACION DE LA EVALUACION TITULO CATEGORIA DESCRIPCION
+
+
+//Boton Actualizar
+const selectCategoriaEvaluacion = document.getElementById("selectCategoriaEvaluacion")
+const inputTitulo = document.getElementById("inputTitulo")
+const textareaDescripcion = document.getElementById("textareaDescripcion")
+function actuInfoEvaluacion() {
+    selectCategoriaEvaluacion.disabled = false
+    inputTitulo.disabled = false
+    textareaDescripcion.disabled = false
+    document.getElementById("btnInfoE").innerHTML = `<button onclick="confirmarInfoEvaluacion()" class="input-group-text btn btn-outline-success" type="button">
+    <i class="fa fa-check" aria-hidden="true"></i></button>`
+
+}
+
+//CONFIRMO LA INFORMACION **FALTA HACER VERICACIONES
+const alertEvaluacion = document.getElementById("alerEvaluacion")
+function confirmarInfoEvaluacion() {
+    mostrarSpinner()
+
+    let id = sessionStorage.getItem("evaluacionId")
+
+    const newEvaluacion = {
+        id,
+        categoriaId: selectCategoriaEvaluacion.value,
+        titulo: inputTitulo.value,
+        descripcion: textareaDescripcion.value
+
+    }
+    if (newEvaluacion.titulo == "" || newEvaluacion.descripcion == "" || newEvaluacion.categoriaId.length > 10) {
+        alertEvaluacion.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>La informacion esta incompleta  </strong> precione " ctrl Z " para recuperar la informacion
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+      </div>`
+        ocultarSpinner()
+    } else {
+        let estadoOriginal = inputTitulo.disabled
+        selectCategoriaEvaluacion.disabled = true
+        inputTitulo.disabled = true
+        textareaDescripcion.disabled = true
+
+
+        updateInfoEvalucionById(newEvaluacion)
+            .then(response => response.json())
+            .then(data => {
+
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            .finally(fina => {
+                document.getElementById("btnInfoE").innerHTML = `<button onclick="actuInfoEvaluacion()"  class="input-group-text btn btn-outline-warning" type="button">
+    <i class="fa fa-pencil" aria-hidden="true"></i></button>`
+                alertEvaluacion.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>La informacion se actualizo </strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+      </div>`
+                ocultarSpinner()
+            })
+
+
+    }
+
+
+
+}
+
+
+//ACTUALIZAR CRITERIOS EVALUACION DESCRIPCION GENERAL 
+const textareaDescripcionCriterio = document.getElementById("textareaDescripcionCriterio")
+function actualizarCiterioEvaluacion() {
+    textareaDescripcionCriterio.disabled = false
+    if (textareaDescripcionCriterio.value.length > 1) {
+
+
+        document.getElementById("btnCriterioInfo").innerHTML = `<button onclick="confirmarInfoCriterio()" class="input-group-text btn btn-outline-success" type="button">
+    <i class="fa fa-check" aria-hidden="true"></i></button>`
+    }
+
+}
+
+
+function confirmarInfoCriterio() {
+    mostrarSpinner
+    textareaDescripcionCriterio.disabled = true
+    let id = sessionStorage.getItem("criterioId")
+    const newCriterio = {
+        id,
+        descripcion: textareaDescripcionCriterio.value
+    }
+    console.log(newCriterio)
+    updateCriterioById(newCriterio)
+        .then(response => response)
+        .then(data => {
+
+        })
+        .catch(err => {
+            alert(err)
+        })
+        .finally(final => {
+            ocultarSpinner()
+
+        })
+    document.getElementById("btnCriterioInfo").innerHTML = ` <button onclick="actualizarCiterioEvaluacion()" class="input-group-text btn btn-outline-warning" type="button">
+    <i class="fa fa-pencil" aria-hidden="true"></i></button>`
+
+}
+
+//SALIR MODAL ACTUALIZO LA LISTA Y LIMPIO LA SESION
+
+function salirModalE() {
+    listadoSemestre()
+    alertEvaluacion.innerHTML = ""
+    sessionStorage.clear()
 }
