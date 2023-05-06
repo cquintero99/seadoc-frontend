@@ -145,8 +145,13 @@ function verCategoriasEvaluacion(id) {
 
             for (let i = 0; i < data.length; i++) {
 
-                document.getElementById("list-example").innerHTML += `<a class="list-group-item list-group-item-action" href="#list-item-${i}">${data[i].nombre}</a>`
-                document.getElementById("bodyListaCategoria").innerHTML += `<h4 id="list-item-${i}"  class="text-center fw-medium">  ${i + 1}° - ${data[i].nombre}   </h4>
+                document.getElementById("list-example").innerHTML += `<a class="list-group-item 
+                list-group-item-action" href="#list-item-${i}">${data[i].nombre}</a>`
+
+                document.getElementById("bodyListaCategoria").innerHTML += `<div class="mt-3 rounded border  border-3">
+                <h4 id="list-item-${i}" 
+                 class="mt-3  fw-medium  text-uppercase text-center">  ${i + 1}° - ${data[i].nombre}   </h4>
+
                 <div class="input-group mb-3">
                 
                 <input type="text" class="form-control" id="crearPreguntaCategoria${i}" placeholder="Crear pregunta para la categoria ${data[i].nombre}" aria-label="Input group example" aria-describedby="btnGroupAddon">
@@ -156,15 +161,15 @@ function verCategoriasEvaluacion(id) {
             </br>
             
            
-            <div  class="list-group list-group-numbered list-group-flush" id="preguntaC${i}">
+            <div  class=" list-group list-group-numbered list-group-flush" id="preguntaC${i}">
             <div>
-                
+             </div>   
             `
 
                 pregun = ""
                 for (let j = 0; j < data[i].preguntas.length; j++) {
                     pregun += `
-        <div id="${i}-${j}">
+        <div class="list-group-item  mb-3 d-sm-flex" id="${i}-${j}">
         <div class="input-group " >
                 <input type="text" id="input${i}-${j}" class="form-control" value="${data[i].preguntas[j].descripcion}"
                 placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
@@ -506,37 +511,38 @@ function addNewOpcion() {
     const criterios = sessionStorage.getItem("criteriosEvaluacion")
     //   Busco el criterioId
     let criterioId = sessionStorage.getItem("criterioId")
-    if(criterios.length<5){
-    //Si son validos 
-    if (valor != "" && descripcion != "") {
-        
-        //Creo el objeto
-        const newOpcion = {
-            criterioId,
-            valor,
-            comentario: "",
-            descripcion
-        }
-        saveOpcion(newOpcion)
-            .then(response => response.json())
-            .then(data => {
-                //Si hay criterios guardados en la session los agrego al array
-                let array = []
-                if (criterios != null) {
-                    array = array.concat(JSON.parse(criterios))
-                }
-                //Agrego el Criterio nuevo
-                array.push(data)
-                //oreno el array
-                array.sort((a, b) => {
-                    return a.valor - b.valor;
-                });
-                //Agrego los datos a la vista
-                let body = ""
-                for (let i = 0; i < array.length; i++) {
-                    console.log(array)
-                    let opcionId = array[i].id
-                    body += `<tr class="text-center" id="opcionC${opcionId}">
+
+    if (JSON.parse(criterios).length < 5) {
+        //Si son validos 
+        if (valor != "" && descripcion != "") {
+
+            //Creo el objeto
+            const newOpcion = {
+                criterioId,
+                valor,
+                comentario: "",
+                descripcion
+            }
+            saveOpcion(newOpcion)
+                .then(response => response.json())
+                .then(data => {
+                    //Si hay criterios guardados en la session los agrego al array
+                    let array = []
+                    if (criterios != null) {
+                        array = array.concat(JSON.parse(criterios))
+                    }
+                    //Agrego el Criterio nuevo
+                    array.push(data)
+                    //oreno el array
+                    array.sort((a, b) => {
+                        return a.valor - b.valor;
+                    });
+                    //Agrego los datos a la vista
+                    let body = ""
+                    for (let i = 0; i < array.length; i++) {
+                        console.log(array)
+                        let opcionId = array[i].id
+                        body += `<tr class="text-center" id="opcionC${opcionId}">
             <td>
                 <input id="descripcion${opcionId}" size="5" 
                 style="border: none; outline: none;  padding: 10px; " class=" text-center from-control " disabled type="text" value="${array[i].descripcion}">
@@ -554,31 +560,31 @@ function addNewOpcion() {
             </tr>`
 
 
-                }
-                document.getElementById("opcinesRespuesta").innerHTML = body
+                    }
+                    document.getElementById("opcinesRespuesta").innerHTML = body
 
-                //Limpio los campos
-                document.getElementById("inputValorP").value = ""
-                document.getElementById("inputDescripcionP").value = ""
-                //Guardo en la Session
-                sessionStorage.setItem("criteriosEvaluacion", JSON.stringify(array))
+                    //Limpio los campos
+                    document.getElementById("inputValorP").value = ""
+                    document.getElementById("inputDescripcionP").value = ""
+                    //Guardo en la Session
+                    sessionStorage.setItem("criteriosEvaluacion", JSON.stringify(array))
 
-            })
-            .catch(err => {
-                console.log(err)
-            })
-            .finally(final => {
-                ocultarSpinner()
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+                .finally(final => {
+                    ocultarSpinner()
 
-            })
+                })
 
-    }
-}else{
-    ocultarSpinner()
-    alertCriterios.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        }
+    } else {
+        ocultarSpinner()
+        alertCriterios.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>Maximo 5 criterios </strong> 
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`
-}
+    }
 }
 
 
