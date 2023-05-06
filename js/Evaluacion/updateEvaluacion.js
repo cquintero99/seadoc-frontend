@@ -45,6 +45,31 @@ async function updateCriterioById(criterio) {
     })
     return result
 }
+//ACTUALIZAR  OPCION DEL CRITERIO
+async function updateOpcionById(opcion) {
+    let token = localStorage.getItem("token")
+    const result = await fetch(urlBasic + "/opcion/" + opcion.id + "/update", {
+        method: 'PUT',
+        body: JSON.stringify(opcion),
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-type": "application/json"
+        }
+    })
+    return result
+}
+//ELIMINAR OPCION DEL CRITERIO
+async function deleteOpcionById(id) {
+    let token = localStorage.getItem("token")
+    const result = await fetch(urlBasic + "/opcion/" + id, {
+        method: 'DELETE',
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-type": "application/json"
+        }
+    })
+    return result
+}
 
 
 //MUESTRA LA INFORMACION DE LA EVALUACION EN EL MODAL
@@ -56,6 +81,7 @@ function editarEvaluacion(idEvaluacion) {
             //Busco la categoria de la evaluacion
 
             //PARTE 1 EVALUACION
+            //Guardo el id de la evaluacion en la sesion
             sessionStorage.setItem("evaluacionId", evaluacion.id)
             const selectCategoria = document.getElementById("selectCategoriaEvaluacion")
             document.getElementById("inputTitulo").value = evaluacion.titulo
@@ -73,15 +99,25 @@ function editarEvaluacion(idEvaluacion) {
             evaluacion.criterio[0].opciones.sort((a, b) => {
                 return a.valor - b.valor;
             });
+            //Guardo las Opciones criterios en la session
+            sessionStorage.setItem("criteriosEvaluacion", JSON.stringify(evaluacion.criterio[0].opciones))
             for (let i = 0; i < evaluacion.criterio[0].opciones.length; i++) {
-                body += `<tr>
-                <td>${evaluacion.criterio[0].opciones[i].descripcion}</td>
-                <td>${evaluacion.criterio[0].opciones[i].valor}</td>
+                let idCriterio = evaluacion.criterio[0].opciones[i].id
+                body += `<tr class="text-center" id="opcionC${idCriterio}">
                 <td>
-                <button class="input-group-text btn btn-outline-warning" type="button">
-                    <i class="fa fa-pencil" aria-hidden="true"></i></button>
-                <button  class="input-group-text btn btn-outline-danger" type="button">
-                <i class="fa fa-times" aria-hidden="true"></i></button></td>
+                    <input id="descripcion${idCriterio}" size="5" 
+                    style="border: none; outline: none;  padding: 10px; " class=" text-center from-control " disabled type="text" value="${evaluacion.criterio[0].opciones[i].descripcion}">
+                    </td>
+                <td>
+                    <input id="valor${idCriterio}" size="2"
+                    style="border: none; outline: none;  padding: 10px;" class="text-center from-control" disabled  type="text" value="${evaluacion.criterio[0].opciones[i].valor}"> 
+                </td>
+                <td id="btnCriterios${idCriterio}">
+                    <button  onclick="actualizarOpcion(${idCriterio})" class="input-group-text btn btn-outline-warning" type="button">
+                        <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                    <button onclick="eliminarOpcion(${idCriterio})"  class="input-group-text btn btn-outline-danger" type="button">
+                    <i class="fa fa-times" aria-hidden="true"></i></button>
+                </td>
                 </tr>`
 
             }
@@ -170,7 +206,9 @@ function verCategoriasEvaluacion(id) {
 
 }
 
-//ACTUALIZAR INFORMACION DE LA EVALUACION TITULO CATEGORIA DESCRIPCION
+
+
+//***ACTUALIZAR INFORMACION DE LA EVALUACION TITULO CATEGORIA DESCRIPCION
 
 
 //Boton Actualizar
@@ -241,7 +279,7 @@ function confirmarInfoEvaluacion() {
 }
 
 
-//ACTUALIZAR CRITERIOS EVALUACION DESCRIPCION GENERAL 
+//***ACTUALIZAR CRITERIOS EVALUACION DESCRIPCION GENERAL 
 const textareaDescripcionCriterio = document.getElementById("textareaDescripcionCriterio")
 const alertCriterios = document.getElementById("alertCriterios")
 function actualizarCiterioEvaluacion() {
@@ -254,10 +292,10 @@ function actualizarCiterioEvaluacion() {
 
 }
 
-
+//Confirmo la nueva descripcion del criterio
 function confirmarInfoCriterio() {
-    // mostrarSpinner
-   
+    mostrarSpinner()
+
     let id = sessionStorage.getItem("criterioId")
     const newCriterio = {
         id,
@@ -279,6 +317,7 @@ function confirmarInfoCriterio() {
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     
           </div>`
+                //Boton editar Criterio
                 document.getElementById("btnCriterioInfo").innerHTML = ` <button onclick="actualizarCiterioEvaluacion()" class="input-group-text btn btn-outline-warning" type="button">
           <i class="fa fa-pencil" aria-hidden="true"></i></button>`
 
@@ -298,13 +337,266 @@ function confirmarInfoCriterio() {
 
 
 }
+//ACTUALIZAR OPCION DE  UN CRITERIO
+
+function actualizarOpcion(id) {
+
+    const descripcion = document.getElementById("descripcion" + id)
+    const valor = document.getElementById("valor" + id)
+    descripcion.disabled = false
+    valor.disabled = false
+
+    const btnCriterios = document.getElementById("btnCriterios" + id)
+    btnCriterios.innerHTML = `<button  onclick="confirmarOpcion(${id})" class="input-group-text btn btn-outline-success" type="button">
+            <i class="fa fa-check" aria-hidden="true"></i></button>
+        <button onclick="eliminarOpcion(${id})"  class="input-group-text btn btn-outline-danger" type="button">
+        <i class="fa fa-times" aria-hidden="true"></i></button>`
+}
+
+//CONFIRMAR CAMBIO DE LA OPCION
+function confirmarOpcion(id) {
+    mostrarSpinner()
+    const descripcion = document.getElementById("descripcion" + id)
+    const valor = document.getElementById("valor" + id)
+    let criterioId = sessionStorage.getItem("criterioId")
+    const newOpcion = {
+        id,
+        descripcion: descripcion.value,
+        valor: valor.value,
+        comentario: "",
+        criterioId
+
+    }
+
+    if (newOpcion.descripcion == "" || newOpcion.valor == "") {
+        alertCriterios.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>El Nombre , Valor esta incompleto </strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+      </div>`
+
+    } else {
+        updateOpcionById(newOpcion)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                descripcion.disabled = true
+                valor.disabled = true
+                const btnCriterios = document.getElementById("btnCriterios" + id)
+                btnCriterios.innerHTML = `<button  onclick="actualizarOpcion(${id})" class="input-group-text btn btn-outline-warning" type="button">
+    <i class="fa fa-pencil" aria-hidden="true"></i></button>
+    <button onclick="eliminarOpcion(${id})"  class="input-group-text btn btn-outline-danger" type="button">
+    <i class="fa fa-times" aria-hidden="true"></i></button>`
+                alertCriterios.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>La Opcion se actualizo</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+  </div>`
+
+            })
+            .catch(err => {
+                alert(err)
+
+            })
+            .finally(final => {
+                ocultarSpinner()
+            })
+
+    }
+
+
+}
+
+//ELIMINAR OPCION CRITERIOS
+function eliminarOpcion(id) {
+    //Obtengo los criterios
+    const arrayCriterios = sessionStorage.getItem("criteriosEvaluacion")
+    //Creo un nuevo array
+    let array = []
+    //Le agrego los criterios
+    array = array.concat(JSON.parse(arrayCriterios))
+
+    if (array.length <= 3) {
+        alertCriterios.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Minimo 3 criterios </strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+      </div>`
+    } else {
+
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Estas seguro?',
+            text: "Quires eliminar la opcion!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar!',
+            cancelButtonText: 'Cancelar!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                mostrarSpinner()
+                deleteOpcionById(id)
+                    .then(response => response)
+                    .then(data => {
+                        if (data.status == "200") {
+
+                            //Busco El criterio que voy a eliminar
+                            const index = array.findIndex(element => element.id === Number(id));
+                            //Si encuentra el Criterio
+                            if (index !== -1) {
+                                //elimino el criterio del array
+                                array.splice(index, 1);
+                            }
+                            //Ordeno el array por el valor 
+
+                            //Agrego en la session
+                            sessionStorage.setItem("criteriosEvaluacion", JSON.stringify(array))
+                            const opcionC = document.getElementById("opcionC" + id)
+                            opcionC.remove()
+                            swalWithBootstrapButtons.fire(
+                                'Eliminado!',
+                                'La opcion de elimino.',
+                                'success'
+                            )
+
+                        }
+
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                    .finally(final => {
+                        ocultarSpinner()
+                    })
+
+            }
+        })
+    }
+}
+//SAVE OPCION
+async function saveOpcion(opcion) {
+    let token = localStorage.getItem("token")
+
+    const result = await fetch(urlBasic + "/opcion/save", {
+        method: 'POST',
+        body: JSON.stringify(opcion),
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-type": "application/json"
+        }
+    })
+    return result
+}
+//CREAR CRITERIO NUEVO 
+function addNewOpcion() {
+    mostrarSpinner()
+    //Obtengo los datos
+    let valor = document.getElementById("inputValorP").value
+    let descripcion = document.getElementById("inputDescripcionP").value
+    //Busco los datos en la session
+    const criterios = sessionStorage.getItem("criteriosEvaluacion")
+    //   Busco el criterioId
+    let criterioId = sessionStorage.getItem("criterioId")
+    if(criterios.length<5){
+    //Si son validos 
+    if (valor != "" && descripcion != "") {
+        
+        //Creo el objeto
+        const newOpcion = {
+            criterioId,
+            valor,
+            comentario: "",
+            descripcion
+        }
+        saveOpcion(newOpcion)
+            .then(response => response.json())
+            .then(data => {
+                //Si hay criterios guardados en la session los agrego al array
+                let array = []
+                if (criterios != null) {
+                    array = array.concat(JSON.parse(criterios))
+                }
+                //Agrego el Criterio nuevo
+                array.push(data)
+                //oreno el array
+                array.sort((a, b) => {
+                    return a.valor - b.valor;
+                });
+                //Agrego los datos a la vista
+                let body = ""
+                for (let i = 0; i < array.length; i++) {
+                    console.log(array)
+                    let opcionId = array[i].id
+                    body += `<tr class="text-center" id="opcionC${opcionId}">
+            <td>
+                <input id="descripcion${opcionId}" size="5" 
+                style="border: none; outline: none;  padding: 10px; " class=" text-center from-control " disabled type="text" value="${array[i].descripcion}">
+                </td>
+            <td>
+                <input id="valor${opcionId}" size="2"
+                style="border: none; outline: none;  padding: 10px;" class="text-center from-control" disabled  type="text" value="${array[i].valor}"> 
+            </td>
+            <td id="btnCriterios${opcionId}">
+                <button  onclick="actualizarOpcion(${opcionId})" class="input-group-text btn btn-outline-warning" type="button">
+                    <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                <button onclick="eliminarOpcion(${opcionId})"  class="input-group-text btn btn-outline-danger" type="button">
+                <i class="fa fa-times" aria-hidden="true"></i></button>
+            </td>
+            </tr>`
+
+
+                }
+                document.getElementById("opcinesRespuesta").innerHTML = body
+
+                //Limpio los campos
+                document.getElementById("inputValorP").value = ""
+                document.getElementById("inputDescripcionP").value = ""
+                //Guardo en la Session
+                sessionStorage.setItem("criteriosEvaluacion", JSON.stringify(array))
+
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            .finally(final => {
+                ocultarSpinner()
+
+            })
+
+    }
+}else{
+    ocultarSpinner()
+    alertCriterios.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Maximo 5 criterios </strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`
+}
+}
+
 
 //SALIR MODAL ACTUALIZO LA LISTA Y LIMPIO LA SESION
 
 function salirModalE() {
     listadoSemestre()
+    alertCriterios.innerHTML = ""
+    document.getElementById("btnCriterioInfo").innerHTML = `<button onclick="actualizarCiterioEvaluacion()"
+    class="input-group-text btn btn-outline-warning" type="button">
+    <i class="fa fa-pencil" aria-hidden="true"></i></button>`
+    textareaDescripcionCriterio.disabled = true
+
     alertEvaluacion.innerHTML = ""
     document.getElementById("btnInfoE").innerHTML = `<button onclick="actuInfoEvaluacion()"  class="input-group-text btn btn-outline-warning" type="button">
     <i class="fa fa-pencil" aria-hidden="true"></i></button>`
+    selectCategoriaEvaluacion.disabled = true
+    inputTitulo.disabled = true
+    textareaDescripcion.disabled = true
     sessionStorage.clear()
 }

@@ -5,7 +5,7 @@ const login = document.getElementById("login");
 
 function mostrarSpinner() {
   document.getElementById("spinner-container").style.display = "flex";
-  document.getElementById("sppiner").innerHTML=`<div id="spinner-container" class="d-flex justify-content-center align-items-center ">
+  document.getElementById("sppiner").innerHTML = `<div id="spinner-container" class="d-flex justify-content-center align-items-center ">
     <div class="spinner-border text-danger" role="status">
       <span class="sr-only">Cargando...</span>
     </div>
@@ -14,7 +14,7 @@ function mostrarSpinner() {
 
 function ocultarSpinner() {
   document.getElementById("spinner-container").style.display = "none";
-  document.getElementById("sppiner").innerHTML=`<div id="spinner-container" class="d-flex justify-content-center align-items-center d-none">
+  document.getElementById("sppiner").innerHTML = `<div id="spinner-container" class="d-flex justify-content-center align-items-center d-none">
     <div class="spinner-border text-danger" role="status">
       <span class="sr-only">Cargando...</span>
     </div>
@@ -46,33 +46,33 @@ login.addEventListener("click", () => {
 });
 
 function verificoIngresoDatos(codigo, documento, password) {
-  
-  if(codigo.charAt(0)=="0" || documento.charAt(0)=="0"){
-    
+
+  if (codigo.charAt(0) == "0" || documento.charAt(0) == "0") {
+
     body = `<div class="alert alert-danger" role="alert">
         El codigo o documento incorrecto
       </div>`;
-        document.getElementById("alert").innerHTML = body;
-        ocultarSpinner()
-        setTimeout(() => {
-          document.getElementById("alert").innerHTML = "";
-        }, 5000);
-    
-  }else
-
-  if (Number(codigo.length) == 0 || Number(documento.length) == 0 || password == "") {
-    body = `<div class="alert alert-danger" role="alert">
-            la informacion esta incompleta
-          </div>`;
     document.getElementById("alert").innerHTML = body;
     ocultarSpinner()
     setTimeout(() => {
       document.getElementById("alert").innerHTML = "";
     }, 5000);
 
-  } else {
-   verificoCodigoDocumento(codigo, documento)
-  }
+  } else
+
+    if (Number(codigo.length) == 0 || Number(documento.length) == 0 || password == "") {
+      body = `<div class="alert alert-danger" role="alert">
+            la informacion esta incompleta
+          </div>`;
+      document.getElementById("alert").innerHTML = body;
+      ocultarSpinner()
+      setTimeout(() => {
+        document.getElementById("alert").innerHTML = "";
+      }, 5000);
+
+    } else {
+      verificoCodigoDocumento(codigo, documento)
+    }
 }
 
 async function verificoCodigoDocumento(codigo, documento) {
@@ -81,7 +81,7 @@ async function verificoCodigoDocumento(codigo, documento) {
     codigo,
     documento
   }
-  
+
   await fetch(urlBasic + "/usuario/security/user", {
     method: 'POST',
     body: JSON.stringify(data),
@@ -95,7 +95,7 @@ async function verificoCodigoDocumento(codigo, documento) {
     .then(res => res.json())
     .then(data => {
       if (data === true) {
-         inciarSesion()
+        inciarSesion()
 
       } else {
         body = `<div class="alert alert-danger" role="alert">
@@ -155,7 +155,7 @@ async function inciarSesion() {
 
         cargarModuloRol()
 
-      }else{
+      } else {
         ocultarSpinner()
         body = `<div class="alert alert-danger" role="alert">
          Contraseña  incorrecta
@@ -180,18 +180,18 @@ async function inciarSesion() {
     })
 
 }
-function cargarModuloRol(){
+function cargarModuloRol() {
 
-  const roles=JSON.parse(localStorage.getItem("data")).roles
-  const admin=false
+  const roles = JSON.parse(localStorage.getItem("data")).roles
+  const admin = false
   for (let i = 0; i < roles.length; i++) {
-    if(roles[i].nombre=="ROLE_ADMIN"){
+    if (roles[i].nombre == "ROLE_ADMIN") {
       window.location.href = "./administrador/index.html";
-      admin=true
+      admin = true
 
-    }else if(roles[i].nombre=="ROLE_TEACHER" && admin===false){
-        window.location.href = "./docente/index.html";
-      }
+    } else if (roles[i].nombre == "ROLE_TEACHER" && admin === false) {
+      window.location.href = "./docente/index.html";
+    }
 
 
 
