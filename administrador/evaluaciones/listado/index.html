@@ -182,22 +182,30 @@
                     <div class="modal-content">
                         <div class="modal-header text-center">
                             <h1 class=" fs-5 text-center" id="staticBackdropLabel">EDITAR EVALUACION</h1>
-                            <button onclick="salirModalE()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button onclick="salirModalE()" type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="row mb-3  border ">
-                                <div class="col-xl-6">
-                                    <p class=" mt-3  fw-medium  text-uppercase">1°-Datos de la Evaluacion *</p>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="btnInfoE">
-                                        <button onclick="actuInfoEvaluacion()"  class="input-group-text btn btn-outline-warning" type="button">
-                                            <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                            <div class=" ">
+                                <div class="row mb-3   ">
+                                    <div class="col-xl-6">
+                                        <p class=" mt-3  fw-medium  text-uppercase">1°-Datos de la Evaluacion *</p>
                                     </div>
-                                </div>
-                                <div class="col-xl-12" id="alerEvaluacion"></div>
+                                    <div class="col-xl-6">
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="btnInfoE">
+                                            <button onclick="actuInfoEvaluacion()"
+                                                class="input-group-text btn btn-outline-warning" type="button">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12 mt-3" id="alerEvaluacion"></div>
 
-                                <div class="row p-3">
+
+
+
+
+                                </div>
+                                <div class="row mt-3">
                                     <div class="col-xl-2">
                                         <p class="text-center" for="inputLastName">CATEGORIA</p>
 
@@ -212,7 +220,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row p-3">
+                                <div class="row mt-3">
                                     <div class="col-xl-2">
                                         <p class="text-center">TITULO</p>
 
@@ -220,10 +228,10 @@
                                     </div>
                                     <div class="col-xl-10">
                                         <input type="text" id="inputTitulo" class="form-control"
-                                            aria-describedby="btnGroupAddon" disabled  >
+                                            aria-describedby="btnGroupAddon" disabled>
                                     </div>
                                 </div>
-                                <div class="row p-3">
+                                <div class="row mt-3">
                                     <div class="col-xl-2">
                                         <p class="text-center">DESCRICION</p>
                                     </div>
@@ -232,16 +240,16 @@
 
                                     </div>
                                 </div>
-
-
                             </div>
+                            <hr>
                             <div class="row mb-3 border">
                                 <div class="col-xl-6">
                                     <p class=" mt-3  fw-medium  text-uppercase">2°-Crea los Criteros de evaluacion *</p>
                                 </div>
                                 <div class="col-xl-6">
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="btnCriterioInfo">
-                                        <button onclick="actualizarCiterioEvaluacion()" class="input-group-text btn btn-outline-warning" type="button">
+                                        <button onclick="actualizarCiterioEvaluacion()"
+                                            class="input-group-text btn btn-outline-warning" type="button">
                                             <i class="fa fa-pencil" aria-hidden="true"></i></button>
                                     </div>
 
@@ -262,10 +270,10 @@
                                 </div>
                                 <div class="row p-3">
                                     <div class="col-xl-4 ">
-    
-    
+
+
                                         <form>
-    
+
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="inputValorP" type="number"
                                                     placeholder="1" />
@@ -274,8 +282,8 @@
                                             <div class="form-floating mb-3 text-center">
                                                 <textarea class="form-control" placeholder="Leave a comment here"
                                                     id="inputDescripcionP" type="descripcion"></textarea>
-    
-    
+
+
                                                 <label for="inputEmail">Nombre</label>
                                             </div>
                                             <div class="form-floating text-center">
@@ -283,11 +291,11 @@
                                                     id="btnOpcinesRespuesta">Crear
                                                     Criterio</button>
                                             </div>
-    
+
                                         </form>
-    
-    
-    
+
+
+
                                     </div>
                                     <div class="col-xl-8">
                                         <table class="table text-center">
@@ -299,10 +307,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="opcinesRespuesta">
-    
-    
+
+
                                             </tbody>
-    
+
                                         </table>
                                     </div>
                                 </div>
@@ -313,7 +321,7 @@
 
 
 
-                           
+
                             <div class="row mb-3 ">
                                 <p class=" mt-3  fw-medium  text-uppercase"> 3°-Crea las categorias y preguntas *</p>
                                 <div id="validCategoria"></div>
@@ -357,8 +365,8 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary"
-                              onclick="salirModalE()"  data-bs-dismiss="modal">Salir</button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="salirModalE()"
+                                data-bs-dismiss="modal">Salir</button>
                         </div>
                     </div>
                 </div>

@@ -243,41 +243,59 @@ function confirmarInfoEvaluacion() {
 
 //ACTUALIZAR CRITERIOS EVALUACION DESCRIPCION GENERAL 
 const textareaDescripcionCriterio = document.getElementById("textareaDescripcionCriterio")
+const alertCriterios = document.getElementById("alertCriterios")
 function actualizarCiterioEvaluacion() {
     textareaDescripcionCriterio.disabled = false
-    if (textareaDescripcionCriterio.value.length > 1) {
 
-
-        document.getElementById("btnCriterioInfo").innerHTML = `<button onclick="confirmarInfoCriterio()" class="input-group-text btn btn-outline-success" type="button">
+    document.getElementById("btnCriterioInfo").innerHTML = `<button onclick="confirmarInfoCriterio()" class="input-group-text btn btn-outline-success" type="button">
     <i class="fa fa-check" aria-hidden="true"></i></button>`
-    }
+
+
 
 }
 
 
 function confirmarInfoCriterio() {
-    mostrarSpinner
-    textareaDescripcionCriterio.disabled = true
+    // mostrarSpinner
+   
     let id = sessionStorage.getItem("criterioId")
     const newCriterio = {
         id,
         descripcion: textareaDescripcionCriterio.value
     }
-    console.log(newCriterio)
-    updateCriterioById(newCriterio)
-        .then(response => response)
-        .then(data => {
+    if (newCriterio.descripcion == "") {
+        alertCriterios.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>La descripcion esta vacia </strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
-        })
-        .catch(err => {
-            alert(err)
-        })
-        .finally(final => {
-            ocultarSpinner()
+      </div>`
+    } else {
+        textareaDescripcionCriterio.disabled = true
+        updateCriterioById(newCriterio)
+            .then(response => response)
+            .then(data => {
+                alertCriterios.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>La descripción se actualizo </strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    
+          </div>`
+                document.getElementById("btnCriterioInfo").innerHTML = ` <button onclick="actualizarCiterioEvaluacion()" class="input-group-text btn btn-outline-warning" type="button">
+          <i class="fa fa-pencil" aria-hidden="true"></i></button>`
 
-        })
-    document.getElementById("btnCriterioInfo").innerHTML = ` <button onclick="actualizarCiterioEvaluacion()" class="input-group-text btn btn-outline-warning" type="button">
-    <i class="fa fa-pencil" aria-hidden="true"></i></button>`
+            })
+            .catch(err => {
+                alert(err)
+            })
+            .finally(final => {
+                ocultarSpinner()
+
+
+
+            })
+    }
+
+
+
 
 }
 
@@ -286,5 +304,7 @@ function confirmarInfoCriterio() {
 function salirModalE() {
     listadoSemestre()
     alertEvaluacion.innerHTML = ""
+    document.getElementById("btnInfoE").innerHTML = `<button onclick="actuInfoEvaluacion()"  class="input-group-text btn btn-outline-warning" type="button">
+    <i class="fa fa-pencil" aria-hidden="true"></i></button>`
     sessionStorage.clear()
 }
