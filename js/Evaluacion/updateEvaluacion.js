@@ -144,24 +144,24 @@ function verCategoriasEvaluacion(id) {
         .then(data => {
 
             for (let i = 0; i < data.length; i++) {
-
+                sessionStorage.setItem("categoria" + data[i].id, JSON.stringify(data[i]))
                 document.getElementById("list-example").innerHTML += `<a class="list-group-item 
-                list-group-item-action" href="#list-item-${i}">${data[i].nombre}</a>`
+                list-group-item-action" href="#list-item-${data[i].id}">${data[i].nombre}</a>`
 
                 document.getElementById("bodyListaCategoria").innerHTML += `<div class="mt-3 rounded border  border-3">
-                <h4 id="list-item-${i}" 
+                <h4 id="list-item-${data[i].id}" 
                  class="mt-3  fw-medium  text-uppercase text-center">  ${i + 1}° - ${data[i].nombre}   </h4>
 
                 <div class="input-group mb-3">
                 
-                <input type="text" class="form-control" id="crearPreguntaCategoria${i}" placeholder="Crear pregunta para la categoria ${data[i].nombre}" aria-label="Input group example" aria-describedby="btnGroupAddon">
-                <button id="btnAddPregunta" onclick="crearPregunta(${i})" class="input-group-text btn btn-outline-success" type="button"><i class="fa fa-plus"
+                <input type="text" class="form-control" id="savePreguntaCategoria${data[i].id}" placeholder="Crear pregunta para la categoria ${data[i].nombre}" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                <button id="btnAddPregunta" onclick="crearPreguntaE(${data[i].id})" class="input-group-text btn btn-outline-success" type="button"><i class="fa fa-plus"
                 aria-hidden="true" ></i></button>
             </div>
             </br>
             
            
-            <div  class=" list-group list-group-numbered list-group-flush" id="preguntaC${i}">
+            <div  class=" list-group list-group-numbered list-group-flush" id="preguntaC${data[i].id}">
             <div>
              </div>   
             `
@@ -169,16 +169,16 @@ function verCategoriasEvaluacion(id) {
                 pregun = ""
                 for (let j = 0; j < data[i].preguntas.length; j++) {
                     pregun += `
-        <div class="list-group-item  mb-3 d-sm-flex" id="${i}-${j}">
+        <div class="list-group-item  mb-3 d-sm-flex" id="${data[i].preguntas[j].id}">
         <div class="input-group " >
-                <input type="text" id="input${i}-${j}" class="form-control" value="${data[i].preguntas[j].descripcion}"
-                placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
-                aria-describedby="btnGroupAddon" disabled readonly>
+                <input type="text" id="input${data[i].preguntas[j].id}" class="form-control" value="${data[i].preguntas[j].descripcion}"
+                disabled >
                 
-                <button  onclick="actualizarPregunta('${i}-${j}')" class="input-group-text btn btn-outline-warning" type="button">
+                <button  onclick="actualizarPreguntaE('${data[i].preguntas[j].id}')" class="input-group-text btn btn-outline-warning" type="button">
                 <i class="fa fa-pencil" aria-hidden="true"></i></button>
-                <button id="crearCategoria" onclick="eliminarPregunta('${i}-${j}')" class="input-group-text btn btn-outline-danger" type="button">
+                <button id="crearCategoria" onclick="eliminarPreguntaE('${data[i].preguntas[j].id}')" class="input-group-text btn btn-outline-danger" type="button">
                 <i class="fa fa-times" aria-hidden="true"></i></button>
+                
                 </div>
                 <hr>
        </div> 
@@ -187,7 +187,7 @@ function verCategoriasEvaluacion(id) {
 
                 }
 
-                document.getElementById("preguntaC" + i).innerHTML = pregun
+                document.getElementById("preguntaC" + data[i].id).innerHTML = pregun
 
 
 
@@ -307,6 +307,7 @@ function confirmarInfoCriterio() {
         descripcion: textareaDescripcionCriterio.value
     }
     if (newCriterio.descripcion == "") {
+        ocultarSpinner()
         alertCriterios.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>La descripcion esta vacia </strong> 
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -374,6 +375,7 @@ function confirmarOpcion(id) {
     }
 
     if (newOpcion.descripcion == "" || newOpcion.valor == "") {
+        ocultarSpinner()
         alertCriterios.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>El Nombre , Valor esta incompleto </strong> 
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -540,7 +542,7 @@ function addNewOpcion() {
                     //Agrego los datos a la vista
                     let body = ""
                     for (let i = 0; i < array.length; i++) {
-                        console.log(array)
+
                         let opcionId = array[i].id
                         body += `<tr class="text-center" id="opcionC${opcionId}">
             <td>
@@ -578,6 +580,8 @@ function addNewOpcion() {
 
                 })
 
+        } else {
+            ocultarSpinner()
         }
     } else {
         ocultarSpinner()

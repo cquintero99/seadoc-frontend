@@ -94,6 +94,7 @@ async function verificoCodigoDocumento(codigo, documento) {
   })
     .then(res => res.json())
     .then(data => {
+      console.log(data)
       if (data === true) {
         inciarSesion()
 
