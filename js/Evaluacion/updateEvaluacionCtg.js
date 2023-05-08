@@ -1,4 +1,31 @@
+//ACTUALIAR CATEGORIA
+async function updateCategoriaPregunta(categoria) {
+    let token = localStorage.getItem("token")
+    const result = await fetch(urlBasic + "/categoria/pregunta/" + categoria.id + "/update", {
+        method: 'PUT',
+        body: JSON.stringify(categoria),
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-type": "application/json"
+        }
 
+    })
+    return result
+
+}
+
+//ELIMINAR CATEGORIA PREGUNTA
+async function deleteCategoriaPregunta(id) {
+    let token = localStorage.getItem("token")
+    const result = await fetch(urlBasic + "/categoria/pregunta/" + id, {
+        method: 'DELETE',
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-type": "application/json"
+        }
+    })
+    return result
+}
 //ELIMINAR PREGUNTA
 async function deletePregunta(id) {
     let token = localStorage.getItem("token")
@@ -45,6 +72,8 @@ async function savePreguntaE(pregunta) {
 function actualizarCtgE(id) {
     const input = document.getElementById("input" + id)
     const ctg = document.getElementById("ctg" + id)
+
+
     ctg.innerHTML = `
     
                 <div class="btn-group dropup">
@@ -75,9 +104,25 @@ function actualizarCtgE(id) {
     `
 }
 function confirmarCtgE(id) {
+    mostrarSpinner()
     const input = document.getElementById("input" + id)
     const ctg = document.getElementById("ctg" + id)
-    ctg.innerHTML = `
+    let evaluacionId = sessionStorage.getItem("evaluacionId")
+    const newCategoria = {
+        id,
+        evaluacionId,
+        nombre: input.value,
+        descripcion: ""
+
+    }
+    if (newCategoria.nombre != "") {
+        updateCategoriaPregunta(newCategoria)
+            .then(response => response)
+            .then(data => {
+                if (data.status = 200) {
+                    const nombreCtg = document.getElementById("list-item-" + id)
+                    nombreCtg.innerHTML = newCategoria.nombre
+                    ctg.innerHTML = `
    
                 <div class="btn-group dropup">
                 <input type="text" class="from-control  fw-bold " id="input${id}"
@@ -103,10 +148,70 @@ function confirmarCtgE(id) {
                
     `
 
+                }
+
+            })
+            .catch(err => {
+                alert(err)
+            })
+            .finally(final => {
+                ocultarSpinner()
+
+            })
+
+    }else{
+        ocultarSpinner()
+    }
 }
 
 function eliminarCtgE(id) {
-    alert(id)
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-outline-success',
+            cancelButton: 'btn btn-outline-danger'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Estas seguro?',
+        text: "Quieres eliminar la categoria!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Eliminar!',
+        cancelButtonText: 'Salir!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            mostrarSpinner()
+            deleteCategoriaPregunta(id)
+                .then(response => response)
+                .then(data => {
+                    if (data.status == 200) {
+                        ocultarSpinner()
+                        const nombre = document.getElementById("ctgE"+id)
+                        nombre.remove()
+                        const body=document.getElementById("ctgPE"+id)
+                        body.remove()
+                        swalWithBootstrapButtons.fire(
+                            'Eliminado!',
+                            'Se elimino la categoria.',
+                            'success'
+                        )
+
+                    }
+                })
+                .catch(err => {
+
+                })
+                .finally(final => {
+                    ocultarSpinner()
+                })
+
+        }
+    })
+
+    
 }
 
 function crearPreguntaE(id) {

@@ -146,7 +146,7 @@ function verCategoriasEvaluacion(id) {
 
             for (let i = 0; i < data.length; i++) {
                 sessionStorage.setItem("categoria" + data[i].id, JSON.stringify(data[i]))
-                document.getElementById("list-example").innerHTML += `<div  class="mb-3 row  list-group-item 
+                document.getElementById("list-example").innerHTML += `<div id="ctgE${data[i].id}" class="mb-3 row  list-group-item 
                 list-group-item-action">
                
                 <div class="input-group " id="ctg${data[i].id}">
@@ -181,9 +181,9 @@ function verCategoriasEvaluacion(id) {
     
                 </div>`
 
-                document.getElementById("bodyListaCategoria").innerHTML += `<div class="mt-3 rounded border  border-3">
+                document.getElementById("bodyListaCategoria").innerHTML += `<div id="ctgPE${data[i].id}" class="mt-3 rounded border  border-3">
                 <h4 id="list-item-${data[i].id}" 
-                 class="mt-3  fw-medium  text-uppercase text-center">  ${i + 1}° - ${data[i].nombre}   </h4>
+                 class="mt-3  fw-medium  text-uppercase text-center">   ${data[i].nombre}   </h4>
 
                 <div class="input-group mb-3">
                 
