@@ -143,10 +143,43 @@ function verCategoriasEvaluacion(id) {
         .then(response => response.json())
         .then(data => {
 
+
             for (let i = 0; i < data.length; i++) {
                 sessionStorage.setItem("categoria" + data[i].id, JSON.stringify(data[i]))
-                document.getElementById("list-example").innerHTML += `<a class="list-group-item 
-                list-group-item-action" href="#list-item-${data[i].id}">${data[i].nombre}</a>`
+                document.getElementById("list-example").innerHTML += `<div  class="mb-3 row  list-group-item 
+                list-group-item-action">
+               
+                <div class="input-group " id="ctg${data[i].id}">
+                
+                <div class="btn-group dropup">
+                <input type="text" class="from-control fw-bold"  id="input${data[i].id}"
+                  value="${data[i].nombre}" disabled
+                >
+  <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fa fa-cog" aria-hidden="true"></i>
+  </button>
+  <ul class="dropdown-menu">
+  <li>
+  <div class="dropdown-item input-group">
+  <a  href="#list-item-${data[i].id}" type="buttom" class=" input-group-text btn btn-outline-info" type="button">
+                <i class="fa fa-eye" aria-hidden="true"></i></a>
+                <button  onclick="actualizarCtgE('${data[i].id}')" class=" input-group-text btn btn-outline-warning" type="button">
+                <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                
+                <button id="crearCategoria" onclick="eliminarCtgE('${data[i].id}')" class=" input-group-text btn btn-outline-danger" type="button">
+    <i class="fa fa-times" aria-hidden="true"></i></button>
+  </div>
+  </li>
+  </ul>
+</div>
+                
+                
+    
+                </div>
+                
+               
+    
+                </div>`
 
                 document.getElementById("bodyListaCategoria").innerHTML += `<div class="mt-3 rounded border  border-3">
                 <h4 id="list-item-${data[i].id}" 

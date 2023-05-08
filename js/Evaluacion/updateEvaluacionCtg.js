@@ -41,28 +41,97 @@ async function savePreguntaE(pregunta) {
     })
     return result
 }
+//
+function actualizarCtgE(id) {
+    const input = document.getElementById("input" + id)
+    const ctg = document.getElementById("ctg" + id)
+    ctg.innerHTML = `
+    
+                <div class="btn-group dropup">
+                <input type="text" class="from-control fw-bold" id="input${id}"
+                  value="${input.value}" 
+                >
+                <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu">
+                <li>
+                <div class="dropdown-item input-group">
+                <a  href="#list-item-${id}" type="buttom" class=" input-group-text btn btn-outline-info" type="button">
+                <i class="fa fa-eye" aria-hidden="true"></i></a>
+                <button  onclick="confirmarCtgE('${id}')" class=" input-group-text btn btn-outline-success" type="button">
+                <i class="fa fa-check" aria-hidden="true"></i></button>
+                              
+                <button id="crearCategoria" onclick="eliminarCtgE('${id}')" class=" input-group-text btn btn-outline-danger" type="button">
+                <i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+                </li>
+                </ul>
+              </div>
+               
+                
+                
+    
+    `
+}
+function confirmarCtgE(id) {
+    const input = document.getElementById("input" + id)
+    const ctg = document.getElementById("ctg" + id)
+    ctg.innerHTML = `
+   
+                <div class="btn-group dropup">
+                <input type="text" class="from-control  fw-bold " id="input${id}"
+                value="${input.value}" disabled
+              >
+  <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fa fa-cog" aria-hidden="true"></i>
+  </button>
+  <ul class="dropdown-menu">
+  <li>
+  <div class="dropdown-item input-group">
+  <a  href="#list-item-${id}" type="buttom" class=" input-group-text btn btn-outline-info" type="button">
+  <i class="fa fa-eye" aria-hidden="true"></i></a>
+  <button  onclick="actualizarCtgE('${id}')" class=" input-group-text btn btn-outline-warning" type="button">
+  <i class="fa fa-pencil" aria-hidden="true"></i></button>
+  
+  <button id="crearCategoria" onclick="eliminarCtgE('${id}')" class=" input-group-text btn btn-outline-danger" type="button">
+<i class="fa fa-times" aria-hidden="true"></i></button>
+  </div>
+  </li>
+  </ul>
+</div>
+               
+    `
+
+}
+
+function eliminarCtgE(id) {
+    alert(id)
+}
+
 function crearPreguntaE(id) {
     mostrarSpinner()
     const savePreguntaCategoria = document.getElementById("savePreguntaCategoria" + id)
 
-    if(savePreguntaCategoria.value!=""){
-    let criterioId=sessionStorage.getItem("criterioId")
-    let evaluacionId=sessionStorage.getItem("evaluacionId")
-    let preguntaNueva=savePreguntaCategoria.value
-    const pregunta={
-        criterioId,
-        evaluacionId,
-        categoriaId: id,
-        descripcion: preguntaNueva,
-        fechaRegistro: new Date(),
-    }
-   
-    console.log(pregunta)
-    savePreguntaE(pregunta)
-    .then(response=>response)
-    .then(data=>{
-            let preguntaC = document.getElementById("preguntaC" + id)
-    preguntaC.innerHTML += `<div class="list-group-item  mb-3 d-sm-flex" id="${data.id}">
+    if (savePreguntaCategoria.value != "") {
+        let criterioId = sessionStorage.getItem("criterioId")
+        let evaluacionId = sessionStorage.getItem("evaluacionId")
+        let preguntaNueva = savePreguntaCategoria.value
+        const pregunta = {
+            criterioId,
+            evaluacionId,
+            categoriaId: id,
+            descripcion: preguntaNueva,
+            fechaRegistro: new Date(),
+        }
+
+        console.log(pregunta)
+        savePreguntaE(pregunta)
+            .then(response => response.json())
+            .then(data => {
+                savePreguntaCategoria.value = ""
+                let preguntaC = document.getElementById("preguntaC" + id)
+                preguntaC.innerHTML += `<div class="list-group-item  mb-3 d-sm-flex" id="${data.id}">
     <div class="input-group " >
     <input type="text" id="input${data.id}" class="form-control" value="${preguntaNueva}"
     disabled>
@@ -76,18 +145,18 @@ function crearPreguntaE(id) {
     <hr>
     </div>`
 
-        
-    })
-    .catch(err=>{
-        alert(err)
 
-    })
-    .finally(final=>{
-        ocultarSpinner()
-    })
-    
-    
-    
+            })
+            .catch(err => {
+                alert(err)
+
+            })
+            .finally(final => {
+                ocultarSpinner()
+            })
+
+
+
     }
 }
 function actualizarPreguntaE(id) {
@@ -162,10 +231,12 @@ function eliminarPreguntaE(id) {
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
+            mostrarSpinner()
             deletePregunta(id)
                 .then(response => response)
                 .then(data => {
                     if (data.status == 200) {
+                        ocultarSpinner()
                         const pregunta = document.getElementById(id)
                         pregunta.remove()
                         swalWithBootstrapButtons.fire(
@@ -180,7 +251,7 @@ function eliminarPreguntaE(id) {
 
                 })
                 .finally(final => {
-
+                    ocultarSpinner()
                 })
 
         }
