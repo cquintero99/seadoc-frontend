@@ -7,8 +7,11 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Docente - SEADOC</title>
+        <link rel="icon" type="image/svg+xml" href="../assets/img/identity/logo_ingsistemas.png" />
+    
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="../css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="../css/indexAdmin.css">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -29,7 +32,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Info cuenta</a></li>
+                        <li><a class="dropdown-item" href="#!">Info Cuenta</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="../index.html" id="salir">Salir</a></li>
                     </ul>
@@ -38,32 +41,30 @@
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark bg-red" id="sidenavAccordion">
+                <nav class="sb-sidenav accordion sb-sidenav-dark bg-red p-2 text-white  "  id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">SEMESTRES</div>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="../docente/listaSemestres.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Semestre
                             </a>
-                            <div class="sb-sidenav-menu-heading">EVALUACIONES</div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+
+                            <div class="sb-sidenav-menu-heading text-light">EVALUACIONES</div>
+                            <a class="nav-link p-3" href="../docente/listaEvaluacion.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Evaluacion
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                Evaluaciones
                             </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">Pendientes</a>
-                                    <a class="nav-link" href="#">Desempeño</a>
-                                </nav>
-                            </div>
-                            
-                            
+
+                            <div class="sb-sidenav-menu-heading text-light">CARGA ACADEMICA</div>
+                            <a class="nav-link p-3" href="../docente/listaCAI.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Carga Academica Integral
+                            </a>
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer bg-red">
-                        Evaluación Docente
+                    <div class="sb-sidenav-footer bg-red text-center">
+                        Evaluacion Docente
                         <div class="small">Universidad Francisco de Paula Santander</div>
                     </div>
                 </nav>
@@ -76,64 +77,54 @@
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                         <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
+                            <div class="col-md-4">
+                              <div class="card">
+                                <div class="card-header bg-red">
+                                  <i class="fas fa-graduation-cap fa-3x"></i>
                                 </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Warning Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Semestres</h5>
+                                  
                                 </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Success Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
+                                <div class="card-footer">
+                                  <a href="../docente/listaSemestres.html" class="card-link">Ver Detalles</a>
+                                  <i class="fa-solid fa-chevron-right fa-2x"></i>
                                 </div>
+                              </div>
                             </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
+                            <div class="col-md-4">
+                              <div class="card">
+                                <div class="card-header bg-red">
+                                  <i class="fas fa-columns fa-3x"></i>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area me-1"></i>
-                                        Area Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Evaluaciones</h5>
+                                  
                                 </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        Bar Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                <div class="card-footer">
+                                  <a href="../docente/listaEvaluacion.html" class="card-link">Ver Detalles</a>
+                                  <i class="fa-solid fa-chevron-right fa-2x"></i>
                                 </div>
+                              </div>
                             </div>
-                        </div>
-                       
+                            <div class="col-md-4">
+                              <div class="card">
+                                <div class="card-header bg-red">
+                                  <i class="fas fa-book-open fa-3x"></i>
+                                </div>
+                                <div class="card-body">
+                                  <h5 class="card-title">CAI</h5>
+                                  
+                                </div>
+                                <div class="card-footer">
+                                  <a href="../docente/listaCAI.html" class="card-link">Ver Detalles</a>
+                                  <i class="fa-solid fa-chevron-right fa-2x"></i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        
+                        
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
@@ -157,6 +148,5 @@
         <script src="../assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="../js/datatables-simple-demo.js"></script>
-        <script src="../js/login.js"></script>
     </body>
 </html>
