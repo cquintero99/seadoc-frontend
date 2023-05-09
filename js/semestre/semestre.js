@@ -1,5 +1,6 @@
 //CONEXION CON EL BACK
-const urlBasic = "https://teacher2023.herokuapp.com"
+const urlBasic = "https://teacher-test.herokuapp.com"
+//"https://teacher2023.herokuapp.com"
 //"https://teacher-test-backend-production-e58a.up.railway.app";
 //"http://localhost:8080"
 
@@ -101,9 +102,9 @@ async function mostrarData(data) {
     
     
 </div> `
-    
+    let color=""
     if (estado == 'ACTUAL') {
-    
+      color="success"
       
       if (data[i].visibilidad == "PRIVADO") {
         document.getElementById("semestreActual").innerHTML = data[i].nombre + " " + `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
@@ -116,14 +117,20 @@ async function mostrarData(data) {
       </svg>`
       }
      
+    }else if(estado=='REGISTRADO'){
+      color="info"
+    }
+    else{
+      color="warning"
     }
     
 
+
     t.row.add([i + 1
-      , data[i].nombre
+      , `<p class="text-dark fw-bold bg-${color}">${data[i].nombre}</p>`
       , new Date(data[i].fechaInicio).toLocaleDateString()
       , new Date(data[i].fechaFin).toLocaleDateString()
-      , data[i].estado, new Date(data[i].fechaRegistro).toLocaleDateString()
+      , `<p class="text-dark fw-bold bg-${color}">${data[i].estado}</p>`, new Date(data[i].fechaRegistro).toLocaleDateString()
       , data[i].visibilidad,
       acciones]).draw(false);
 

@@ -70,10 +70,10 @@ async function savePreguntaE(pregunta) {
 }
 //
 function actualizarCtgE(id) {
-    const input = document.getElementById("input" + id)
+    let input = document.getElementById("input" + id)
     const ctg = document.getElementById("ctg" + id)
-
-
+    
+    
     ctg.innerHTML = `
     
                 <div class="btn-group dropup">
@@ -102,6 +102,11 @@ function actualizarCtgE(id) {
                 
     
     `
+    setTimeout(()=>{
+        console.log(input)
+        input.focus()
+    },100)
+   
 }
 function confirmarCtgE(id) {
     mostrarSpinner()
