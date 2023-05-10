@@ -157,7 +157,8 @@ function mostrarEvaluaciones(id) {
             //href="./editar/index.html"
             for (let i = 0; i < data.length; i++) {
                 let acciones = `<div class="input-group " >
-    
+                <a  href="#" type="buttom" class=" input-group-text btn btn-outline-info" type="button">
+                <i class="fa fa-eye" aria-hidden="true"></i></a>
             <a href="#"  onclick="editarEvaluacion(${data[i].id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"
              class="input-group-text btn btn-outline-warning" type="button">
             <i class="fa fa-pencil" aria-hidden="true"></i></a>

@@ -103,19 +103,25 @@ async function mostrarData(data) {
     
 </div> `
     let color=""
+    let icono=""
     if (estado == 'ACTUAL') {
       color="success"
       
       if (data[i].visibilidad == "PRIVADO") {
-        document.getElementById("semestreActual").innerHTML = data[i].nombre + " " + `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+        icono=`<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
         <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
       </svg>`
+       
 
       } else {
-        document.getElementById("semestreActual").innerHTML = data[i].nombre + " " + `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
+        icono=`<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
         <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z"/>
       </svg>`
+        
       }
+      document.getElementById("semestreActual").innerHTML =`<a href="#" onclick="verSemestre(${id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop3"
+      class="link-offset-2 link-underline link-underline-opacity-0 text-dark" > 
+      ${ data[i].nombre}  ${icono}</a>` 
      
     }else if(estado=='REGISTRADO'){
       color="info"
@@ -127,10 +133,10 @@ async function mostrarData(data) {
 
 
     t.row.add([i + 1
-      , `<p class="text-dark fw-bold bg-${color}">${data[i].nombre}</p>`
+      , `<p class="text-dark rounded fw-bold bg-${color}">${data[i].nombre}</p>`
       , new Date(data[i].fechaInicio).toLocaleDateString()
       , new Date(data[i].fechaFin).toLocaleDateString()
-      , `<p class="text-dark fw-bold bg-${color}">${data[i].estado}</p>`, new Date(data[i].fechaRegistro).toLocaleDateString()
+      , `<p class="text-dark rounded fw-bold bg-${color}">${data[i].estado}</p>`, new Date(data[i].fechaRegistro).toLocaleDateString()
       , data[i].visibilidad,
       acciones]).draw(false);
 

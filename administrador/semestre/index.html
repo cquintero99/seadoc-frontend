@@ -115,8 +115,8 @@
                     </div>
 
                     <div class="row mt-3 ">
-                        <div class="col-xl-6 mt-3" id="pila">
-                            <p>SEMESTRE ACTUAL : <a class="h3 link-underline link-underline-opacity-0"
+                        <div class="col-xl-6 mt-3 " id="pila">
+                            <p class="fw-bold">SEMESTRE ACTUAL : <a class="h3 link-underline link-underline-opacity-0"
                                     id="semestreActual">
                                     <button class="input-group-text btn btn-outline-success" id="btnActivarSemestre"
                                         data-bs-toggle="modal" data-bs-target="#staticBackdrop2" type="button">
@@ -124,6 +124,7 @@
                                 </a>
 
                             </p>
+                            
 
 
                         </div>
@@ -132,21 +133,22 @@
 
 
                             <!-- Button trigger modal -->
-                            <p>REGISTRAR SEMESTRE :
+                            <p class="fw-bold">REGISTRAR SEMESTRE :
                                 <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                                     type="button">
                                     <i class="fa fa-plus" aria-hidden="true"></i></button>
                             </p>
+                            
                         </div>
 
                     </div>
 
                     <hr>
 
-                    <p class="fw-medium text-center">HISTORIAL DE SEMESTRES </p>
+                    <p class="fw-medium text-center fw-bold">TABLA  SEMESTRES </p>
                     <!-- Contenido pestaña semestres -->
                     <div class="overflow-scroll ">
-                        <table id="example" class="display    table  table-hover">
+                        <table id="example" class="display fw-medium   table  table-hover">
                             <thead class="bg-red text-light">
                                 <tr>
                                     <th>#</th>
@@ -164,17 +166,25 @@
                         </table>
                         
                     </div>
-                    <div class="row">
-                        <div class="col-xl-6 mt-3">
-                            <h3>ESTADOS DEL SEMESTRE</h3>
-                        <p class="text-dark fw-bold bg-info">1 - REGISTRADO </p>
-
-                        <p class="text-dark fw-bold bg-success">2 -ACTUAL </p>
-                        <p class="text-dark fw-bold bg-warning"> 3 - TERMINADO</p>
+                    <br>
+                    <div class="row mb-3">
+                        <hr>
+                        <h3>ESTADOS DE UN SEMESTRE</h3>
+                        <hr>
+                        <div class="col-xl-4 mt-3  border border-info p-3">
+                            <p class="text-dark fw-bold bg-info rounded">1 - REGISTRADO </p>
+                            <p>CUANDO SE CREA UN SEMESTRE</p>
                         </div>
-                        <div class="col-xl-6">
+                        <div class="col-xl-4 mt-3 border border-success p-3">
+                            <p class="text-dark fw-bold bg-success rounded">2 -ACTUAL </p>
+                            <p>CUANDO EL SEMESTRE ESTA EN CURSO </p>
+                        </div>
+                        <div class="col-xl-4 mt-3 border border-warning p-3">
                             
+                            <p class="text-dark fw-bold bg-warning rounded"> 3 - TERMINADO</p>
+                            <p>CUANDO SEMESTRE FINALIZA</p>
                         </div>
+                       <hr>
                         
                     </div>
                     <div class="toast-container position-fixed bottom-0 end-0 p-3">
