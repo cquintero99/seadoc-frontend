@@ -51,8 +51,8 @@ async function getEvaluacionesSemestre(id) {
 async function deleteEvaluacion(id) {
     let token = localStorage.getItem("token")
 
-    const result = await fetch(urlBasic + "/evaluacion/" + id , {
-        method:'DELETE',
+    const result = await fetch(urlBasic + "/evaluacion/" + id, {
+        method: 'DELETE',
         headers: {
             "Authorization": "Bearer " + token
         }
@@ -90,15 +90,15 @@ function listadoSemestre() {
                 if (data[i].estado == "ACTUAL") {
                     siActual = true
                     actual = "selected"
-                    
-                        document.getElementById("fechaSemestre").innerHTML=`<p > ESTADO: ${data[i].estado}</p>`
+
+                    document.getElementById("fechaSemestre").innerHTML = `<p > ESTADO: ${data[i].estado}</p>`
                     mostrarEvaluaciones(data[i].id)
                 }
                 if (!siActual) {
                     actual = "selected"
-                   
-                        document.getElementById("fechaSemestre").innerHTML=`<p > ESTADO: ${data[i].estado}</p>`
-                   
+
+                    document.getElementById("fechaSemestre").innerHTML = `<p > ESTADO: ${data[i].estado}</p>`
+
 
                 }
                 if (!siActual && Number(i) == data.length - 1) {
@@ -128,10 +128,10 @@ selectSemestres.addEventListener('change', () => {
     getSemestreId(idSemestre)
         .then(response => response.json())
         .then(data => {
-           
-          
-         document.getElementById("fechaSemestre").innerHTML=`<p > ESTADO: ${data.estado}</p>`
-                   
+
+
+            document.getElementById("fechaSemestre").innerHTML = `<p > ESTADO: ${data.estado}</p>`
+
             mostrarEvaluaciones(data.id)
         })
         .catch(err => {
@@ -156,19 +156,39 @@ function mostrarEvaluaciones(id) {
             data.sort(compararFechasRegistro)
             //href="./editar/index.html"
             for (let i = 0; i < data.length; i++) {
-                let acciones = `<div class="input-group " >
-                <a  href="#" type="buttom" class=" input-group-text btn btn-outline-info" type="button">
-                <i class="fa fa-eye" aria-hidden="true"></i></a>
-            <a href="#"  onclick="editarEvaluacion(${data[i].id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-             class="input-group-text btn btn-outline-warning" type="button">
-            <i class="fa fa-pencil" aria-hidden="true"></i></a>
-            <button class="input-group-text btn btn-outline-danger"  
-             type="button" onclick="eliminarEvaluacion(${data[i].id})" >
-            <i class="fa fa-times" aria-hidden="true"></i></button>
-            </div>
+                let acciones =
+              ` <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <div class="dropdown-item input-group d-grid gap-2">
+                            <a  href="#" type="buttom" class=" input-group-text btn btn-outline-info" type="button">
+                            <i class="fa fa-eye" aria-hidden="true"></i> Gestionar
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item input-group d-grid gap-2">
+                            <a href="#"  onclick="editarEvaluacion(${data[i].id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                            class="input-group-text btn btn-outline-warning" type="button">
+                            <i class="fa fa-pencil" aria-hidden="true"></i> Editar
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item input-group d-grid gap-2">
+                            <button class="input-group-text btn btn-outline-danger"  
+                                type="button" onclick="eliminarEvaluacion(${data[i].id})" >
+                            <i class="fa fa-times" aria-hidden="true"></i> Elimnar
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+               
             
             
-        </div> `
+        `
 
                 t.row.add([i + 1
                     , data[i].titulo
@@ -190,16 +210,16 @@ function mostrarEvaluaciones(id) {
         })
 }
 
-function eliminarEvaluacion(id){
+function eliminarEvaluacion(id) {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
         },
         buttonsStyling: false
-      })
-    
-      swalWithBootstrapButtons.fire({
+    })
+
+    swalWithBootstrapButtons.fire({
         title: 'Estas Seguro?',
         text: "Esta accion elimina la evaluación!",
         icon: 'warning',
@@ -207,32 +227,32 @@ function eliminarEvaluacion(id){
         confirmButtonText: 'Eliminar!',
         cancelButtonText: 'Cancelar!',
         reverseButtons: true
-      }).then((result) => {
+    }).then((result) => {
         if (result.isConfirmed) {
 
-          deleteEvaluacion(id)
-          .then(response=>response)
-          .then(data=>{
-            console.log(data)
-            swalWithBootstrapButtons.fire(
-              'Eliminado!',
-              'La evaluacion se elimino',
-              'success'
-            )
-          })
-          .catch(err=>{
-            console.log(err)
-          })
-          .finally(final=>{
-           // verSemestres()
-           listadoSemestre()
-    
-          })
-          
+            deleteEvaluacion(id)
+                .then(response => response)
+                .then(data => {
+                    console.log(data)
+                    swalWithBootstrapButtons.fire(
+                        'Eliminado!',
+                        'La evaluacion se elimino',
+                        'success'
+                    )
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+                .finally(final => {
+                    // verSemestres()
+                    listadoSemestre()
+
+                })
+
         }
-      })
-    
-  
+    })
+
+
 }
 
 
