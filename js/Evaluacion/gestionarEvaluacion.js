@@ -39,9 +39,9 @@ function gestionarEvaluacion(){
         getDocentesSemestreById(semestre.id)
         .then(respon=>respon.json())
         .then(docentes=>{
-            console.log(docentes)
-            let counter = 1;
-            const tabla = $('#tablaDonceteEvaluaciones').DataTable();
+            
+            var counter = 1;
+            var tabla = $('#tablaDonceteEvaluaciones').DataTable()
             tabla.clear().draw();
             let acciones =
             ` <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,7 +57,7 @@ function gestionarEvaluacion(){
                   </li>
                   <li>
                       <div class="dropdown-item input-group d-grid gap-2">
-                          <a href="#"   data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                          <a href="#"   
                           class="input-group-text btn btn-outline-warning" type="button">
                           <i class="fa fa-pencil" aria-hidden="true"></i> Editar
                           </a>
@@ -75,9 +75,10 @@ function gestionarEvaluacion(){
              
           
           
-      `
-            for (let i = 0; i < docentes.length.length; i++) {
- 
+      ` 
+            console.log(docentes.length)
+            for (let i = 0; i < docentes.length; i++) {
+                console.log(docentes)
                 tabla.row.add([i + 1
                     , docentes[i].nombre
                     , docentes[i].codigo
