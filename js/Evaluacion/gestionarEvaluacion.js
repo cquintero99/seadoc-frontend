@@ -76,14 +76,18 @@ function gestionarEvaluacion(){
           
           
       ` 
-            console.log(docentes.length)
+            
+            let color="warning"
+            let estado=`<p class="rounded mt-3 fw-bold bg-warning">Sin presentar</p>`
+            console.log(docentes)
             for (let i = 0; i < docentes.length; i++) {
-                console.log(docentes)
+                
+            let nombre=`<p class="rounded mt-3 fw-bold bg-info">${docentes[i].nombre}</p>`
+               
                 tabla.row.add([i + 1
-                    , docentes[i].nombre
-                    , docentes[i].codigo
-                    , docentes[i].documento
-                    ,  docentes[i].email,
+                    , nombre
+                    , docentes[i].codigo,
+                    estado,
                     acciones
                 ]).draw(false);
 
@@ -113,3 +117,31 @@ function gestionarEvaluacion(){
  })
  
  }
+ $(document).ready( function () {
+    $('#tablaDonceteEvaluaciones').DataTable({
+        "language": {
+            "decimal":        "",
+            "emptyTable":     "No hay datos disponibles en la tabla",
+            "info":           "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "infoEmpty":      "Mostrando 0 a 0 de 0 registros",
+            "infoFiltered":   "(filtrado de _MAX_ registros totales)",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "lengthMenu":     "Mostrar _MENU_ registros",
+            "loadingRecords": "Cargando...",
+            "processing":     "Procesando...",
+            "search":         "Buscar:",
+            "zeroRecords":    "No se encontraron registros coincidentes",
+            "paginate": {
+                "first":      "Primero",
+                "last":       "Último",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            },
+            "aria": {
+                "sortAscending":  ": activar para ordenar de manera ascendente",
+                "sortDescending": ": activar para ordenar de manera descendente"
+            }
+        }
+    });
+})
