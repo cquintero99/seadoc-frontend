@@ -150,10 +150,15 @@ function enviarDataEvaluacion() {
                                                                         <p>SE CREO CON EXITO !</p>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                                        </div>`
-                                                                    document.getElementById("accionesEvaluacion").innerHTML = `
-                                                                    <a class="btn btn-info" href="./index.html">CREAR OTRA EVALUACION</a>
-                                                                     <a class="btn btn-info" href="./listado/index.html">VER EVALUACION</a>
-                                                                    `
+                                                                       document.getElementById("accionesEvaluacion").innerHTML=`<a class="btn btn-info" href="#">CARGANDO ...</a>`
+                                                                       setTimeout(()=>{
+                                                                        document.getElementById("accionesEvaluacion").innerHTML = `
+                                                                        <a class="btn btn-info" href="./index.html">CREAR OTRA EVALUACION</a>
+                                                                         <a class="btn btn-info" href="./listado/index.html">VER EVALUACION</a>
+                                                                        `
+
+                                                                       },5000)
+                                                                   
                                                                     })
 
                                                             }

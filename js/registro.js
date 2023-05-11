@@ -1,5 +1,7 @@
 
-const urlBasic = "https://teacher-test-backend-production-e58a.up.railway.app"
+const urlBasic = "https://teacher-test.herokuapp.com"
+//"https://teacher2023.herokuapp.com"
+//"https://teacher-test-backend-production-e58a.up.railway.app"
 const r1 = document.getElementById("r1")
 
 r1.addEventListener("click", () => {

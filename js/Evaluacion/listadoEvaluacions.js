@@ -1,5 +1,7 @@
 //CONEXION CON EL BACK
-const urlBasic = "https://teacher-test-backend-production-e58a.up.railway.app";
+const urlBasic = "https://teacher-test.herokuapp.com"
+//"https://teacher2023.herokuapp.com"
+//"https://teacher-test-backend-production-e58a.up.railway.app";
 //"http://localhost:8080"
 
 
@@ -49,8 +51,8 @@ async function getEvaluacionesSemestre(id) {
 async function deleteEvaluacion(id) {
     let token = localStorage.getItem("token")
 
-    const result = await fetch(urlBasic + "/evaluacion/" + id , {
-        method:'DELETE',
+    const result = await fetch(urlBasic + "/evaluacion/" + id, {
+        method: 'DELETE',
         headers: {
             "Authorization": "Bearer " + token
         }
@@ -83,39 +85,20 @@ function listadoSemestre() {
             let dataSemestre = ""
             var siActual = false
             for (let i = 0; i < data.length; i++) {
-                let fechaInicio = new Date(data[i].fechaInicio).toLocaleDateString()
-                let fechaFin = new Date(data[i].fechaFin).toLocaleDateString()
                 let actual = ""
 
                 if (data[i].estado == "ACTUAL") {
                     siActual = true
                     actual = "selected"
-                    dataSemestre = ` <div class="col-xl-4">
-                            ESTADO: ${data[i].estado}
-                        </div>
-                        <div class="col-xl-4">
-                            VISIBILIDAD: ${data[i].visibilidad}
-                        </div>
-                        <div class="col-xl-4">
-                        ${fechaInicio} - ${fechaFin}
-                    </div>
-                        
-                        `
+
+                    document.getElementById("fechaSemestre").innerHTML = `<p > ESTADO: ${data[i].estado}</p>`
                     mostrarEvaluaciones(data[i].id)
                 }
                 if (!siActual) {
                     actual = "selected"
-                    dataSemestre = ` <div class="col-xl-4">
-                            ESTADO: ${data[i].estado}
-                        </div>
-                        <div class="col-xl-4">
-                            VISIBILIDAD: ${data[i].visibilidad}
-                        </div>
-                        <div class="col-xl-4">
-                        ${fechaInicio} - ${fechaFin}
-                    </div>
-                        
-                        `
+
+                    document.getElementById("fechaSemestre").innerHTML = `<p > ESTADO: ${data[i].estado}</p>`
+
 
                 }
                 if (!siActual && Number(i) == data.length - 1) {
@@ -145,19 +128,10 @@ selectSemestres.addEventListener('change', () => {
     getSemestreId(idSemestre)
         .then(response => response.json())
         .then(data => {
-            let fechaInicio = new Date(data.fechaInicio).toLocaleDateString()
-            let fechaFin = new Date(data.fechaFin).toLocaleDateString()
-            dataSemestreActual.innerHTML = ` <div class="col-xl-4">
-                                                        ESTADO: ${data.estado}
-                                                    </div>
-                                                    <div class="col-xl-4">
-                                                        VISIBILIDAD: ${data.visibilidad}
-                                                    </div>
-                                                    <div class="col-xl-4">
-                                                    ${fechaInicio} - ${fechaFin}
-                                                </div>
-                                                    
-                                                    `
+
+
+            document.getElementById("fechaSemestre").innerHTML = `<p > ESTADO: ${data.estado}</p>`
+
             mostrarEvaluaciones(data.id)
         })
         .catch(err => {
@@ -168,7 +142,6 @@ selectSemestres.addEventListener('change', () => {
         })
 
 })
-
 
 
 function mostrarEvaluaciones(id) {
@@ -182,18 +155,39 @@ function mostrarEvaluaciones(id) {
             data.sort(compararFechasRegistro)
             //href="./editar/index.html"
             for (let i = 0; i < data.length; i++) {
-                let acciones = `<div class="input-group " >
-    
-            <a href="#"  onclick="editarEvaluacion(${data[i].id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-             class="input-group-text btn btn-outline-warning" type="button">
-            <i class="fa fa-pencil" aria-hidden="true"></i></a>
-            <button class="input-group-text btn btn-outline-danger"  
-             type="button" onclick="eliminarEvaluacion(${data[i].id})" >
-            <i class="fa fa-times" aria-hidden="true"></i></button>
-            </div>
+                let acciones =
+              ` <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <div class="dropdown-item input-group d-grid gap-2">
+                            <a  href="./gestionar/index.html?id=${data[i].id}"  onclick="gestionarEvaluacion()" type="buttom" class=" input-group-text btn btn-outline-info" type="button">
+                            <i class="fa fa-eye" aria-hidden="true"></i> Gestionar
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item input-group d-grid gap-2">
+                            <a href="#"  onclick="editarEvaluacion(${data[i].id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                            class="input-group-text btn btn-outline-warning" type="button">
+                            <i class="fa fa-pencil" aria-hidden="true"></i> Editar
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown-item input-group d-grid gap-2">
+                            <button class="input-group-text btn btn-outline-danger"  
+                                type="button" onclick="eliminarEvaluacion(${data[i].id})" >
+                            <i class="fa fa-times" aria-hidden="true"></i> Elimnar
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+               
             
             
-        </div> `
+        `
 
                 t.row.add([i + 1
                     , data[i].titulo
@@ -215,16 +209,16 @@ function mostrarEvaluaciones(id) {
         })
 }
 
-function eliminarEvaluacion(id){
+function eliminarEvaluacion(id) {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
         },
         buttonsStyling: false
-      })
-    
-      swalWithBootstrapButtons.fire({
+    })
+
+    swalWithBootstrapButtons.fire({
         title: 'Estas Seguro?',
         text: "Esta accion elimina la evaluación!",
         icon: 'warning',
@@ -232,33 +226,34 @@ function eliminarEvaluacion(id){
         confirmButtonText: 'Eliminar!',
         cancelButtonText: 'Cancelar!',
         reverseButtons: true
-      }).then((result) => {
+    }).then((result) => {
         if (result.isConfirmed) {
 
-          deleteEvaluacion(id)
-          .then(response=>response)
-          .then(data=>{
-            console.log(data)
-            swalWithBootstrapButtons.fire(
-              'Eliminado!',
-              'La evaluacion se elimino',
-              'success'
-            )
-          })
-          .catch(err=>{
-            console.log(err)
-          })
-          .finally(final=>{
-           // verSemestres()
-           listadoSemestre()
-    
-          })
-          
+            deleteEvaluacion(id)
+                .then(response => response)
+                .then(data => {
+                    console.log(data)
+                    swalWithBootstrapButtons.fire(
+                        'Eliminado!',
+                        'La evaluacion se elimino',
+                        'success'
+                    )
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+                .finally(final => {
+                    // verSemestres()
+                    listadoSemestre()
+
+                })
+
         }
-      })
-    
-  
+    })
+
+
 }
+
 
 
 
