@@ -144,7 +144,6 @@ selectSemestres.addEventListener('change', () => {
 })
 
 
-
 function mostrarEvaluaciones(id) {
     mostrarSpinner()
     var counter = 1;
@@ -163,7 +162,7 @@ function mostrarEvaluaciones(id) {
                 <ul class="dropdown-menu">
                     <li>
                         <div class="dropdown-item input-group d-grid gap-2">
-                            <a  href="#" type="buttom" class=" input-group-text btn btn-outline-info" type="button">
+                            <a  href="./gestionar/index.html?id=${data[i].id}"  onclick="gestionarEvaluacion()" type="buttom" class=" input-group-text btn btn-outline-info" type="button">
                             <i class="fa fa-eye" aria-hidden="true"></i> Gestionar
                             </a>
                         </div>
