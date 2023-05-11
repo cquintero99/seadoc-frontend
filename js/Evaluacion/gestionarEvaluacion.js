@@ -78,11 +78,11 @@ function gestionarEvaluacion(){
       ` 
             
             let color="warning"
-            let estado=`<p class="rounded mt-3 fw-bold bg-warning">Sin presentar</p>`
+            let estado=`<p class="rounded mt-3 fw-bold bg-${color}">Sin presentar</p>`
             console.log(docentes)
             for (let i = 0; i < docentes.length; i++) {
                 
-            let nombre=`<p class="rounded mt-3 fw-bold bg-info">${docentes[i].nombre}</p>`
+            let nombre=`<p class="rounded mt-3 fw-bold bg-${color}">${docentes[i].nombre}</p>`
                
                 tabla.row.add([i + 1
                     , nombre
