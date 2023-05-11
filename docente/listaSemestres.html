@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Docente - SEADOC</title>
+    <!-- Page Icon -->
+    <link rel="icon" type="image/svg+xml" href="../../assets/img/identity/logo_ingsistemas.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="../../css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="sb-nav-fixed">
+
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-red">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="../docente/index.html">SEADOC</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group" id="nombreUsuario">
+
+
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#!">Info Cuenta</a></li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="../../index.html" id="salir">Salir</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark bg-red" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">SEMESTRES</div>
+                        <a class="nav-link" href="../docente/listaSemestres.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Semestre
+                        </a>
+
+                        <div class="sb-sidenav-menu-heading text-light">EVALUACIONES</div>
+                        <a class="nav-link p-3" href="../docente/listaEvaluacion.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Evaluaciones
+                        </a>
+
+                        <div class="sb-sidenav-menu-heading text-light">CARGA ACADEMICA</div>
+                        <a class="nav-link p-3" href="../docente/listaCAI.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Carga Academica Integral
+                        </a>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer bg-red text-center">
+                    Evaluacion Docente
+                    <div class="small">Universidad Francisco de Paula Santander</div>
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4 text-center">
+                    <h2 class="mt-4 fw-medium  text-uppercase ">Semestres</h2>
+                    <hr>
+                    <!-- Spinner -->
+                    <div id="sppiner">
+                        <div id="spinner-container" class="d-flex justify-content-center align-items-center d-none">
+                            <div class="spinner-border text-danger" role="status">
+                                <span class="sr-only">Cargando...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 ">
+                        <div class="col-xl-6 mt-3" id="pila">
+                            <p>SEMESTRE ACTUAL : <a class="h3 link-underline link-underline-opacity-0"
+                                    id="semestreActual">
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <p class="fw-medium text-center">HISTORIAL DE SEMESTRES </p>
+
+                    <!-- Contenido pestaña semestres -->
+                    <div class="overflow-scroll ">
+                        <table id="historialSemestreDocente" class="display ">
+                            <thead class="bg-red text-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Semestre</th>
+                                    <th> Inicio</th>
+                                    <th>Finalización</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <!-- Contenido pestaña semestres -->
+
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="../../js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="../../js/semestre/semestre.js"></script> -->
+    <script src="../js/Docente/listarSemestres.js"></script>
+    </div>
+</html>
