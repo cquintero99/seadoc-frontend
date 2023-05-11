@@ -65,7 +65,8 @@ crearCategoria.addEventListener('click', () => {
     `
 
         document.getElementById("bodyListaCategoria").
-            innerHTML += `<h4 id="list-item-${posicion}"  class="text-center fw-medium">  ${posicion}° - ${nombre}   </h4>
+            innerHTML += `<div class="mt-5 rounded border  border-3">
+            <h4 id="list-item-${posicion}"  class="mt-3  fw-medium  text-uppercase text-center">  ${posicion}° - ${nombre}   </h4>
                 <div class="input-group mb-3">
                 
                 <input type="text" class="form-control" id="crearPreguntaCategoria${posicion}" placeholder="Crear pregunta para la categoria ${nombre}" aria-label="Input group example" aria-describedby="btnGroupAddon">
@@ -74,11 +75,9 @@ crearCategoria.addEventListener('click', () => {
             </div>
             </br>
             
-            <ol class="list-group list-group-numbered list-group-flush" >
-                
-                </ol>
+            
             <div  class="list-group list-group-numbered list-group-flush" id="preguntaC${posicion}"><div>
-                
+             </div>   
             
             `
 
@@ -140,7 +139,7 @@ function crearPregunta(pos) {
 
         //Agrego la vista
         document.getElementById("preguntaC" + pos).innerHTML += `
-            <div id="${pos}-${posicion}">
+            <div class="  mb-3 d-sm-flex" id="${pos}-${posicion}">
             <div class="input-group " >
                     <input type="text" id="input${pos}-${posicion}" class="form-control" value="${pregunta}"
                     placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
