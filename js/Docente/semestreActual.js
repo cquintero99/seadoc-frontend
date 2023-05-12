@@ -75,6 +75,29 @@ function buscarSemestreActual() {
                         
                             
                           }
+                          let counter = 1;
+                          var t = $('#semestresRegistrado').DataTable()
+                          t.clear().draw();
+                          let acciones=`<p class="text-dark rounded fw-bold">Acciones</p>`
+                          let color=""
+                          for (let i = 0; i < lista.length; i++) {
+                           let estado=lista[i].semestreId.estado
+                           if(estado=="ACTUAL"){
+                            color="success"
+                           }else{
+                            color="warning"
+                           }
+                          t.row.add([i + 1
+                            , `<p class="text-dark text-light rounded fw-bold bg-${color}">${lista[i].semestreId.nombre}</p>`
+                            , new Date(lista[i].semestreId.fechaInicio).toLocaleDateString()
+                            , new Date(lista[i].semestreId.fechaFin).toLocaleDateString()
+                            , `<p class="text-dark text-light rounded fw-bold bg-${color}">${lista[i].semestreId.estado}</p>`, new Date(lista[i].semestreId.fechaRegistro).toLocaleDateString()
+                            , lista[i].semestreId.visibilidad,
+                            acciones]).draw(false);
+                      
+                          counter++;
+                            
+                          }
                     }
                 })
                 .catch(err=>{
@@ -101,7 +124,7 @@ function buscarSemestreActual() {
         })
 }
 unirmeSemestre.addEventListener('click',()=>{
-
+    mostrarSpinner()
     
     let id=JSON.parse(localStorage.getItem("data")).id
     let semestreActual=localStorage.getItem("semestreActual")
@@ -119,15 +142,62 @@ unirmeSemestre.addEventListener('click',()=>{
     saveUsuarioSemestre(usuarioSemestre)
     .then(response=>response)
     .then(newUsuario=>{
-        console.log(newUsuario)
+        unirmeSemestre.className="btn btn-outline-success d-none"
+        buscarSemestreActual()
     })
     .catch(err=>{
         console.log(err)
     })
     .finally(final=>{
+        ocultarSpinner()
 
     })
    
   
 })
+$(document).ready( function () {
+    $('#semestresRegistrado').DataTable({
+        "language": {
+            "decimal":        "",
+            "emptyTable":     "No hay datos disponibles en la tabla",
+            "info":           "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "infoEmpty":      "Mostrando 0 a 0 de 0 registros",
+            "infoFiltered":   "(filtrado de _MAX_ registros totales)",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "lengthMenu":     "Mostrar _MENU_ registros",
+            "loadingRecords": "Cargando...",
+            "processing":     "Procesando...",
+            "search":         "Buscar:",
+            "zeroRecords":    "No se encontraron registros coincidentes",
+            "paginate": {
+                "first":      "Primero",
+                "last":       "Último",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            },
+            "aria": {
+                "sortAscending":  ": activar para ordenar de manera ascendente",
+                "sortDescending": ": activar para ordenar de manera descendente"
+            }
+        }
+    });
+  })
+  
+function mostrarSpinner() {
+    document.getElementById("sppiner").innerHTML = `<div id="spinner-container" class="d-flex justify-content-center align-items-center ">
+      <div class="spinner-border text-danger" role="status">
+        <span class="sr-only">Cargando...</span>
+      </div>
+    </div>`
+  }
+  
+  
+  function ocultarSpinner() {
+    document.getElementById("sppiner").innerHTML = `<div id="spinner-container" class="d-flex justify-content-center align-items-center d-none">
+      <div class="spinner-border text-danger" role="status">
+        <span class="sr-only">Cargando...</span>
+      </div>
+    </div>`
+  }
 
