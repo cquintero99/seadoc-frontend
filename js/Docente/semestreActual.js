@@ -55,11 +55,17 @@ function buscarSemestreActual() {
 
             if (data.length >= 1) {
                 localStorage.setItem("semestreActual",data[0].id)
+                let fechaInicio = new Date(data[0].fechaInicio).toLocaleDateString()
+                let fechaFin = new Date(data[0].fechaFin).toLocaleDateString()
+                document.getElementById("nombreSemestre").innerHTML = data[0].nombre
+                document.getElementById("visibilidad").innerHTML = data[0].visibilidad
+                document.getElementById("fechas").innerHTML = fechaInicio +" - "+fechaFin
                 verListadeSemestreDelDocente()
                 .then(response=>response.json())
                 .then(lista=>{
                     console.log(lista)
-                    if(lista.length=="0"){
+                    let visibilidad=data[0].visibilidad
+                    if(lista.length=="0" && visibilidad=="PUBLICO" ){
                         unirmeSemestre.className="btn btn-outline-success"
                     }else{
                         var semestreEncontrado = lista.find(function(item) {
@@ -69,35 +75,13 @@ function buscarSemestreActual() {
                           // Verificar si se encontró el objeto
                           if (semestreEncontrado) {
                             registrado.className="bg-success rounded fw-bold text-light "
-                            console.log("Se encontró el semestre con id " );
-                          } else {
+                            
+                          } else if(visibilidad=="PUBLICO") {
                             unirmeSemestre.className="btn btn-outline-success "
                         
                             
                           }
-                          let counter = 1;
-                          var t = $('#semestresRegistrado').DataTable()
-                          t.clear().draw();
-                          let acciones=`<p class="text-dark rounded fw-bold">Acciones</p>`
-                          let color=""
-                          for (let i = 0; i < lista.length; i++) {
-                           let estado=lista[i].semestreId.estado
-                           if(estado=="ACTUAL"){
-                            color="success"
-                           }else{
-                            color="warning"
-                           }
-                          t.row.add([i + 1
-                            , `<p class="text-dark text-light rounded fw-bold bg-${color}">${lista[i].semestreId.nombre}</p>`
-                            , new Date(lista[i].semestreId.fechaInicio).toLocaleDateString()
-                            , new Date(lista[i].semestreId.fechaFin).toLocaleDateString()
-                            , `<p class="text-dark text-light rounded fw-bold bg-${color}">${lista[i].semestreId.estado}</p>`, new Date(lista[i].semestreId.fechaRegistro).toLocaleDateString()
-                            , lista[i].semestreId.visibilidad,
-                            acciones]).draw(false);
-                      
-                          counter++;
-                            
-                          }
+                         mostraSemestres(lista)
                     }
                 })
                 .catch(err=>{
@@ -106,13 +90,24 @@ function buscarSemestreActual() {
                 .finally(fina=>{
 
                 })
-                let fechaInicio = new Date(data[0].fechaInicio).toLocaleDateString()
-                let fechaFin = new Date(data[0].fechaFin).toLocaleDateString()
-                document.getElementById("nombreSemestre").innerHTML = data[0].nombre
-                document.getElementById("visibilidad").innerHTML = data[0].visibilidad
-                document.getElementById("fechas").innerHTML = fechaInicio +" - "+fechaFin
+               
 
 
+            }else{
+                document.getElementById("nombreSemestre").innerHTML = "No hay"
+                document.getElementById("visibilidad").innerHTML = "-"
+                document.getElementById("fechas").innerHTML = "-"
+                verListadeSemestreDelDocente()
+                .then(response=>response.json())
+                .then(lista=>{
+                    mostraSemestres(lista)
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
+                .finally(fina=>{
+
+                })
             }
 
         })
@@ -122,6 +117,31 @@ function buscarSemestreActual() {
         .finally(fina=>{
             
         })
+}
+function mostraSemestres(lista){
+    let counter = 1;
+    var t = $('#semestresRegistrado').DataTable()
+    t.clear().draw();
+    let acciones=`<p class="text-dark rounded fw-bold">Acciones</p>`
+    let color=""
+    for (let i = 0; i < lista.length; i++) {
+     let estado=lista[i].semestreId.estado
+     if(estado=="ACTUAL"){
+      color="success"
+     }else{
+      color="warning"
+     }
+    t.row.add([i + 1
+      , `<p class="text-dark text-light rounded fw-bold bg-${color}">${lista[i].semestreId.nombre}</p>`
+      , new Date(lista[i].semestreId.fechaInicio).toLocaleDateString()
+      , new Date(lista[i].semestreId.fechaFin).toLocaleDateString()
+      , `<p class="text-dark text-light rounded fw-bold bg-${color}">${lista[i].semestreId.estado}</p>`, new Date(lista[i].semestreId.fechaRegistro).toLocaleDateString()
+      , lista[i].semestreId.visibilidad,
+      acciones]).draw(false);
+
+    counter++;
+      
+    }
 }
 unirmeSemestre.addEventListener('click',()=>{
     mostrarSpinner()
