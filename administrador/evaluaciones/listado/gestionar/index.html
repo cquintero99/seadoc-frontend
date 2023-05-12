@@ -125,25 +125,41 @@
                     <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%"
                         data-bs-smooth-scroll="true" class="scrollspy-example mt-3 rounded-2" tabindex="0">
                         <hr>
-                        <h4 id="scrollspyHeading1">Informacion de la Evaluacion</h4>
+                        <h4 id="scrollspyHeading1"  >Informacion de la Evaluacion :</h4>
 
-                        <div class="row mb-3  text-center border border-5">
+                        <div class="row mb-3  text-center ">
                             <div class="col-xl-4 mt-3">
-                                <p>Titulo: <span id="titulo"></span></p>
+                                <blockquote class="blockquote mb-0">
+                                    <footer class="blockquote-footer">Titulo</footer>
+            
+                                    <p id="titulo"></p>
+            
+                                  </blockquote>
                             </div>
                             <div class="col-xl-4 mt-3">
-                                <p>Categoria: <span id="categoriaE"></span></p>
+                                <blockquote class="blockquote mb-0">
+                                    <footer class="blockquote-footer">Categoria</footer>
+            
+                                    <p id="categoriaE"></p>
+            
+                                  </blockquote>
                             </div>
                             <div class="col-xl-4 mt-3">
-                                <p>Fecha Registro: <span id="fechaE"></span></p>
+                                <blockquote class="blockquote mb-0">
+                                    <footer class="blockquote-footer">Fecha Registro </footer>
+            
+                                    <p id="fechaE"></p>
+            
+                                  </blockquote>
                             </div>
                         </div>
                         <hr>
-                        <h4 id="scrollspyHeading2">Estado Evaluacion</h4>
+                        <h4 id="scrollspyHeading2">Estado Evaluacion :</h4>
 
-                        <div class="row mb-3  text-center border border-5">
-                            <div class="col-xl-4 mt-3  text-center">
-
+                        <div class="row mb-3  text-center  ">
+                            
+                            <div class="col-xl-4 p-3 mt-3  text-center">
+                                
                                 <select class="form-select text-center mb-3" aria-label="Default select example">
                                     <option selected>Estados de la Evaluacion</option>
                                     <option value="1">REGISTRADA</option>
@@ -153,30 +169,50 @@
 
 
                             </div>
-                            <div class="col-xl-3 mt-3">
+                            <div class="col-xl-3 p-3 mt-3">
                                 <button class="btn btn-outline-info form-control " type="button">Actualizar
                                     Estado</button>
 
                             </div>
-                            <div class="col-xl-5"></div>
+                            <div class="col-xl-5 p-3  border border-5">
+                                <blockquote class="blockquote mb-0">
+                                    <footer class="blockquote-footer">Estados de la evaluacion </footer>
+                                </blockquote>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-info">1°- REGISTRADA</button>
+                                    <button type="button" class="btn btn-success">2°- ACTIVA</button>
+                                    <button type="button" class="btn btn-warning">3°- CERRADA</button>
+                                  </div>
+
+                                
+                            </div>
                         </div>
                         <hr>
-                        <h4 id="scrollspyHeading3">Informacion del Semestre</h4>
+                        <h4 id="scrollspyHeading3">Informacion del Semestre :</h4>
 
-                        <div class="row mt-3 mb-3 text-center border border-5">
+                        <div class="row mt-3 mb-3 text-center ">
                             <div class="col-xl-6 mt-3">
+                                <blockquote class="blockquote mb-0">
+                                    <footer class="blockquote-footer">Nombre </footer>
+            
+                                    <p id="nombreS"></p>
+            
+                                  </blockquote>
 
-                                <p>Nombre: <span id="nombreS"></span></p>
                             </div>
                             <div class="col-xl-6 mt-3">
-
-                                <p>Estado: <span id="estadoS"></span></p>
+                                <blockquote class="blockquote mb-0">
+                                    <footer class="blockquote-footer">Estado </footer>
+            
+                                    <p id="estadoS"></p>
+            
+                                  </blockquote>
                             </div>
 
                         </div>
                         <hr>
-
-                        <h4 id="scrollspyHeading4">Docentes registrados en el semestre</h4>
+                        
+                        <h4 id="scrollspyHeading4" class="text-center">Tabla de docentes registrados en el semestre</h4>
                         <br>
                         <div class="row text-center mb-3 fw-medium  text-uppercase ">
                             <div class="overflow-scroll ">
