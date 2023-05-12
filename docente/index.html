@@ -9,12 +9,11 @@
         <title>Docente - SEADOC</title>
         <link rel="icon" type="image/svg+xml" href="../assets/img/identity/logo_ingsistemas.png" />
     
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="../css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" href="../css/indexAdmin.css">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
-    <body class="sb-nav-fixed">
+    <body class="sb-nav-fixed" onload="buscarSemestreActual()">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-red">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html">SEADOC</a>
@@ -72,27 +71,50 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Docente</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
+                        <h1 class="mt-4 text-center ">Docente</h1>
+                        <hr>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-xl-12">
                               <div class="card">
                                 <div class="card-header bg-red">
-                                  <i class="fas fa-graduation-cap fa-3x"></i>
-                                </div>
-                                <div class="card-body">
-                                  <h5 class="card-title">Semestres</h5>
+                                  <h5 class="card-title"><i class="fas fa-graduation-cap fa-3x"></i> Semestre Actual: <a href="#" class="text-center link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" id="nombreSemestre"></a></h5>
                                   
                                 </div>
-                                <div class="card-footer">
-                                  <a href="../docente/listaSemestres.html" class="card-link">Ver Detalles</a>
-                                  <i class="fa-solid fa-chevron-right fa-2x"></i>
+                                <div class="card-body">
+                                  
+                                  <div class="row" >
+                                    <div class="col-xl-6 text-center" id="semestreActual" >
+                                      <br>
+                                      <blockquote class="blockquote mb-0">
+                                        <footer class="blockquote-footer">Visibilida del semestre</footer>
+                                        
+                                        <p id="visibilidad"></p>
+                                       
+                                        <button class="btn btn-outline-success d-none" id="unirmeSemestre" >Unirme Semestre</button>
+                                        
+                                      </blockquote>
+                                    </div>
+                                    <div class="col-xl-6 text-center">
+                                      <br>
+                                      <blockquote class="blockquote mb-0">
+                                        <footer class="blockquote-footer">Fechas del semestre</footer>
+                                      
+                                        <p id="fechas"></p>
+                                      </blockquote>
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer justify-content-center text-center">
+                                  <p class="bg-success d-none rounded" id="registrado"> REGISTRADO <i class="fa-solid fa-check " ></i></p>
+                                 
                                 </div>
                               </div>
                             </div>
-                            <div class="col-md-4">
+                            
+                          </div>
+                        <!--
+                          <div class="col-md-4">
                               <div class="card">
                                 <div class="card-header bg-red">
                                   <i class="fas fa-columns fa-3x"></i>
@@ -122,8 +144,7 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        
+                        -->
                         
                     </div>
                 </main>
@@ -144,9 +165,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="../js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="../assets/demo/chart-area-demo.js"></script>
-        <script src="../assets/demo/chart-bar-demo.js"></script>
+        
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="../js/datatables-simple-demo.js"></script>
+        <script src="../js/Docente/semestreActual.js"></script>
     </body>
 </html>
