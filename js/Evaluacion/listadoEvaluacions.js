@@ -122,26 +122,31 @@ function listadoSemestre() {
 
 
 }
-selectSemestres.addEventListener('change', () => {
-    mostrarSpinner()
-    let idSemestre = selectSemestres.value
-    getSemestreId(idSemestre)
-        .then(response => response.json())
-        .then(data => {
 
-
-            document.getElementById("fechaSemestre").innerHTML = `<p > ESTADO: ${data.estado}</p>`
-
-            mostrarEvaluaciones(data.id)
-        })
-        .catch(err => {
-            ocultarSpinner()
-        })
-        .finally(final => {
-            // ocultarSpinner()
-        })
-
-})
+try {
+    selectSemestres.addEventListener('change', () => {
+        mostrarSpinner()
+        let idSemestre = selectSemestres.value
+        getSemestreId(idSemestre)
+            .then(response => response.json())
+            .then(data => {
+    
+    
+                document.getElementById("fechaSemestre").innerHTML = `<p > ESTADO: ${data.estado}</p>`
+    
+                mostrarEvaluaciones(data.id)
+            })
+            .catch(err => {
+                ocultarSpinner()
+            })
+            .finally(final => {
+                // ocultarSpinner()
+            })
+    
+    })
+} catch (error) {
+    console.log(error)
+}
 
 
 function mostrarEvaluaciones(id) {
@@ -154,9 +159,9 @@ function mostrarEvaluaciones(id) {
         .then(data => {
             data.sort(compararFechasRegistro)
             //href="./editar/index.html"
-            console.log(data)
+            
             for (let i = 0; i < data.length; i++) {
-                let acciones =` <button type="button" class="btn btn-outline-info dropdown-toggle text-center  justify-content-center"  data-bs-toggle="dropdown" aria-expanded="false">
+                let acciones = ` <button type="button" class="btn btn-outline-info dropdown-toggle text-center  justify-content-center"  data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-cog" aria-hidden="true"></i>
                 </button>
                 <ul class="dropdown-menu">
@@ -184,13 +189,35 @@ function mostrarEvaluaciones(id) {
                         </div>
                     </li>
                 </ul>
-                  ` 
-             
-                let nombreEstado=data[i].estadosEvaluacion[data[i].estadosEvaluacion.length-1].estadoId.nombre
-                let color=""
-                if(nombreEstado=='REGISTRADA'){
-                    color="info"
-                    acciones= ` <button type="button" class="btn btn-outline-info dropdown-toggle text-center  justify-content-center"  data-bs-toggle="dropdown" aria-expanded="false">
+                  `
+               
+                let nombreEstado = ""
+                const estadoCerradaPresente = data[i].estadosEvaluacion.some(item => item.estadoId.nombre === 'CERRADA');
+                if (estadoCerradaPresente) {
+                    nombreEstado = "CERRADA"
+                } else {
+                    const estadoActivaPresente = data[i].estadosEvaluacion.some(item => item.estadoId.nombre === 'ACTIVA');
+
+                    if (estadoActivaPresente) {
+                        nombreEstado = "ACTIVA"
+                    } else {
+                        const estadoRegistradaPresente = data[i].estadosEvaluacion.some(item => item.estadoId.nombre === 'REGISTRADA');
+
+
+                        if (estadoRegistradaPresente) {
+                            nombreEstado = "REGISTRADA"
+
+                        }
+                    }
+                }
+
+
+
+
+                let color = ""
+                if (nombreEstado == 'REGISTRADA') {
+                    color = "info"
+                    acciones = ` <button type="button" class="btn btn-outline-info dropdown-toggle text-center  justify-content-center"  data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-cog" aria-hidden="true"></i>
                     </button>
                     <ul class="dropdown-menu">
@@ -221,24 +248,24 @@ function mostrarEvaluaciones(id) {
                    
                 
                 
-            `   
-                }else if(nombreEstado=='ACTIVA'){
-                    color="success"
-                      
+            `
+                } else if (nombreEstado == 'ACTIVA') {
+                    color = "success"
 
-                }else{
-                    color="warning"
+
+                } else if (nombreEstado == 'CERRADA') {
+                    color = "warning"
                 }
-                let fechaRegistro=new Date(data[i].fechaRegistro).toLocaleDateString();
-                let categoria=` <p class="text-uppercase   ">${data[i].categoriaId.nombre}</p>`
-                let estado=` <p class="text-uppercase rounded text-center  bg-${color} ">${nombreEstado}</p>`
-                let fechaR=` <p class="text-uppercase text-center  ">${fechaRegistro}</p>`
-                
+                let fechaRegistro = new Date(data[i].fechaRegistro).toLocaleDateString();
+                let categoria = ` <p class="text-uppercase   ">${data[i].categoriaId.nombre}</p>`
+                let estado = ` <p class="text-uppercase rounded text-center  bg-${color} ">${nombreEstado}</p>`
+                let fechaR = ` <p class="text-uppercase text-center  ">${fechaRegistro}</p>`
+
                 t.row.add([i + 1
                     , data[i].titulo
                     , data[i].descripcion
                     , categoria
-                    ,estado
+                    , estado
                     , fechaR
                     , acciones
                 ]).draw(false);

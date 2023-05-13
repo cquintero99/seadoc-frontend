@@ -11,82 +11,117 @@ async function getEvalucionById(id) {
 //OBTENER EVALUACION POR ID
 async function getDocentesSemestreById(id) {
     let token = localStorage.getItem("token")
-    const result = await fetch(urlBasic + "/semestre/" + id+"/docentes", {
+    const result = await fetch(urlBasic + "/semestre/" + id + "/docentes", {
         headers: {
             "Authorization": "Bearer " + token
         }
     })
     return result
 }
-function mostrarEstadoEvaluacion(estado){
-    const estados= document.getElementById("estadoEvaluacion")
-    const btnActualizarEstado= document.getElementById("btnActualizarEstado")
-    btnActualizarEstado
-    console.log(estado)
-    if(estado=='REGISTRADA'){
-        estados.innerHTML=` <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 1px;">
-        <div class="progress-bar" style="width: 0%"></div>
-      </div>
-      <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary bg-info  rounded-pill" style="width: 2rem; height:2rem;">1 <span>REGISTRADO</span></button>
-      <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">2</button>
-      <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">3</button>
-   `
-    }else if(estado=='ACTIVA'){
-        estados.innerHTML=` <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 1px;">
-        <div class="progress-bar bg-success" style="width: 50%"></div>
-      </div>
-      <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary bg-info  rounded-pill" style="width: 2rem; height:2rem;">1 <span>REGISTRADO</span></button>
-      <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary bg-success rounded-pill " style="width: 2rem; height:2rem;">2</button>
-      <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">3</button>
-   `
+//SAVE ESTADO EVALUACION
+async function saveEstadoEvaluacion(estadoEvaluacion) {
+    let token = localStorage.getItem("token");
 
-    }else if(estado=='CERRADA'){
-        estados.innerHTML=` <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 1px;">
-        <div class="progress-bar bg-warning" style="width: 100%"></div>
-      </div>
-      <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary bg-info  rounded-pill" style="width: 2rem; height:2rem;">1 <span>REGISTRADO</span></button>
-      <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary bg-success rounded-pill " style="width: 2rem; height:2rem;">2</button>
-      <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary bg-warning rounded-pill" style="width: 2rem; height:2rem;">3</button>
-   `
-   btnActualizarEstado.className="d-none"
-
-    }
+    const result = await fetch(urlBasic + "/estado/evaluacion/save", {
+        method: "POST",
+        body: JSON.stringify(estadoEvaluacion),
+        headers: {
+            Authorization: "Bearer " + token,
+            "Content-type": "Application/json",
+        },
+    })
+    return result
 
 }
 
-function gestionarEvaluacion(){
+function guardarEstadoEvaluacion() {
     mostrarSpinner()
     // Obtener el valor del parámetro de consulta "dato"
- const urlParams = new URLSearchParams(window.location.search);
- const id = urlParams.get('id');
- 
- // Busco la evaluacion con el id del url
- getEvalucionById(id)
- .then(response=>response.json())
- .then(data=>{
-    //Obtengo la evaluacion
-    let fecha=new Date(data.fechaRegistro).toLocaleDateString()
-    document.getElementById("titulo").innerHTML=data.titulo
-    document.getElementById("fechaE").innerHTML=fecha
-    document.getElementById("categoriaE").innerHTML=data.categoriaId.nombre.toUpperCase()
-    console.log(data)
-    let nombreEstado=data.estadosEvaluacion[data.estadosEvaluacion.length-1].estadoId.nombre
-    mostrarEstadoEvaluacion(nombreEstado)
-    
-    getSemestreId(data.semestreId)
-    .then(res=>res.json())
-    .then(semestre=>{
-        document.getElementById("nombreS").innerHTML=semestre.nombre
-        document.getElementById("estadoS").innerHTML=semestre.estado
-        getDocentesSemestreById(semestre.id)
-        .then(respon=>respon.json())
-        .then(docentes=>{
-            
-            var counter = 1;
-            var tabla = $('#tablaDonceteEvaluaciones').DataTable()
-            tabla.clear().draw();
-            let acciones =
-            ` <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    let estadoEvaluacion = sessionStorage.getItem("estadoEvaluacion")
+    let nombre = ""
+    if (estadoEvaluacion == "REGISTRADA") {
+        nombre = "ACTIVA"
+    } else if (estadoEvaluacion == "ACTIVA") {
+        nombre = "CERRADA"
+    } else {
+        return false;
+    }
+
+    const newEstado = {
+        estadoId: {
+            nombre
+        },
+        evaluacionId: id,
+        fechaRegistro:new Date()
+    }
+    saveEstadoEvaluacion(newEstado)
+        .then(response => response.json())
+        .then(data => {
+            gestionarEvaluacion()
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        .finally(final => {
+            ocultarSpinner()
+        })
+
+}
+function gestionarEvaluacion() {
+    mostrarSpinner()
+    // Obtener el valor del parámetro de consulta "dato"
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+
+    // Busco la evaluacion con el id del url
+    getEvalucionById(id)
+        .then(response => response.json())
+        .then(data => {
+            //Guardo el id
+            //Obtengo la evaluacion
+            let fecha = new Date(data.fechaRegistro).toLocaleDateString()
+            document.getElementById("titulo").innerHTML = data.titulo
+            document.getElementById("fechaE").innerHTML = fecha
+            document.getElementById("categoriaE").innerHTML = data.categoriaId.nombre.toUpperCase()
+
+            let nombreEstado = data.estadosEvaluacion[data.estadosEvaluacion.length - 1].estadoId.nombre
+            const estadoCerradaPresente = data.estadosEvaluacion.some(item => item.estadoId.nombre === 'CERRADA');
+            if (estadoCerradaPresente) {
+                nombreEstado = "CERRADA"
+            } else {
+                const estadoActivaPresente = data.estadosEvaluacion.some(item => item.estadoId.nombre === 'ACTIVA');
+
+                if (estadoActivaPresente) {
+                    nombreEstado = "ACTIVA"
+                } else {
+                    const estadoRegistradaPresente = data.estadosEvaluacion.some(item => item.estadoId.nombre === 'REGISTRADA');
+
+
+                    if (estadoRegistradaPresente) {
+                        nombreEstado = "REGISTRADA"
+
+                    }
+                }
+            }
+            sessionStorage.setItem("estadoEvaluacion", nombreEstado)
+            mostrarEstadoEvaluacion(nombreEstado)
+
+            getSemestreId(data.semestreId)
+                .then(res => res.json())
+                .then(semestre => {
+                    document.getElementById("nombreS").innerHTML = semestre.nombre
+                    document.getElementById("estadoS").innerHTML = semestre.estado
+                    getDocentesSemestreById(semestre.id)
+                        .then(respon => respon.json())
+                        .then(docentes => {
+
+                            var counter = 1;
+                            var tabla = $('#tablaDonceteEvaluaciones').DataTable()
+                            tabla.clear().draw();
+                            let acciones =
+                                ` <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa fa-cog" aria-hidden="true"></i>
               </button>
               <ul class="dropdown-menu">
@@ -117,72 +152,108 @@ function gestionarEvaluacion(){
              
           
           
-      ` 
-            
-            let color="warning"
-            let estado=`<p class="rounded mt-3 fw-bold bg-${color}">Sin presentar</p>`
-            console.log(docentes)
-            for (let i = 0; i < docentes.length; i++) {
-                
-            let nombre=`<p class="rounded mt-3 fw-bold bg-${color}">${docentes[i].nombre}</p>`
-               
-                tabla.row.add([i + 1
-                    , nombre
-                    , docentes[i].codigo,
-                    estado,
-                    acciones
-                ]).draw(false);
+      `
 
-                counter++;
-                
-            }
+                            let color = "warning"
+                            let estado = `<p class="rounded mt-3 fw-bold bg-${color}">Sin presentar</p>`
+                           
+                            for (let i = 0; i < docentes.length; i++) {
+
+                                let nombre = `<p class="rounded mt-3 fw-bold bg-${color}">${docentes[i].nombre}</p>`
+
+                                tabla.row.add([i + 1
+                                    , nombre
+                                    , docentes[i].codigo,
+                                    estado,
+                                    acciones
+                                ]).draw(false);
+
+                                counter++;
+
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err)
+
+                        })
+                        .finally(final => {
+
+                        })
+
+
+                })
+                .catch(err => [
+                    console.log(err)
+                ])
         })
-        .catch(err=>{
+        .catch(err => {
             console.log(err)
+        })
+        .finally(final => {
+            ocultarSpinner()
 
         })
-        .finally(final=>{
 
-        })
-       
-    
-    })
-    .catch(err=>[
-        console.log(err)
-    ])
- })
- .catch(err=>{
-    console.log(err)
- })
- .finally(final=>{
-    ocultarSpinner()
+}
 
- })
- 
- }
- $(document).ready( function () {
+function mostrarEstadoEvaluacion(estado) {
+    const estados = document.getElementById("estadoEvaluacion")
+    const btnActualizarEstado = document.getElementById("btnActualizarEstado")
+    btnActualizarEstado
+    if (estado == 'REGISTRADA') {
+        estados.innerHTML = ` <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 1px;">
+        <div class="progress-bar" style="width: 0%"></div>
+      </div>
+      <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary bg-info  rounded-pill" style="width: 2rem; height:2rem;">1 <span>REGISTRADO</span></button>
+      <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">2</button>
+      <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">3</button>
+   `
+    } else if (estado == 'ACTIVA') {
+        estados.innerHTML = ` <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 1px;">
+        <div class="progress-bar bg-success" style="width: 50%"></div>
+      </div>
+      <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary bg-info  rounded-pill" style="width: 2rem; height:2rem;">1 <span>REGISTRADO</span></button>
+      <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary bg-success rounded-pill " style="width: 2rem; height:2rem;">2</button>
+      <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">3</button>
+   `
+
+    } else if (estado == 'CERRADA') {
+        estados.innerHTML = ` <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 1px;">
+        <div class="progress-bar bg-warning" style="width: 100%"></div>
+      </div>
+      <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary bg-info  rounded-pill" style="width: 2rem; height:2rem;">1 <span>REGISTRADO</span></button>
+      <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary bg-success rounded-pill " style="width: 2rem; height:2rem;">2</button>
+      <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary bg-warning rounded-pill" style="width: 2rem; height:2rem;">3</button>
+   `
+        btnActualizarEstado.className = "d-none"
+
+    }
+
+}
+
+$(document).ready(function () {
     $('#tablaDonceteEvaluaciones').DataTable({
         "language": {
-            "decimal":        "",
-            "emptyTable":     "No hay datos disponibles en la tabla",
-            "info":           "Mostrando _START_ a _END_ de _TOTAL_ registros",
-            "infoEmpty":      "Mostrando 0 a 0 de 0 registros",
-            "infoFiltered":   "(filtrado de _MAX_ registros totales)",
-            "infoPostFix":    "",
-            "thousands":      ",",
-            "lengthMenu":     "Mostrar _MENU_ registros",
+            "decimal": "",
+            "emptyTable": "No hay datos disponibles en la tabla",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ registros",
             "loadingRecords": "Cargando...",
-            "processing":     "Procesando...",
-            "search":         "Buscar:",
-            "zeroRecords":    "No se encontraron registros coincidentes",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "No se encontraron registros coincidentes",
             "paginate": {
-                "first":      "Primero",
-                "last":       "Último",
-                "next":       "Siguiente",
-                "previous":   "Anterior"
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
             },
             "aria": {
-                "sortAscending":  ": activar para ordenar de manera ascendente",
+                "sortAscending": ": activar para ordenar de manera ascendente",
                 "sortDescending": ": activar para ordenar de manera descendente"
             }
         }

@@ -83,6 +83,7 @@ async function saveCategoria(categoria) {
     return result
 }
 function crearCategoriaE() {
+    mostrarSpinner()
     let categoria = document.getElementById("inputCategoriaP").value
 
     let evaluacionId = sessionStorage.getItem('evaluacionId')
@@ -97,8 +98,7 @@ function crearCategoriaE() {
     saveCategoria(categoriaPregunta)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
-
+            document.getElementById("inputCategoriaP").value=""
             sessionStorage.setItem("categoria" + data.id, JSON.stringify(data))
             document.getElementById("list-example").innerHTML += `<div id="ctgE${data.id}" class="mb-3 row  list-group-item 
                 list-group-item-action">
@@ -164,6 +164,7 @@ function crearCategoriaE() {
             console.log(err)
         })
         .finally(final => {
+            ocultarSpinner()
 
         })
 
