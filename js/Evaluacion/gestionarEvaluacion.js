@@ -35,38 +35,66 @@ async function saveEstadoEvaluacion(estadoEvaluacion) {
 }
 
 function guardarEstadoEvaluacion() {
-    mostrarSpinner()
-    // Obtener el valor del parámetro de consulta "dato"
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
-    let estadoEvaluacion = sessionStorage.getItem("estadoEvaluacion")
-    let nombre = ""
-    if (estadoEvaluacion == "REGISTRADA") {
-        nombre = "ACTIVA"
-    } else if (estadoEvaluacion == "ACTIVA") {
-        nombre = "CERRADA"
-    } else {
-        return false;
-    }
-
-    const newEstado = {
-        estadoId: {
-            nombre
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
         },
-        evaluacionId: id,
-        fechaRegistro:new Date()
-    }
-    saveEstadoEvaluacion(newEstado)
-        .then(response => response.json())
-        .then(data => {
-            gestionarEvaluacion()
-        })
-        .catch(err => {
-            console.log(err)
-        })
-        .finally(final => {
-            ocultarSpinner()
-        })
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Estas seguro?',
+        text: "Quieres actualizar el estado!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Actualizar',
+        cancelButtonText: 'Cerrar',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            mostrarSpinner()
+            // Obtener el valor del parámetro de consulta "dato"
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            let estadoEvaluacion = sessionStorage.getItem("estadoEvaluacion")
+            let nombre = ""
+            if (estadoEvaluacion == "REGISTRADA") {
+                nombre = "ACTIVA"
+            } else if (estadoEvaluacion == "ACTIVA") {
+                nombre = "CERRADA"
+            } else {
+                return false;
+            }
+
+            const newEstado = {
+                estadoId: {
+                    nombre
+                },
+                evaluacionId: id,
+                fechaRegistro: new Date()
+            }
+            saveEstadoEvaluacion(newEstado)
+                .then(response => response.json())
+                .then(data => {
+                    gestionarEvaluacion()
+                    swalWithBootstrapButtons.fire(
+                        'Correcto!',
+                        'El estado de la evaluacion se actualizo',
+                        'success'
+                    )
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+                .finally(final => {
+                    ocultarSpinner()
+                })
+
+        }
+    })
+
+
 
 }
 function gestionarEvaluacion() {
@@ -156,7 +184,7 @@ function gestionarEvaluacion() {
 
                             let color = "warning"
                             let estado = `<p class="rounded mt-3 fw-bold bg-${color}">Sin presentar</p>`
-                           
+
                             for (let i = 0; i < docentes.length; i++) {
 
                                 let nombre = `<p class="rounded mt-3 fw-bold bg-${color}">${docentes[i].nombre}</p>`
