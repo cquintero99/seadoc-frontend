@@ -154,6 +154,7 @@ function mostrarEvaluaciones(id) {
         .then(data => {
             data.sort(compararFechasRegistro)
             //href="./editar/index.html"
+            console.log(data)
             for (let i = 0; i < data.length; i++) {
                 let acciones =
               ` <button type="button" class="btn btn-outline-info dropdown-toggle text-center  justify-content-center"  data-bs-toggle="dropdown" aria-expanded="false">
@@ -187,14 +188,27 @@ function mostrarEvaluaciones(id) {
                
             
             
-        `
+        `   
+                let nombreEstado=data[i].estadosEvaluacion[data[i].estadosEvaluacion.length-1].estadoId.nombre
+                let color=""
+                if(nombreEstado=='REGISTRADA'){
+                    color="info"
+                }else if(nombreEstado=='ACTIVA'){
+                    color="success"
+
+                }else{
+                    color="warning"
+                }
                 let fechaRegistro=new Date(data[i].fechaRegistro).toLocaleDateString();
                 let categoria=` <p class="text-uppercase   ">${data[i].categoriaId.nombre}</p>`
+                let estado=` <p class="text-uppercase rounded text-center  bg-${color} ">${nombreEstado}</p>`
                 let fechaR=` <p class="text-uppercase text-center  ">${fechaRegistro}</p>`
+                
                 t.row.add([i + 1
                     , data[i].titulo
                     , data[i].descripcion
                     , categoria
+                    ,estado
                     , fechaR
                     , acciones
                 ]).draw(false);

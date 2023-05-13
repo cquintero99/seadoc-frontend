@@ -125,106 +125,97 @@
                     <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%"
                         data-bs-smooth-scroll="true" class="scrollspy-example mt-3 rounded-2" tabindex="0">
                         <hr>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <h4 id="scrollspyHeading1">Informacion de la Evaluacion :</h4>
+                        <div class="row border border-5">
+                            <div class="col-xl-6 border border-5">
+                                <h4 id="scrollspyHeading1">Informacion de la Evaluacion </h4>
+                                <hr>
 
                                 <div class="row mb-3  text-center ">
                                     <div class="col-xl-4 mt-3">
                                         <blockquote class="blockquote mb-0">
+                                            <footer class="blockquote-footer">Titulo :</footer>
                                             <p id="titulo"></p>
-                                            <footer class="blockquote-footer">Titulo</footer>
-        
-                                           
-        
                                         </blockquote>
                                     </div>
                                     <div class="col-xl-4 mt-3">
                                         <blockquote class="blockquote mb-0">
+                                            <footer class="blockquote-footer">Categoria :</footer>
+
                                             <p id="categoriaE"></p>
-                                            <footer class="blockquote-footer">Categoria</footer>
-        
-                                            
-        
                                         </blockquote>
                                     </div>
                                     <div class="col-xl-4 mt-3">
                                         <blockquote class="blockquote mb-0">
+                                            <footer class="blockquote-footer">Fecha Registro :</footer>
                                             <p id="fechaE"></p>
-                                            <footer class="blockquote-footer">Fecha Registro </footer>
-        
-                                            
-        
                                         </blockquote>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6">
-                                <h4 id="scrollspyHeading3">Informacion del Semestre :</h4>
-
+                            <div class="col-xl-6 border border-5">
+                                <h4 id="scrollspyHeading3 ">Informacion del Semestre </h4>
+                                <hr>
                                 <div class="row mt-3 mb-3 text-center ">
                                     <div class="col-xl-6 mt-3">
                                         <blockquote class="blockquote mb-0">
-                                            <p id="nombreS"></p>
-                                            <footer class="blockquote-footer">Nombre </footer>
-        
                                             
-        
+                                            <footer class="blockquote-footer">Nombre :</footer>
+                                            <p id="nombreS"></p>
+
+
+
                                         </blockquote>
-        
+
                                     </div>
                                     <div class="col-xl-6 mt-3">
                                         <blockquote class="blockquote mb-0">
-                                            <p id="estadoS"></p>
-                                            <footer class="blockquote-footer">Estado </footer>
-        
                                             
-        
+                                            <footer class="blockquote-footer">Estado :</footer>
+                                            <p id="estadoS"></p>
+
+
+
                                         </blockquote>
                                     </div>
-        
+
                                 </div>
                             </div>
                         </div>
-                       
+
                         <hr>
-                        <h4 id="scrollspyHeading2">Estado Evaluacion :</h4>
+                        <div class="row mb-3 border border-5  text-center  ">
+                            <h4 id="scrollspyHeading2" class="mt-3">Estado Evaluacion </h4>
 
-                        <div class="row mb-3  text-center  ">
+                            <hr>
 
-                            
-                            <div class="col-xl-12 p-5 mt-3">
-                               
+                            <div class="col-xl-12 p-5 mt-3 ">
+
                                 <div class="position-relative m-4" id="estadoEvaluacion">
-                                    <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 1px;">
-                                      <div class="progress-bar" style="width: 50%"></div>
-                                    </div>
-                                    <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 2rem; height:2rem;">1 <span>REGISTRADO</span></button>
-                                    <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 2rem; height:2rem;">2</button>
-                                    <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">3</button>
-                                  </div>
-                                  <div class="position-relative m-4 text-uppercase h5 ">
-                                    
-                                    <p class="position-absolute top-0 start-0 translate-middle text-dark rounded-pill">Registrada</p>
-                                    <p class="position-absolute top-0 start-50 translate-middle text-dark rounded-pill">Activa</p>
-                                    <p class="position-absolute top-0 start-100 translate-middle text-dark rounded-pill">Cerrada</p>
-                                  </div>
-                                  <br>
-                                 
-                               
+                                </div>
+                                <div class="position-relative m-4 text-uppercase h5 ">
 
+                                    <p class="position-absolute top-0 start-0 translate-middle text-dark rounded-pill">
+                                        Registrada</p>
+                                    <p class="position-absolute top-0 start-50 translate-middle text-dark rounded-pill">
+                                        Activa</p>
+                                    <p
+                                        class="position-absolute top-0 start-100 translate-middle text-dark rounded-pill">
+                                        Cerrada</p>
+                                </div>
                             </div>
+                            <hr>
                             <div class="col-xl-12 p-3 justify-content-center ">
-                                <button class="btn btn-outline-info  mt-3 " type="button">Actualizar
+                                <button class="btn btn-outline-info  mt-3 " type="button"
+                                    id="btnActualizarEstado">Actualizar
                                     Estado</button>
-                               
+
 
 
                             </div>
                         </div>
                         <hr>
-                       
-                        
+
+
 
                         <h4 id="scrollspyHeading4" class="text-center">Tabla de docentes registrados en el semestre</h4>
                         <br>

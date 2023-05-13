@@ -18,19 +18,60 @@ async function getDocentesSemestreById(id) {
     })
     return result
 }
+function mostrarEstadoEvaluacion(estado){
+    const estados= document.getElementById("estadoEvaluacion")
+    const btnActualizarEstado= document.getElementById("btnActualizarEstado")
+    btnActualizarEstado
+    console.log(estado)
+    if(estado=='REGISTRADA'){
+        estados.innerHTML=` <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 1px;">
+        <div class="progress-bar" style="width: 0%"></div>
+      </div>
+      <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary bg-info  rounded-pill" style="width: 2rem; height:2rem;">1 <span>REGISTRADO</span></button>
+      <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">2</button>
+      <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">3</button>
+   `
+    }else if(estado=='ACTIVA'){
+        estados.innerHTML=` <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 1px;">
+        <div class="progress-bar bg-success" style="width: 50%"></div>
+      </div>
+      <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary bg-info  rounded-pill" style="width: 2rem; height:2rem;">1 <span>REGISTRADO</span></button>
+      <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary bg-success rounded-pill " style="width: 2rem; height:2rem;">2</button>
+      <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">3</button>
+   `
+
+    }else if(estado=='CERRADA'){
+        estados.innerHTML=` <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 1px;">
+        <div class="progress-bar bg-warning" style="width: 100%"></div>
+      </div>
+      <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary bg-info  rounded-pill" style="width: 2rem; height:2rem;">1 <span>REGISTRADO</span></button>
+      <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary bg-success rounded-pill " style="width: 2rem; height:2rem;">2</button>
+      <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary bg-warning rounded-pill" style="width: 2rem; height:2rem;">3</button>
+   `
+   btnActualizarEstado.className="d-none"
+
+    }
+
+}
+
 function gestionarEvaluacion(){
     // Obtener el valor del parámetro de consulta "dato"
  const urlParams = new URLSearchParams(window.location.search);
  const id = urlParams.get('id');
  
- // Hacer algo con el valor recibido
+ // Busco la evaluacion con el id del url
  getEvalucionById(id)
  .then(response=>response.json())
  .then(data=>{
+    //Obtengo la evaluacion
     let fecha=new Date(data.fechaRegistro).toLocaleDateString()
     document.getElementById("titulo").innerHTML=data.titulo
     document.getElementById("fechaE").innerHTML=fecha
     document.getElementById("categoriaE").innerHTML=data.categoriaId.nombre.toUpperCase()
+    console.log(data)
+    let nombreEstado=data.estadosEvaluacion[data.estadosEvaluacion.length-1].estadoId.nombre
+    mostrarEstadoEvaluacion(nombreEstado)
+    
     getSemestreId(data.semestreId)
     .then(res=>res.json())
     .then(semestre=>{
