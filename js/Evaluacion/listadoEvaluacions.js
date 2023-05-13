@@ -156,8 +156,7 @@ function mostrarEvaluaciones(id) {
             //href="./editar/index.html"
             console.log(data)
             for (let i = 0; i < data.length; i++) {
-                let acciones =
-              ` <button type="button" class="btn btn-outline-info dropdown-toggle text-center  justify-content-center"  data-bs-toggle="dropdown" aria-expanded="false">
+                let acciones =` <button type="button" class="btn btn-outline-info dropdown-toggle text-center  justify-content-center"  data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-cog" aria-hidden="true"></i>
                 </button>
                 <ul class="dropdown-menu">
@@ -170,31 +169,62 @@ function mostrarEvaluaciones(id) {
                     </li>
                     <li>
                         <div class="dropdown-item input-group d-grid gap-2">
-                            <a href="#"  onclick="editarEvaluacion(${data[i].id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                            class="input-group-text btn btn-outline-warning" type="button">
+                            <button  
+                            class="input-group-text btn btn-outline-secundary" type="button" disabled>
                             <i class="fa fa-pencil" aria-hidden="true"></i> Editar
-                            </a>
+                            </button>
                         </div>
                     </li>
                     <li>
                         <div class="dropdown-item input-group d-grid gap-2">
-                            <button class="input-group-text btn btn-outline-danger"  
-                                type="button" onclick="eliminarEvaluacion(${data[i].id})" >
+                            <button class="input-group-text btn btn-outline-secundary"  
+                                type="button" disabled >
                             <i class="fa fa-times" aria-hidden="true"></i> Elimnar
                             </button>
                         </div>
                     </li>
                 </ul>
-               
-            
-            
-        `   
+                  ` 
+             
                 let nombreEstado=data[i].estadosEvaluacion[data[i].estadosEvaluacion.length-1].estadoId.nombre
                 let color=""
                 if(nombreEstado=='REGISTRADA'){
                     color="info"
+                    acciones= ` <button type="button" class="btn btn-outline-info dropdown-toggle text-center  justify-content-center"  data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="dropdown-item input-group d-grid gap-2">
+                                <a  href="./gestionar/index.html?id=${data[i].id}"  onclick="gestionarEvaluacion()" type="buttom" class=" input-group-text btn btn-outline-info" type="button">
+                                <i class="fa fa-eye" aria-hidden="true"></i> Gestionar
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="dropdown-item input-group d-grid gap-2">
+                                <a href="#"  onclick="editarEvaluacion(${data[i].id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                class="input-group-text btn btn-outline-warning" type="button">
+                                <i class="fa fa-pencil" aria-hidden="true"></i> Editar
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="dropdown-item input-group d-grid gap-2">
+                                <button class="input-group-text btn btn-outline-danger"  
+                                    type="button" onclick="eliminarEvaluacion(${data[i].id})" >
+                                <i class="fa fa-times" aria-hidden="true"></i> Elimnar
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                   
+                
+                
+            `   
                 }else if(nombreEstado=='ACTIVA'){
                     color="success"
+                      
 
                 }else{
                     color="warning"

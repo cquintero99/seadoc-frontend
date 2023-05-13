@@ -55,6 +55,7 @@ function mostrarEstadoEvaluacion(estado){
 }
 
 function gestionarEvaluacion(){
+    mostrarSpinner()
     // Obtener el valor del parámetro de consulta "dato"
  const urlParams = new URLSearchParams(window.location.search);
  const id = urlParams.get('id');
@@ -154,6 +155,7 @@ function gestionarEvaluacion(){
     console.log(err)
  })
  .finally(final=>{
+    ocultarSpinner()
 
  })
  
