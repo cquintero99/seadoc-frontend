@@ -30,7 +30,7 @@ function gestionarEvaluacion(){
     let fecha=new Date(data.fechaRegistro).toLocaleDateString()
     document.getElementById("titulo").innerHTML=data.titulo
     document.getElementById("fechaE").innerHTML=fecha
-    document.getElementById("categoriaE").innerHTML=data.categoriaId
+    document.getElementById("categoriaE").innerHTML=data.categoriaId.nombre.toUpperCase()
     getSemestreId(data.semestreId)
     .then(res=>res.json())
     .then(semestre=>{

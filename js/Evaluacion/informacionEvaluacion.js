@@ -1,4 +1,13 @@
 async function listaCategoriaEvaluacion() {
+    let token=localStorage.getItem("token")
+    const result=await fetch(urlBasic+"/categoria/evaluacion",{
+        headers:{
+            "Authorization":"Bearer "+token,
+            "Content-type":"application/json"
+        }
+    })
+    return result
+
 
 }
 
@@ -18,11 +27,47 @@ window.addEventListener('load', function () {
         .finally(final=>{
             ocultarSpinner()
         })
+        cargarCategoriasEvaluacion()
 
 
     // Código a ejecutar después de que se haya cargado la página
 
 })
+
+function cargarCategoriasEvaluacion(){
+    listaCategoriaEvaluacion()
+    .then(response=>response.json())
+    .then(categorias=>{
+        for (let i = 0; i < categorias.length; i++) {
+            let select=document.getElementById("selectCategoriaEvaluacion")
+            let opcion=document.createElement("option");
+            opcion.value=categorias[i].id
+            opcion.text=categorias[i].nombre.toUpperCase()
+            select.add(opcion)
+        }
+      
+       
+    })
+    .catch(err=>{
+        console.log(err)
+
+    })
+    .finally(final=>{
+
+    })
+}
+async function listaCategoriaEvaluacion() {
+    let token=localStorage.getItem("token")
+    const result=await fetch(urlBasic+"/categoria/evaluacion",{
+        headers:{
+            "Authorization":"Bearer "+token,
+            "Content-type":"application/json"
+        }
+    })
+    return result
+
+
+}
 function seeDataEvaluacion(data) {
     let body = ""
     if (data.length > 0) {

@@ -8,7 +8,7 @@ function enviarDataEvaluacion() {
     let descripcion = document.getElementById("textareaDescripcion").value
     //Obtengo tipo de evaluacion
     const select = document.getElementById('selectCategoriaEvaluacion');
-    let categoriaId = select.value
+    let ctgId = select.value
     //Obtengo la fecha de registro
 
     let fechaRegistro = new Date()
@@ -18,10 +18,13 @@ function enviarDataEvaluacion() {
         semestreId,
         titulo,
         descripcion,
-        categoriaId,
+        categoriaId:{
+            id:ctgId
+        },
         fechaRegistro
 
     }
+    console.log(evaluacion)
     //Guardo la evaluacion
     saveEvaluacion(evaluacion)
         .then(res => res.json())

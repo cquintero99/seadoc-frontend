@@ -156,7 +156,7 @@ function mostrarEvaluaciones(id) {
             //href="./editar/index.html"
             for (let i = 0; i < data.length; i++) {
                 let acciones =
-              ` <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              ` <button type="button" class="btn btn-outline-info dropdown-toggle text-center  justify-content-center"  data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-cog" aria-hidden="true"></i>
                 </button>
                 <ul class="dropdown-menu">
@@ -188,12 +188,14 @@ function mostrarEvaluaciones(id) {
             
             
         `
-
+                let fechaRegistro=new Date(data[i].fechaRegistro).toLocaleDateString();
+                let categoria=` <p class="text-uppercase   ">${data[i].categoriaId.nombre}</p>`
+                let fechaR=` <p class="text-uppercase text-center  ">${fechaRegistro}</p>`
                 t.row.add([i + 1
                     , data[i].titulo
                     , data[i].descripcion
-                    , data[i].categoriaId
-                    , new Date(data[i].fechaRegistro).toLocaleDateString()
+                    , categoria
+                    , fechaR
                     , acciones
                 ]).draw(false);
 
