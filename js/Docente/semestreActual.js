@@ -33,9 +33,8 @@ async function verListadeSemestreDelDocente() {
 
     let token = localStorage.getItem("token")
     let id = JSON.parse(localStorage.getItem("data")).id
-    const result = await fetch(urlBasic + "/usuario/" + id + "/semestre/docente", {
+    const result = await fetch(urlBasic + "/usuario/semestre/"+id+"/docente", {
         method: 'GET',
-
         headers: {
             "Authorization": "Bearer " + token,
             "Content-type": "application/json"
@@ -44,44 +43,150 @@ async function verListadeSemestreDelDocente() {
     return result
 
 }
+//LISTA DE EVALUCIONES POR ID SEMESTRE
+async function getEvaluacionesSemestre(id) {
+    let token = localStorage.getItem("token")
 
+    const result = await fetch(urlBasic + "/evaluacion/" + id + "/semestre", {
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    })
+
+    return result
+
+
+}
+function listaEvaluacioneSemestre(lista) {
+
+    const semestreDoncente=lista
+    console.log(semestreDoncente)
+
+    let semestreActual = localStorage.getItem("semestreActual")
+    //Si hay un semestre actual
+    if (semestreActual != null) {
+        // alert(semestreActual)
+        //Busco las evaluaciones del semestre
+        getEvaluacionesSemestre(semestreActual)
+            .then(response => response.json())
+            .then(data => {
+                let body=""
+                for (let i = 0; i < data.length; i++) {
+                    const estadoActivaPresente = data[i].estadosEvaluacion.some(item => item.estadoId.nombre === 'ACTIVA');
+                    const estadoCerradaPresente = data[i].estadosEvaluacion.some(item => item.estadoId.nombre === 'CERRADA');
+                    //Si la evaluacion esta Activa se muestra para el docente
+                    let btnRealizarEvaluacion=""
+                    if(semestreDoncente.listaEvaluacionesRegistradas!=null){
+                        for (let i = 0; i < semestreDoncente.listaEvaluacionesRegistradas.length; i++) {
+                            
+                            
+                        }
+                    }
+                        if (estadoActivaPresente && !estadoCerradaPresente) {
+                            nombreEstado = "ACTIVA"
+                            console.log(data[i])
+                            body+=`<div class="col text-center" >
+                            <div class="col-md-auto">
+                            <div class="card">
+                              <div class="card-header bg-red">
+                                <i class="fas fa-columns fa-3x"></i>
+                                <h5 class="card-title mt-3 text-capitalize" > ${data[i].categoriaId.nombre}</h5>
+                              </div>
+                              <div class="card-body">
+                                
+                                <blockquote class="blockquote mb-0">
+                                    <footer class="blockquote-footer">Titulo</footer>
+
+                                    <p >${data[i].titulo}</p>
+                                    <hr>
+                                    <p >Descripcion :${data[i].descripcion}</p>
+
+                                    
+                                    
+                                </blockquote>
+                                
+                              </div>
+                              <div class="card-footer text-center justify-content-center">
+                              <button class="btn btn-outline-success ${btnRealizarEvaluacion} " id="un">Realizar Evaluacion
+                              <i class="fa-solid fa-chevron-right "></i></button>
+
+                              
+                              </div>
+                            </div>
+                          </div>
+
+                          </div>`
+                        }
+
+                }
+                document.getElementById("evaluaciones").innerHTML=body
+
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            .finally(final => {
+
+            })
+    }
+}
+//Boton para unirser al semestre
 const unirmeSemestre = document.getElementById("unirmeSemestre")
 function buscarSemestreActual() {
+    //Busco el semestre actual
     verSemestreEstado("ACTUAL")
         .then(response => response.json())
         .then(data => {
-            const semestreActual = document.getElementById("semestreActual")
             const registrado = document.getElementById("registrado")
-
+            //Si encuenta el semestre actual
             if (data.length >= 1) {
+                //lo guardo en la sesion
                 localStorage.setItem("semestreActual", data[0].id)
+                //Muestro los datos en la card
                 let fechaInicio = new Date(data[0].fechaInicio).toLocaleDateString()
                 let fechaFin = new Date(data[0].fechaFin).toLocaleDateString()
                 document.getElementById("nombreSemestre").innerHTML = data[0].nombre
                 document.getElementById("visibilidad").innerHTML = data[0].visibilidad
                 document.getElementById("fechas").innerHTML = fechaInicio + " - " + fechaFin
+               // Busco la lista de semestre del docente 
                 verListadeSemestreDelDocente()
                     .then(response => response.json())
                     .then(lista => {
                         console.log(lista)
+                        //Guardo el id del usuarioSemestre
+                        localStorage.setItem("userSemestreId",lista[0].id)
+                        //Obtengo la visibilidad del semestre
                         let visibilidad = data[0].visibilidad
+                        //Si no estoy registrado en ningun semestre 
                         if (lista.length == "0" && visibilidad == "PUBLICO") {
+                            //Muestro el boton para unirme 
                             unirmeSemestre.className = "btn btn-outline-success"
                         } else {
+                            //Busco si  en la lista estoy registrado en el semestre actual
                             var semestreEncontrado = lista.find(function (item) {
                                 return item.semestreId.id === data[0].id;
                             });
 
                             // Verificar si se encontró el objeto
                             if (semestreEncontrado) {
+                                //Mustro Mensaje que el docente esta registrado en el semestre 
                                 registrado.className = "bg-success h3 rounded fw-bold text-light "
 
+                                //Si no estoy registrado en el semestre
                             } else if (visibilidad == "PUBLICO") {
+                                    //Muestro el boton para registrarme
                                 unirmeSemestre.className = "btn btn-outline-success "
 
 
-                            }
-                            mostraSemestres(lista)
+                            } 
+                            //Funcion para mostrar la lista de Evaluaciones ACTIVA en el semestre
+                            
+                            listaEvaluacioneSemestre(lista[0])
+
+                             //Funcion para mostrar la lista de semestes registrado del docente 
+                            
+                           mostraSemestres(lista)
+                           
                         }
                     })
                     .catch(err => {
@@ -94,12 +199,15 @@ function buscarSemestreActual() {
 
 
             } else {
+                //Muestro mensaje que no un semestre actual
                 document.getElementById("nombreSemestre").innerHTML = "No hay"
                 document.getElementById("visibilidad").innerHTML = "-"
                 document.getElementById("fechas").innerHTML = "-"
+                // Busco la lista de semestre del docente 
                 verListadeSemestreDelDocente()
                     .then(response => response.json())
                     .then(lista => {
+                        //Muestro la lista de semestres registrados del docente
                         mostraSemestres(lista)
                     })
                     .catch(err => {
@@ -115,9 +223,10 @@ function buscarSemestreActual() {
             console.log(err)
         })
         .finally(fina => {
-
+           
         })
 }
+ //Muestro la lista de semestres registrados del docente
 function mostraSemestres(lista) {
     let counter = 1;
     var t = $('#semestresRegistrado').DataTable()
@@ -136,12 +245,13 @@ function mostraSemestres(lista) {
             , new Date(lista[i].semestreId.fechaFin).toLocaleDateString()
             , `<p class="text-dark text-light rounded fw-bold bg-${color}">${lista[i].semestreId.estado}</p>`
             , lista[i].semestreId.visibilidad,
-            ]).draw(false);
+        ]).draw(false);
 
         counter++;
 
     }
 }
+ //Funcion para unirse al semestre actual
 unirmeSemestre.addEventListener('click', () => {
     mostrarSpinner()
 
