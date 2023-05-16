@@ -1,5 +1,6 @@
 //CONEXION CON EL BACK
-const urlBasic = "https://teacher-test.herokuapp.com"
+const urlBasic = "https://teacher-test-backend-production-69e6.up.railway.app"
+//"https://teacher-test.herokuapp.com"
 
 async function verSemestreEstado(estado) {
 

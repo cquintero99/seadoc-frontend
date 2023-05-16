@@ -1,8 +1,7 @@
 //CONEXION CON EL BACK
-const urlBasic = "https://teacher-test.herokuapp.com"
-//"https://teacher2023.herokuapp.com"
-//"https://teacher-test-backend-production-e58a.up.railway.app";
-//"http://localhost:8080"
+const urlBasic = "https://teacher-test-backend-production-69e6.up.railway.app"
+//"https://teacher-test.herokuapp.com"
+
 
 
 //OBTENER LISTA DE SEMESTRE
