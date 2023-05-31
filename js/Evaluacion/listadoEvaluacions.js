@@ -122,26 +122,31 @@ function listadoSemestre() {
 
 
 }
-selectSemestres.addEventListener('change', () => {
-    mostrarSpinner()
-    let idSemestre = selectSemestres.value
-    getSemestreId(idSemestre)
-        .then(response => response.json())
-        .then(data => {
 
-
-            document.getElementById("fechaSemestre").innerHTML = `<p > ESTADO: ${data.estado}</p>`
-
-            mostrarEvaluaciones(data.id)
-        })
-        .catch(err => {
-            ocultarSpinner()
-        })
-        .finally(final => {
-            // ocultarSpinner()
-        })
-
-})
+try {
+    selectSemestres.addEventListener('change', () => {
+        mostrarSpinner()
+        let idSemestre = selectSemestres.value
+        getSemestreId(idSemestre)
+            .then(response => response.json())
+            .then(data => {
+    
+    
+                document.getElementById("fechaSemestre").innerHTML = `<p > ESTADO: ${data.estado}</p>`
+    
+                mostrarEvaluaciones(data.id)
+            })
+            .catch(err => {
+                ocultarSpinner()
+            })
+            .finally(final => {
+                // ocultarSpinner()
+            })
+    
+    })
+} catch (error) {
+    console.log(error)
+}
 
 
 function mostrarEvaluaciones(id) {
@@ -154,9 +159,9 @@ function mostrarEvaluaciones(id) {
         .then(data => {
             data.sort(compararFechasRegistro)
             //href="./editar/index.html"
+            
             for (let i = 0; i < data.length; i++) {
-                let acciones =
-              ` <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                let acciones = ` <button type="button" class="btn btn-outline-info dropdown-toggle text-center  justify-content-center"  data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-cog" aria-hidden="true"></i>
                 </button>
                 <ul class="dropdown-menu">
@@ -169,31 +174,99 @@ function mostrarEvaluaciones(id) {
                     </li>
                     <li>
                         <div class="dropdown-item input-group d-grid gap-2">
-                            <a href="#"  onclick="editarEvaluacion(${data[i].id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                            class="input-group-text btn btn-outline-warning" type="button">
+                            <button  
+                            class="input-group-text btn btn-outline-secundary" type="button" disabled>
                             <i class="fa fa-pencil" aria-hidden="true"></i> Editar
-                            </a>
+                            </button>
                         </div>
                     </li>
                     <li>
                         <div class="dropdown-item input-group d-grid gap-2">
-                            <button class="input-group-text btn btn-outline-danger"  
-                                type="button" onclick="eliminarEvaluacion(${data[i].id})" >
+                            <button class="input-group-text btn btn-outline-secundary"  
+                                type="button" disabled >
                             <i class="fa fa-times" aria-hidden="true"></i> Elimnar
                             </button>
                         </div>
                     </li>
                 </ul>
+                  `
                
-            
-            
-        `
+                let nombreEstado = ""
+                const estadoCerradaPresente = data[i].estadosEvaluacion.some(item => item.estadoId.nombre === 'CERRADA');
+                if (estadoCerradaPresente) {
+                    nombreEstado = "CERRADA"
+                } else {
+                    const estadoActivaPresente = data[i].estadosEvaluacion.some(item => item.estadoId.nombre === 'ACTIVA');
+
+                    if (estadoActivaPresente) {
+                        nombreEstado = "ACTIVA"
+                    } else {
+                        const estadoRegistradaPresente = data[i].estadosEvaluacion.some(item => item.estadoId.nombre === 'REGISTRADA');
+
+
+                        if (estadoRegistradaPresente) {
+                            nombreEstado = "REGISTRADA"
+
+                        }
+                    }
+                }
+
+
+
+
+                let color = ""
+                if (nombreEstado == 'REGISTRADA') {
+                    color = "info"
+                    acciones = ` <button type="button" class="btn btn-outline-info dropdown-toggle text-center  justify-content-center"  data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="dropdown-item input-group d-grid gap-2">
+                                <a  href="./gestionar/index.html?id=${data[i].id}"  onclick="gestionarEvaluacion()" type="buttom" class=" input-group-text btn btn-outline-info" type="button">
+                                <i class="fa fa-eye" aria-hidden="true"></i> Gestionar
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="dropdown-item input-group d-grid gap-2">
+                                <a href="#"  onclick="editarEvaluacion(${data[i].id})"  data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                class="input-group-text btn btn-outline-warning" type="button">
+                                <i class="fa fa-pencil" aria-hidden="true"></i> Editar
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="dropdown-item input-group d-grid gap-2">
+                                <button class="input-group-text btn btn-outline-danger"  
+                                    type="button" onclick="eliminarEvaluacion(${data[i].id})" >
+                                <i class="fa fa-times" aria-hidden="true"></i> Elimnar
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                   
+                
+                
+            `
+                } else if (nombreEstado == 'ACTIVA') {
+                    color = "success"
+
+
+                } else if (nombreEstado == 'CERRADA') {
+                    color = "warning"
+                }
+                let fechaRegistro = new Date(data[i].fechaRegistro).toLocaleDateString();
+                let categoria = ` <p class="text-uppercase   ">${data[i].categoriaId.nombre}</p>`
+                let estado = ` <p class="text-uppercase rounded text-center  bg-${color} ">${nombreEstado}</p>`
+                let fechaR = ` <p class="text-uppercase text-center  ">${fechaRegistro}</p>`
 
                 t.row.add([i + 1
                     , data[i].titulo
                     , data[i].descripcion
-                    , data[i].categoriaId
-                    , new Date(data[i].fechaRegistro).toLocaleDateString()
+                    , categoria
+                    , estado
+                    , fechaR
                     , acciones
                 ]).draw(false);
 

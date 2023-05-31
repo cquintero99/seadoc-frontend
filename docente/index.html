@@ -94,7 +94,7 @@
             <div class="col-xl-12">
               <div class="card">
                 <div class="card-header bg-red">
-                  <h5 class="card-title"><i class="fas fa-graduation-cap fa-3x"></i> Semestre Actual: <a href="#"
+                  <h5 class="card-title text-center"><i class="fas fa-graduation-cap fa-3x"></i> Semestre Actual: <a href="#"
                       class="text-center link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
                       id="nombreSemestre"></a></h5>
 
@@ -109,8 +109,7 @@
 
                         <p id="visibilidad"></p>
 
-                        <button class="btn btn-outline-success d-none" id="unirmeSemestre">Unirme Semestre</button>
-
+                        
                       </blockquote>
                     </div>
                     <div class="col-xl-6 text-center">
@@ -125,13 +124,24 @@
                   </div>
                 </div>
                 <div class="card-footer justify-content-center text-center">
-                  <p class="bg-success d-none rounded" id="registrado"> REGISTRADO <i class="fa-solid fa-check "></i>
+                  <button class="btn btn-outline-success d-none" id="unirmeSemestre">Unirme Semestre</button>
+
+                  <p class="h3 bg-success d-none rounded" id="registrado"> REGISTRADO <i class="fa-solid fa-check "></i>
                   </p>
 
                 </div>
               </div>
             </div>
-            <p class="fw-medium text-center fw-bold">TABLA SEMESTRES </p>
+            
+
+          </div>
+          <hr>
+            <div class="row" id="evaluaciones">
+              
+            </div>
+            
+            <hr>
+            <p class="fw-medium text-center fw-bold">TABLA  SEMESTRES REGISTRADOS</p>
             <!-- Contenido pestaña semestres -->
             <div class="overflow-scroll ">
               <table id="semestresRegistrado" class="display fw-medium text-center  table  table-hover">
@@ -142,9 +152,7 @@
                     <th> Inicio</th>
                     <th>Finalización</th>
                     <th>Estado</th>
-                    <th>Registro</th>
                     <th>Visibilidad</th>
-                    <th>Acciones</th>
                   </tr>
                 </thead>
 
@@ -153,8 +161,6 @@
 
             </div>
             <br>
-
-          </div>
           <!--
                           <div class="col-md-4">
                               <div class="card">

@@ -68,12 +68,114 @@ async function savePreguntaE(pregunta) {
     })
     return result
 }
-//
+//SAVE CATEGORIA
+async function saveCategoria(categoria) {
+    let token = localStorage.getItem("token")
+
+    const result = await fetch(urlBasic + "/categoria/pregunta/save", {
+        method: 'POST',
+        body: JSON.stringify(categoria),
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-type": "application/json"
+        }
+    })
+    return result
+}
+function crearCategoriaE() {
+    mostrarSpinner()
+    let categoria = document.getElementById("inputCategoriaP").value
+
+    let evaluacionId = sessionStorage.getItem('evaluacionId')
+
+    const categoriaPregunta = {
+        evaluacionId,
+        nombre: categoria,
+        descripcion: "",
+
+
+    }
+    saveCategoria(categoriaPregunta)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("inputCategoriaP").value=""
+            sessionStorage.setItem("categoria" + data.id, JSON.stringify(data))
+            document.getElementById("list-example").innerHTML += `<div id="ctgE${data.id}" class="mb-3 row  list-group-item 
+                list-group-item-action">
+               
+                <div class="input-group " id="ctg${data.id}">
+                
+                <div class="btn-group dropup">
+                <input type="text" class="from-control fw-bold"  id="input${data.id}"
+                  value="${data.nombre}" disabled
+                >
+  <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fa fa-cog" aria-hidden="true"></i>
+  </button>
+  <ul class="dropdown-menu">
+  <li>
+  <div class="dropdown-item input-group">
+  <a  href="#list-item-${data.id}" type="buttom" class=" input-group-text btn btn-outline-info" type="button">
+                <i class="fa fa-eye" aria-hidden="true"></i></a>
+                <button  onclick="actualizarCtgE('${data.id}')" class=" input-group-text btn btn-outline-warning" type="button">
+                <i class="fa fa-pencil" aria-hidden="true"></i></button>
+                
+                <button id="crearCategoria" onclick="eliminarCtgE('${data.id}')" class=" input-group-text btn btn-outline-danger" type="button">
+    <i class="fa fa-times" aria-hidden="true"></i></button>
+  </div>
+  </li>
+  </ul>
+</div>
+                
+                
+    
+                </div>
+                
+               
+    
+                </div>`
+
+            document.getElementById("bodyListaCategoria").innerHTML += `<div id="ctgPE${data.id}" class="mt-3 rounded border  border-3">
+                <h4 id="list-item-${data.id}" 
+                 class="mt-3  fw-medium  text-uppercase text-center">   ${data.nombre}   </h4>
+
+                <div class="input-group mb-3">
+                
+                <input type="text" class="form-control" id="savePreguntaCategoria${data.id}" placeholder="Crear pregunta para la categoria ${data.nombre}" aria-label="Input group example" aria-describedby="btnGroupAddon">
+                <button id="btnAddPregunta" onclick="crearPreguntaE(${data.id})" class="input-group-text btn btn-outline-success" type="button"><i class="fa fa-plus"
+                aria-hidden="true" ></i></button>
+            </div>
+            </br>
+            
+           
+            <div  class=" list-group list-group-numbered list-group-flush" id="preguntaC${data.id}">
+            <div>
+             </div>   
+            `
+
+
+
+
+
+
+
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        .finally(final => {
+            ocultarSpinner()
+
+        })
+
+
+
+}
 function actualizarCtgE(id) {
     let input = document.getElementById("input" + id)
     const ctg = document.getElementById("ctg" + id)
-    
-    
+
+
     ctg.innerHTML = `
     
                 <div class="btn-group dropup">
@@ -102,11 +204,11 @@ function actualizarCtgE(id) {
                 
     
     `
-    setTimeout(()=>{
+    setTimeout(() => {
         console.log(input)
         input.focus()
-    },100)
-   
+    }, 100)
+
 }
 function confirmarCtgE(id) {
     mostrarSpinner()
@@ -164,7 +266,7 @@ function confirmarCtgE(id) {
 
             })
 
-    }else{
+    } else {
         ocultarSpinner()
     }
 }
@@ -194,9 +296,9 @@ function eliminarCtgE(id) {
                 .then(data => {
                     if (data.status == 200) {
                         ocultarSpinner()
-                        const nombre = document.getElementById("ctgE"+id)
+                        const nombre = document.getElementById("ctgE" + id)
                         nombre.remove()
-                        const body=document.getElementById("ctgPE"+id)
+                        const body = document.getElementById("ctgPE" + id)
                         body.remove()
                         swalWithBootstrapButtons.fire(
                             'Eliminado!',
@@ -216,7 +318,7 @@ function eliminarCtgE(id) {
         }
     })
 
-    
+
 }
 
 function crearPreguntaE(id) {

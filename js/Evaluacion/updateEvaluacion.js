@@ -71,9 +71,45 @@ async function deleteOpcionById(id) {
     return result
 }
 
+function cargarCategoriasEvaluacion(){
+    listaCategoriaEvaluacion()
+    .then(response=>response.json())
+    .then(categorias=>{
+        let select=document.getElementById("selectCategoriaEvaluacion")
+            select.innerHTML=""
+        for (let i = 0; i < categorias.length; i++) {
+            
+            let opcion=document.createElement("option");
+            opcion.value=categorias[i].id
+            opcion.text=categorias[i].nombre.toUpperCase()
+            select.add(opcion)
+        }
+      
+       
+    })
+    .catch(err=>{
+        console.log(err)
 
+    })
+    .finally(final=>{
+
+    })
+}
+async function listaCategoriaEvaluacion() {
+    let token=localStorage.getItem("token")
+    const result=await fetch(urlBasic+"/categoria/evaluacion",{
+        headers:{
+            "Authorization":"Bearer "+token,
+            "Content-type":"application/json"
+        }
+    })
+    return result
+
+
+}
 //MUESTRA LA INFORMACION DE LA EVALUACION EN EL MODAL
 function editarEvaluacion(idEvaluacion) {
+    cargarCategoriasEvaluacion()
     mostrarSpinner()
     getEvalucionById(idEvaluacion)
         .then(response => response.json())
@@ -86,7 +122,7 @@ function editarEvaluacion(idEvaluacion) {
             const selectCategoria = document.getElementById("selectCategoriaEvaluacion")
             document.getElementById("inputTitulo").value = evaluacion.titulo
             document.getElementById("textareaDescripcion").value = evaluacion.descripcion
-            selectCategoria.value = evaluacion.categoriaId
+            selectCategoria.value = evaluacion.categoriaId.id
 
             //PARTE 2 
             //DESCRIPCION DE LOS CRITERIOS
@@ -271,7 +307,9 @@ function confirmarInfoEvaluacion() {
 
     const newEvaluacion = {
         id,
-        categoriaId: selectCategoriaEvaluacion.value,
+        categoriaId:{
+            id:selectCategoriaEvaluacion.value
+        } ,
         titulo: inputTitulo.value,
         descripcion: textareaDescripcion.value
 

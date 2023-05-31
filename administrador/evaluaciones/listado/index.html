@@ -135,13 +135,14 @@
                     <div class="row">
 
                         <div class="overflow-scroll ">
-                            <table id="tablaEvaluaciones" class="display ">
-                                <thead class="bg-red text-light">
+                            <table id="tablaEvaluaciones" class="display fw-medium   table  table-hover  ">
+                                <thead class="bg-red text-light text-center">
                                     <tr>
                                         <th>#</th>
                                         <th>Titutlo</th>
                                         <th> Descripcion</th>
                                         <th>Categoria</th>
+                                        <th>Estado</th>
                                         <th>Fecha Registro</th>
                                         <th>Acciones</th>
 
@@ -159,20 +160,103 @@
                     </div>
                     <div class="row mb-3">
                         <hr>
-                        <h3>Estadod de una Evaluacion</h3>
+                        <h3>Estados de la Evaluacion</h3>
                         <hr>
                         <div class="col-xl-4 mt-3  border border-info p-3">
                             <p class="text-dark fw-bold bg-info rounded">1 - REGISTRADA </p>
                             <p>CUANDO SE CREA LA EVALUACION</p>
+                            <hr>
+                            <table class="table table-hover text-center">
+                                <thead>
+                                    <tr>
+                                     <th>Accion</th>
+                                     <th>Logo</th>
+                                     <th>Permiso</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Gestionar</td>
+                                        <td><i class="fa fa-eye" aria-hidden="true"></i> </td>
+                                        <td>Si</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Editar</td>
+                                        <td><i class="fa fa-pencil" aria-hidden="true"></i> </td>
+                                        <td>Si</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Eliminar</td>
+                                        <td><i class="fa fa-times" aria-hidden="true"></i> </td>
+                                        <td>Si</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                           
                         </div>
                         <div class="col-xl-4 mt-3 border border-success p-3">
                             <p class="text-dark fw-bold bg-success rounded">2 -ACTIVA </p>
                             <p>CUANDO LA EVALUACION SE APLICA </p>
+                            <hr>
+                            <table class="table table-hover text-center">
+                                <thead>
+                                    <tr>
+                                     <th>Accion</th>
+                                     <th>Logo</th>
+                                     <th>Permiso</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Gestionar</td>
+                                        <td><i class="fa fa-eye" aria-hidden="true"></i> </td>
+                                        <td>Si</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Editar</td>
+                                        <td><i class="fa fa-pencil" aria-hidden="true"></i> </td>
+                                        <td>No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Eliminar</td>
+                                        <td><i class="fa fa-times" aria-hidden="true"></i> </td>
+                                        <td>No</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div class="col-xl-4 mt-3 border border-warning p-3">
                             
-                            <p class="text-dark fw-bold bg-warning rounded"> 3 - TERMINADA</p>
+                            <p class="text-dark fw-bold bg-warning rounded"> 3 - CERRADA</p>
                             <p>CUANDO LA EVALUACION FINALIZA</p>
+                            <hr>
+                            <table class="table table-hover text-center">
+                                <thead>
+                                    <tr>
+                                     <th>Accion</th>
+                                     <th>Logo</th>
+                                     <th>Permiso</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Gestionar</td>
+                                        <td><i class="fa fa-eye" aria-hidden="true"></i> </td>
+                                        <td>Si</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Editar</td>
+                                        <td><i class="fa fa-pencil" aria-hidden="true"></i> </td>
+                                        <td>No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Eliminar</td>
+                                        <td><i class="fa fa-times" aria-hidden="true"></i> </td>
+                                        <td>No</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                        <hr>
                         
@@ -228,9 +312,6 @@
                                 <div class="col-xl-10">
                                     <select class="form-select" aria-label="Default select example"
                                         id="selectCategoriaEvaluacion" disabled>
-                                        <option>Seleccione una categoria de Evaluacion</option>
-                                        <option value="1">Autoevaluacion</option>
-                                        <option value="2">HeteroEvaluacion</option>
                                     </select>
                                 </div>
                                 <div class="col-xl-12 mt-3" ></div>
@@ -341,10 +422,10 @@
                                 <form class=" ">
                                     <div class="input-group">
 
-                                        <input type="text" id="inputCategoriaP" class="form-control"
+                                        <input type="text" id="inputCategoriaP"class="form-control"
                                             placeholder="CREAR CATEGORIA EVALUACION" aria-label="Input group example"
                                             aria-describedby="btnGroupAddon">
-                                        <button id="crearCategoria" class="input-group-text btn btn-outline-success"
+                                        <button id="crearCategoria"  onclick="crearCategoriaE()"  class="input-group-text btn btn-outline-success"
                                             type="button">
                                             <i class="fa fa-plus" aria-hidden="true"></i>
                                         </button>

@@ -121,62 +121,103 @@
                         </div>
 
                     </div>
-                   
+
                     <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%"
                         data-bs-smooth-scroll="true" class="scrollspy-example mt-3 rounded-2" tabindex="0">
                         <hr>
-                        <h4 id="scrollspyHeading1">Informacion de la Evaluacion</h4>
+                        <div class="row border border-5">
+                            <div class="col-xl-6 border border-5">
+                                <h4 id="scrollspyHeading1">Informacion de la Evaluacion </h4>
+                                <hr>
 
-                        <div class="row mb-3  text-center border border-5">
-                            <div class="col-xl-4 mt-3">
-                                <p>Titulo: <span id="titulo"></span></p>
+                                <div class="row mb-3  text-center ">
+                                    <div class="col-xl-4 mt-3">
+                                        <blockquote class="blockquote mb-0">
+                                            <footer class="blockquote-footer">Titulo :</footer>
+                                            <p id="titulo"></p>
+                                        </blockquote>
+                                    </div>
+                                    <div class="col-xl-4 mt-3">
+                                        <blockquote class="blockquote mb-0">
+                                            <footer class="blockquote-footer">Categoria :</footer>
+
+                                            <p id="categoriaE"></p>
+                                        </blockquote>
+                                    </div>
+                                    <div class="col-xl-4 mt-3">
+                                        <blockquote class="blockquote mb-0">
+                                            <footer class="blockquote-footer">Fecha Registro :</footer>
+                                            <p id="fechaE"></p>
+                                        </blockquote>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-xl-4 mt-3">
-                                <p>Categoria: <span id="categoriaE"></span></p>
-                            </div>
-                            <div class="col-xl-4 mt-3">
-                                <p>Fecha Registro: <span id="fechaE"></span></p>
+                            <div class="col-xl-6 border border-5">
+                                <h4 id="scrollspyHeading3 ">Informacion del Semestre </h4>
+                                <hr>
+                                <div class="row mt-3 mb-3 text-center ">
+                                    <div class="col-xl-6 mt-3">
+                                        <blockquote class="blockquote mb-0">
+                                            
+                                            <footer class="blockquote-footer">Nombre :</footer>
+                                            <p id="nombreS"></p>
+
+
+
+                                        </blockquote>
+
+                                    </div>
+                                    <div class="col-xl-6 mt-3">
+                                        <blockquote class="blockquote mb-0">
+                                            
+                                            <footer class="blockquote-footer">Estado :</footer>
+                                            <p id="estadoS"></p>
+
+
+
+                                        </blockquote>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
+
                         <hr>
-                        <h4 id="scrollspyHeading2">Estado Evaluacion</h4>
+                        <div class="row mb-3 border border-5  text-center  ">
+                            <h4 id="scrollspyHeading2" class="mt-3">Estado Evaluacion </h4>
 
-                        <div class="row mb-3  text-center border border-5">
-                            <div class="col-xl-4 mt-3  text-center">
+                            <hr>
 
-                                <select class="form-select text-center mb-3" aria-label="Default select example">
-                                    <option selected>Estados de la Evaluacion</option>
-                                    <option value="1">REGISTRADA</option>
-                                    <option value="2">ABIERTA</option>
-                                    <option value="3">FINALIZADA</option>
-                                </select>
+                            <div class="col-xl-12 p-5 mt-3 ">
 
+                                <div class="position-relative m-4" id="estadoEvaluacion">
+                                </div>
+                                <div class="position-relative m-4 text-uppercase h5 ">
 
+                                    <p class="position-absolute top-0 start-0 translate-middle text-dark rounded-pill">
+                                        Registrada</p>
+                                    <p class="position-absolute top-0 start-50 translate-middle text-dark rounded-pill">
+                                        Activa</p>
+                                    <p
+                                        class="position-absolute top-0 start-100 translate-middle text-dark rounded-pill">
+                                        Cerrada</p>
+                                </div>
                             </div>
-                            <div class="col-xl-3 mt-3">
-                                <button class="btn btn-outline-info form-control " type="button">Actualizar
+                            <hr>
+                            <div class="col-xl-12 p-3 justify-content-center ">
+                                <button class="btn btn-outline-info  mt-3 " type="button"
+                                    id="btnActualizarEstado" onclick="guardarEstadoEvaluacion()">Actualizar
                                     Estado</button>
 
+
+
                             </div>
-                            <div class="col-xl-5"></div>
-                        </div>
-                        <hr>
-                        <h4 id="scrollspyHeading3">Informacion del Semestre</h4>
-
-                        <div class="row mt-3 mb-3 text-center border border-5">
-                            <div class="col-xl-6 mt-3">
-
-                                <p>Nombre: <span id="nombreS"></span></p>
-                            </div>
-                            <div class="col-xl-6 mt-3">
-
-                                <p>Estado: <span id="estadoS"></span></p>
-                            </div>
-
                         </div>
                         <hr>
 
-                        <h4 id="scrollspyHeading4">Docentes registrados en el semestre</h4>
+
+
+                        <h4 id="scrollspyHeading4" class="text-center">Tabla de docentes registrados en el semestre</h4>
                         <br>
                         <div class="row text-center mb-3 fw-medium  text-uppercase ">
                             <div class="overflow-scroll ">
@@ -199,8 +240,8 @@
                             </div>
                         </div>
                         <br>
-                    
-                        
+
+
                     </div>
 
                     <hr>
@@ -236,10 +277,10 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../../../js/Evaluacion/gestionarEvaluacion.js"></script>
     <script src="../../../../js/Evaluacion/listadoEvaluacions.js"></script>
-    <script src="../../../../js/Evaluacion/updateEvaluacion.js"></script>
-    <script src="../../../../js/Evaluacion/updateEvaluacionCtg.js"></script>
+    
 
 
 </body>

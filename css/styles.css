@@ -10,6 +10,58 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-bar-container {
+  position: relative;
+  margin: 20px;
+}
+
+.progress-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #070606;
+  z-index: -1;
+}
+
+.progress-bar {
+  height: 2px;
+  background-color: #007bff;
+}
+
+.progress-button {
+  position: relative;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background-color: #eee;
+  color: #555;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.progress-button.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.progress-bar-label {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #555;
+}
 
 
  .row.mb-3.border.border-3.rounded {
