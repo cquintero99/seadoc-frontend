@@ -1,8 +1,15 @@
-
+// ======================================================== Variables ======================================================== //
 const urlBasic = "https://teacher-test.herokuapp.com"
 //"https://teacher2023.herokuapp.com"
 //"https://teacher-test-backend-production-e58a.up.railway.app";
 const login = document.getElementById("login");
+
+// ======================================================== Variables Globales ======================================================== //
+var esAdmin = false;
+var esDocente = false;
+
+
+// ======================================================== Funciones ======================================================== //
 
 function mostrarSpinner() {
   document.getElementById("spinner-container").style.display = "flex";
@@ -35,8 +42,6 @@ login.addEventListener("click", () => {
       documento,
       password,
     };
-
-
 
     verificoIngresoDatos(codigo, documento, password);
 
@@ -115,7 +120,6 @@ async function verificoCodigoDocumento(codigo, documento) {
       ocultarSpinner()
       console.log(err)
     })
-
 }
 
 
@@ -124,13 +128,10 @@ async function inciarSesion() {
   let codigo = document.getElementById("inputCodigo").value;
   let password = document.getElementById("inputPassword").value;
 
-
-
   const data = {
     usernameOrEmail: codigo,
     password: password
   }
-
 
   await fetch(urlBasic + '/user/login', {
     method: 'POST',
@@ -150,8 +151,6 @@ async function inciarSesion() {
 
         sessionStorage.setItem("id", "100")
 
-
-
         localStorage.setItem('token', token);
         localStorage.setItem("data", JSON.stringify(parseJwt(token)))
 
@@ -168,44 +167,26 @@ async function inciarSesion() {
           document.getElementById("alert").innerHTML = "";
         }, 5000);
       }
-
-
-
-
-
-
     })
     .catch(err => {
       ocultarSpinner()
       console.log(err)
-
     })
-
 }
 function cargarModuloRol() {
-
   const roles = JSON.parse(localStorage.getItem("data")).roles
-  const admin = false
   for (let i = 0; i < roles.length; i++) {
     if (roles[i].nombre == "ROLE_ADMIN") {
-      window.location.href = "./administrador/index.html";
-      admin = true
-
-    } else if (roles[i].nombre == "ROLE_TEACHER" && admin === false) {
-      window.location.href = "./docente/index.html";
+      esAdmin = true
     }
-
-
-
+    
+    if (roles[i].nombre == "ROLE_TEACHER") {
+      esDocente = true;
+    }
   }
-
-
-
+  // Si es admin o docente redirecciona a su modulo
+  window.location.href = esAdmin == true ? './administrador/index.html' : './docente/index.html'
 }
-
-
-
-
 
 function parseJwt(token) {
   var base64Url = token.split('.')[1];
