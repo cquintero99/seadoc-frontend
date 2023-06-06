@@ -1,5 +1,6 @@
 //CONEXION CON EL BACK
-const urlBasic = "https://teacher-test.herokuapp.com"
+// const urlBasic = "https://teacher-test.herokuapp.com"
+const urlBasic = 'http://64.227.98.114:8080'
 
 async function verSemestreEstado(estado) {
 

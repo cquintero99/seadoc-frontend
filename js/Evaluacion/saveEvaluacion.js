@@ -1,4 +1,6 @@
-const urlBasic ="https://teacher-test.herokuapp.com"
+// const urlBasic ="https://teacher-test.herokuapp.com"
+const urlBasic = 'http://64.227.98.114:8080'
+
 //"https://teacher2023.herokuapp.com"
 //"https://teacher-test-backend-production-e58a.up.railway.app";
 const btnEvaluacion = document.getElementById("btnEvaluacion")

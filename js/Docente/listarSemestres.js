@@ -3,7 +3,8 @@ let idSemestre = null;
 let idUsuario = null;
 
 //CONEXION CON EL BACK
-const urlBasic = "https://teacher-test-backend-production-e58a.up.railway.app";
+// const urlBasic = "https://teacher-test-backend-production-e58a.up.railway.app";
+const urlBasic = 'http://64.227.98.114:8080'
 
 //======================Peticiones============================================
 
