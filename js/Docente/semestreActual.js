@@ -61,7 +61,7 @@ function listaEvaluacioneSemestre(lista) {
 
     const semestreDoncente=lista
     console.log(semestreDoncente)
-    const evaluacionDocente=semestreDoncente.listaEvaluacionesRegistradas
+
     let semestreActual = localStorage.getItem("semestreActual")
     //Si hay un semestre actual
     if (semestreActual != null) {
@@ -76,16 +76,15 @@ function listaEvaluacioneSemestre(lista) {
                     const estadoCerradaPresente = data[i].estadosEvaluacion.some(item => item.estadoId.nombre === 'CERRADA');
                     //Si la evaluacion esta Activa se muestra para el docente
                     let btnRealizarEvaluacion=""
-                    let msnRealizarEvaluacion="d-none"
-                    const estadoEvaluacionDocente = evaluacionDocente.some(item => item.evaluacionId === data[i].id);
-                    console.log(estadoEvaluacionDocente)
-                    if(semestreDoncente.listaEvaluacionesRegistradas!=null && estadoEvaluacionDocente){
-                       btnRealizarEvaluacion="d-none"
-                       msnRealizarEvaluacion=""
+                    if(semestreDoncente.listaEvaluacionesRegistradas!=null){
+                        for (let i = 0; i < semestreDoncente.listaEvaluacionesRegistradas.length; i++) {
+                            
+                            
+                        }
                     }
                         if (estadoActivaPresente && !estadoCerradaPresente) {
                             nombreEstado = "ACTIVA"
-                            
+                            console.log(data[i])
                             body+=`<div class="col text-center" >
                             <div class="col-md-auto">
                             <div class="card">
@@ -110,8 +109,7 @@ function listaEvaluacioneSemestre(lista) {
                               <div class="card-footer text-center justify-content-center">
                               <button class="btn btn-outline-success ${btnRealizarEvaluacion} " id="un">Realizar Evaluacion
                               <i class="fa-solid fa-chevron-right "></i></button>
-                              <p class="h3 bg-success text-light rounded ${msnRealizarEvaluacion}" id="registrado"> COMPLETADA <i class="fa-solid fa-check "></i>
-                 
+
                               
                               </div>
                             </div>
@@ -134,8 +132,6 @@ function listaEvaluacioneSemestre(lista) {
 }
 //Boton para unirser al semestre
 const unirmeSemestre = document.getElementById("unirmeSemestre")
-
-//Funcion para ver si hay semestre actual
 function buscarSemestreActual() {
     //Busco el semestre actual
     verSemestreEstado("ACTUAL")
@@ -156,6 +152,7 @@ function buscarSemestreActual() {
                 verListadeSemestreDelDocente()
                     .then(response => response.json())
                     .then(lista => {
+                        console.log(lista)
                         //Guardo el id del usuarioSemestre
                         localStorage.setItem("userSemestreId",lista[0].id)
                         //Obtengo la visibilidad del semestre
