@@ -1,4 +1,4 @@
-const urlBasic = "https://teacher-test.herokuapp.com"
+
 //"https://teacher2023.herokuapp.com"
 //"https://teacher-test-backend-production-e58a.up.railway.app"
 // "https://teacher-test-backend-production-e58a.up.railway.app"
@@ -163,7 +163,7 @@ async function savePreRegistro(registro) {
 
 
     let token = localStorage.getItem("token")
-    const result = await fetch(urlBasic + "/pre/save", {
+    const result = await fetch("http://localhost:8080/pre/save", {
         method: 'POST',
         body: JSON.stringify(preRegistro),
         headers: {
