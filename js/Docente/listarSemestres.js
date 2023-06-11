@@ -3,7 +3,6 @@ let idSemestre = null;
 let idUsuario = null;
 
 //CONEXION CON EL BACK
-const urlBasic = "https://teacher-test-backend-production-e58a.up.railway.app";
 
 //======================Peticiones============================================
 

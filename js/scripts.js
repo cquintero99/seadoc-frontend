@@ -18,10 +18,30 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+function docente(){
+    
+    localStorage.setItem("modulo","docente")
 
+    
+}
+function director(){
+    
+    localStorage.setItem("modulo","director")
+
+    
+}
+try {
+    localStorage.setItem("modulo","docente")
+
+} catch (error) {
+
+   
+}
 window.addEventListener('load', () => {
 
     try {
+
+
         let nombre = JSON.parse(localStorage.getItem("data")).nombre
         document.getElementById("nombreUsuario").innerHTML = `<h5 class="mt-3 p-3 mb-3  text-light " >Bienvenido _ ${nombre} </h5>`
 

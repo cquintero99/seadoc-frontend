@@ -12,7 +12,7 @@
 
   <link href="../css/styles.css" rel="stylesheet" />
   <link rel="stylesheet" href="../css/indexAdmin.css">
-  <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 
 
   <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -52,25 +52,25 @@
       <nav class="sb-sidenav accordion sb-sidenav-dark bg-red p-2 text-white  " id="sidenavAccordion">
         <div class="sb-sidenav-menu">
           <div class="nav">
-            <div class="sb-sidenav-menu-heading">SEMESTRES</div>
-            <a class="nav-link" href="../docente/listaSemestres.html">
-              <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-              Semestre
-            </a>
+              <div class="sb-sidenav-menu-heading">SEMESTRES</div>
+              <a class="nav-link" href="./listaSemestres.html">
+                  <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                  Semestre
+              </a>
 
-            <div class="sb-sidenav-menu-heading text-light">EVALUACIONES</div>
-            <a class="nav-link p-3" href="../docente/listaEvaluacion.html">
-              <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-              Evaluaciones
-            </a>
+              <div class="sb-sidenav-menu-heading text-light">EVALUACIONES</div>
+              <a class="nav-link p-3" href=".listaEvaluacion.html">
+                  <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                  Evaluaciones
+              </a>
 
-            <div class="sb-sidenav-menu-heading text-light">CARGA ACADEMICA</div>
-            <a class="nav-link p-3" href="../docente/listaCAI.html">
-              <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-              Carga Academica Integral
-            </a>
+              <div class="sb-sidenav-menu-heading text-light">CARGA ACADEMICA</div>
+              <a class="nav-link p-3" href="./desempeño/index.html">
+                  <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                  Carga Academica Integral
+              </a>
           </div>
-        </div>
+      </div>
         <div class="sb-sidenav-footer bg-red text-center">
           Evaluacion Docente
           <div class="small">Universidad Francisco de Paula Santander</div>
@@ -80,7 +80,7 @@
     <div id="layoutSidenav_content">
       <main>
         <div class="container-fluid px-4">
-          <h1 class="mt-4 text-center ">Docente</h1>
+          <h1 class="mt-4 text-center ">DOCENTE</h1>
           <hr>
            <!-- Spinner -->
            <div id="sppiner">
@@ -136,12 +136,13 @@
 
           </div>
           <hr>
+          <h3  class="fw-medium text-center fw-bold">Evaluaciones disponibles</h3>
             <div class="row" id="evaluaciones">
               
             </div>
             
             <hr>
-            <p class="fw-medium text-center fw-bold">TABLA  SEMESTRES REGISTRADOS</p>
+            <h3 class="fw-medium text-center fw-bold">TABLA  SEMESTRES REGISTRADOS</h3>
             <!-- Contenido pestaña semestres -->
             <div class="overflow-scroll ">
               <table id="semestresRegistrado" class="display fw-medium text-center  table  table-hover">
@@ -220,6 +221,7 @@
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 
   <script src="../js/Docente/semestreActual.js"></script>
+  <script src="../js/scripts.js"></script>
 </body>
 
 </html>

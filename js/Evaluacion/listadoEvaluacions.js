@@ -156,6 +156,7 @@ function mostrarEvaluaciones(id) {
     getEvaluacionesSemestre(id)
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             data.sort(compararFechasRegistro)
             //href="./editar/index.html"
             

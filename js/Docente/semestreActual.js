@@ -1,5 +1,5 @@
 //CONEXION CON EL BACK
-const urlBasic = "https://teacher-test.herokuapp.com"
+
 
 async function verSemestreEstado(estado) {
 
@@ -130,7 +130,8 @@ function listaEvaluacioneSemestre(lista) {
             })
     }
 }
-//Boton para unirser al semestre
+try {
+    //Boton para unirser al semestre
 const unirmeSemestre = document.getElementById("unirmeSemestre")
 function buscarSemestreActual() {
     //Busco el semestre actual
@@ -153,12 +154,22 @@ function buscarSemestreActual() {
                     .then(response => response.json())
                     .then(lista => {
                         console.log(lista)
-                        //Guardo el id del usuarioSemestre
+                        if(lista.length==0){
+                           // alert("vacio")
+                            
+                        }
+                        try {
+                            //Guardo el id del usuarioSemestre
                         localStorage.setItem("userSemestreId",lista[0].id)
+                        } catch (error) {
+                            
+                        }
+                        
                         //Obtengo la visibilidad del semestre
                         let visibilidad = data[0].visibilidad
+                        console.log(visibilidad)
                         //Si no estoy registrado en ningun semestre 
-                        if (lista.length == "0" && visibilidad == "PUBLICO") {
+                        if (lista.length == "0" && visibilidad === "PUBLICO") {
                             //Muestro el boton para unirme 
                             unirmeSemestre.className = "btn btn-outline-success"
                         } else {
@@ -173,7 +184,7 @@ function buscarSemestreActual() {
                                 registrado.className = "bg-success h3 rounded fw-bold text-light "
 
                                 //Si no estoy registrado en el semestre
-                            } else if (visibilidad == "PUBLICO") {
+                            } else if (visibilidad === "PUBLICO") {
                                     //Muestro el boton para registrarme
                                 unirmeSemestre.className = "btn btn-outline-success "
 
@@ -225,6 +236,9 @@ function buscarSemestreActual() {
         .finally(fina => {
            
         })
+}
+} catch (error) {
+    
 }
  //Muestro la lista de semestres registrados del docente
 function mostraSemestres(lista) {

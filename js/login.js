@@ -117,6 +117,20 @@ async function verificoCodigoDocumento(codigo, documento) {
     })
 
 }
+async function moduloLogin(usuario) {
+  let modulo = localStorage.getItem("modulo")
+  const resutl = await fetch(urlBasic + '/usuario/roles/modulo/' + modulo, {
+    method: 'POST',
+    body: JSON.stringify(usuario),
+    headers: {
+      'Content-type': 'application/json ',
+      'Access-Control-Allow-Headers': 'Authorization',
+      'Cache-Control': 'no-store'
+    },
+    cache: 'no-store'
+  })
+  return resutl;
+}
 
 
 async function inciarSesion() {
@@ -124,8 +138,34 @@ async function inciarSesion() {
   let codigo = document.getElementById("inputCodigo").value;
   let password = document.getElementById("inputPassword").value;
 
+const usuario={
+    codigo
+}
+  moduloLogin(usuario)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      if (data == true) {
+       entrar()
+      } else {
+        ocultarSpinner()
+        document.getElementById("alert").innerHTML = `<div class="alert alert-danger" role="alert">
+        USUARIO NO AUTORIZADO
+      </div>`;
+      }
+    })
+    .catch(err => {
+      ocultarSpinner()
+
+    })
 
 
+
+}
+
+async function entrar() {
+  let codigo = document.getElementById("inputCodigo").value;
+  let password = document.getElementById("inputPassword").value;
   const data = {
     usernameOrEmail: codigo,
     password: password
@@ -159,10 +199,9 @@ async function inciarSesion() {
 
       } else {
         ocultarSpinner()
-        body = `<div class="alert alert-danger" role="alert">
+        document.getElementById("alert").innerHTML = `<div class="alert alert-danger" role="alert">
          Contraseña  incorrecta
       </div>`;
-        document.getElementById("alert").innerHTML = body;
 
         setTimeout(() => {
           document.getElementById("alert").innerHTML = "";
@@ -180,14 +219,14 @@ async function inciarSesion() {
       console.log(err)
 
     })
-
 }
 function cargarModuloRol() {
 
   const roles = JSON.parse(localStorage.getItem("data")).roles
   const admin = false
+  let modulo = localStorage.getItem("modulo")
   for (let i = 0; i < roles.length; i++) {
-    if (roles[i].nombre == "ROLE_ADMIN") {
+    if (roles[i].nombre == "ROLE_ADMIN" && modulo == "director") {
       window.location.href = "./administrador/index.html";
       admin = true
 
