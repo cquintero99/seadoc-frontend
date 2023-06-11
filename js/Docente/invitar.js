@@ -163,7 +163,7 @@ async function savePreRegistro(registro) {
 
 
     let token = localStorage.getItem("token")
-    const result = await fetch("http://localhost:8080/pre/save", {
+    const result = await fetch(urlBasic+"/pre/save", {
         method: 'POST',
         body: JSON.stringify(preRegistro),
         headers: {
