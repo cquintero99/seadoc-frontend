@@ -1,5 +1,6 @@
 
 const urlBasic = "http://localhost:8080"
+const urlAWS="https://awss3-production.up.railway.app"
 
 window.addEventListener('DOMContentLoaded', event => {
 
