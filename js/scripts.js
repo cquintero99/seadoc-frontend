@@ -1,5 +1,6 @@
 
-const urlBasic = "http://localhost:8080"
+const urlBasic ="https://teacher-test-backend-production.up.railway.app"
+// "http://localhost:8080"
 const urlAWS="https://awss3-production.up.railway.app"
 
 window.addEventListener('DOMContentLoaded', event => {
