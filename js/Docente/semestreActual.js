@@ -76,15 +76,20 @@ function listaEvaluacioneSemestre(lista) {
                     const estadoCerradaPresente = data[i].estadosEvaluacion.some(item => item.estadoId.nombre === 'CERRADA');
                     //Si la evaluacion esta Activa se muestra para el docente
                     let btnRealizarEvaluacion=""
+                    /*
                     if(semestreDoncente.listaEvaluacionesRegistradas!=null){
                         for (let i = 0; i < semestreDoncente.listaEvaluacionesRegistradas.length; i++) {
                             
                             
                         }
                     }
+                    */
                         if (estadoActivaPresente && !estadoCerradaPresente) {
                             nombreEstado = "ACTIVA"
                             console.log(data[i])
+                            localStorage.setItem(data[i].id,JSON.stringify(data[i]))
+                           // document.cookie = "miCookie=" + JSON.stringify(data[i]) + "; expires=Thu, 1 Jan 2024 12:00:00 UTC; path=/";
+
                             body+=`<div class="col text-center" >
                             <div class="col-md-auto">
                             <div class="card">
@@ -107,8 +112,8 @@ function listaEvaluacioneSemestre(lista) {
                                 
                               </div>
                               <div class="card-footer text-center justify-content-center">
-                              <button class="btn btn-outline-success ${btnRealizarEvaluacion} " id="un">Realizar Evaluacion
-                              <i class="fa-solid fa-chevron-right "></i></button>
+                              <a class="btn btn-outline-success ${btnRealizarEvaluacion} " href="./evaluacion/index.html?id=${data[i].id}"  >Realizar Evaluacion
+                              <i class="fa-solid fa-chevron-right "></i></a>
 
                               
                               </div>
