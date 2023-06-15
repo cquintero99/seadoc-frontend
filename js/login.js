@@ -21,7 +21,8 @@ function ocultarSpinner() {
     </div>
   </div>`
 }
-//ENTRAR LOGIN
+try {
+  //ENTRAR LOGIN
 login.addEventListener("click", () => {
   mostrarSpinner()
   try {
@@ -45,6 +46,9 @@ login.addEventListener("click", () => {
     ocultarSpinner()
   }
 });
+} catch (error) {
+  
+}
 
 function verificoIngresoDatos(codigo, documento, password) {
 

@@ -1,7 +1,7 @@
 
-const urlBasic ="https://teacher-test-backend-production.up.railway.app"
+const urlBasic = "https://teacher-test-backend-production.up.railway.app"
 
-const urlAWS="https://awss3-production.up.railway.app"
+const urlAWS = "https://awss3-production.up.railway.app"
 
 window.addEventListener('DOMContentLoaded', event => {
 
@@ -20,24 +20,24 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
-function docente(){
-    
-    localStorage.setItem("modulo","docente")
+function docente() {
 
-    
+    localStorage.setItem("modulo", "docente")
+
+
 }
-function director(){
-    
-    localStorage.setItem("modulo","director")
+function director() {
 
-    
+    localStorage.setItem("modulo", "director")
+
+
 }
 try {
-    localStorage.setItem("modulo","docente")
+    localStorage.setItem("modulo", "docente")
 
 } catch (error) {
 
-   
+
 }
 window.addEventListener('load', () => {
 
@@ -66,6 +66,19 @@ try {
     salir.addEventListener('click', () => {
         localStorage.clear()
     })
+} catch (error) {
+
+}
+
+try {
+    // Obtener el valor del parámetro de consulta "dato"
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    if (token != null) {
+        console.log(token)
+        localStorage.setItem("token", token)
+        window.location.href = "./cambio/index.html"
+    }
 } catch (error) {
 
 }

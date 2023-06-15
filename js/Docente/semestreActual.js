@@ -94,8 +94,8 @@ function listaEvaluacioneSemestre(lista) {
                             <div class="col-md-auto">
                             <div class="card">
                               <div class="card-header bg-red">
-                                <i class="fas fa-columns fa-3x"></i>
-                                <h5 class="card-title mt-3 text-capitalize" > ${data[i].categoriaId.nombre}</h5>
+                                <i class="fas fa-columns fa-2x"></i>
+                                <h5 class="card-title mt-3 text-capitalize" >  ${data[i].categoriaId.nombre}</h5>
                               </div>
                               <div class="card-body">
                                 

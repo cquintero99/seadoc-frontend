@@ -16,10 +16,12 @@ function cargarDatosEvaluacionId() {
         .then(data => {
             let body = ""
             let array=[]
+            let nPreguntas=1;
             for (let i = 0; i < data.length; i++) {
 
-                body += `<h4 class="text-uppercase text-center p-3">Categoria : ${data[i].nombre}</h4>
-            `
+                body += `<h4 class="text-uppercase text-black text-center p-3 boder ">N°${i+1} Categoria : ${data[i].nombre}</h4>
+            `   
+                
                 for (let j = 0; j < data[i].preguntas.length; j++) {
                     let criterios = ""
                     array.push(data[i].preguntas[j].id)
@@ -27,23 +29,25 @@ function cargarDatosEvaluacionId() {
                     for (let k = 0; k < evaluacion.criterio[0].opciones.length; k++) {
                         let opcionId=evaluacion.criterio[0].opciones[k].id
                         
-                        criterios += `<div class="  form-check form-check-inline" id="${preguntaId}">
+                        criterios += `
+                        <div class="  form-check form-check-inline mt-3" id="${preguntaId}">
                     <input class="form-check-input" type="radio" name="name${preguntaId}" id="inlineRadio${preguntaId}" value="option${opcionId}">
                     <label class="form-check-label" for="inlineRadio${preguntaId}">${evaluacion.criterio[0].opciones[k].descripcion}</label>
                   </div>
                   `
 
                     }
-                    //body+=`<h5>${data[i].preguntas[j].descripcion} </h5>`
+                    //body+=`<h5>${data[i].preguntas[j].descripcion} </h5>` <small class="text-body-secondary"> #${j + 1}</small>
                     body += `
-            <div  class="list-group-item  p-3">
-            <small class="text-body-secondary"> #${j + 1}</small>
+            <div  class="list-group-item border p-3">
             
-                          <div class="d-flex w-100 justify-content-center">
-                            <h5 class="mb-1 ">${data[i].preguntas[j].descripcion}</h5>
+                          <div class="d-flex w-100 p-3 justify-content-center bg-primary">
+                          
+            
+                            <h5 class="mb-1 "> ${nPreguntas}- ${data[i].preguntas[j].descripcion}</h5>
                            
                           </div>
-                          <div class=" d-flex justify-content-center mt-3">
+                          <div class=" d-flex justify-content-center mt-3 ">
                           <p >
                           `+ criterios + `</p>
                          
@@ -54,6 +58,7 @@ function cargarDatosEvaluacionId() {
                           </div>
                         </div>`
                     //console.log(data[i].preguntas[j].descripcion)
+                    nPreguntas++;
 
                 }
 
@@ -90,6 +95,9 @@ function guardarRespuestas(){
         
     }
     console.log(completo)
+    if(completo){
+        alert("Evaluacion Completa")
+    }
 
 }
 

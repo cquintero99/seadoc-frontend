@@ -10,6 +10,16 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ @media (max-width: 576px) {
+  .form-check-inline {
+    display: block;
+  }
+}
+.swal2-title {
+  background-color: #000; /* Cambia el color de fondo a tu preferencia */
+  color: #fff; /* Cambia el color del texto a tu preferencia */
+}
+
 .container {
   display: flex;
   justify-content: center;

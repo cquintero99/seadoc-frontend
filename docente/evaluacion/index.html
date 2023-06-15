@@ -18,7 +18,7 @@
 
 </head>
 
-<body class="sb-nav-fixed bg-dark" onload="cargarDatosEvaluacionId()">
+<body class="sb-nav-fixed " onload="cargarDatosEvaluacionId()">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-red">
         <!-- Navbar Brand-->
         <p class="navbar-brand ps-3" >SEADOC</p>
@@ -66,11 +66,11 @@
                     <div class="row mb-3 ">
                         <br>
                         <br>
-                        <h2 class="mt-4 fw-medium  text-uppercase text-center p-5">EVALUACION</h2>
+                        <h2 class="mt-4 fw-medium text-black text-uppercase text-center p-5">EVALUACION</h2>
                         
                         </div>
                         
-                    <div class="list-group " id="preguntas">
+                    <div class="list-group list-group-flush " id="preguntas">
                         
                         <div  class="list-group-item  list-group-item-action">
                           <div class="d-flex w-100 justify-content-between">
@@ -84,11 +84,9 @@
 
                     <div >
                         <div class="text-center mt-3 p-1 justify-content-center">
+                            <a class="btn btn-secondary p-3 text-center"  href="../index.html">ABANDONAR INTENTO </a>
                             <button class="btn btn-success p-3 text-center" onclick="guardarRespuestas()">ENVIAR EVALUACION </button>
-                            <button class="btn btn-info p-3 text-center">TERMINAR INTENTO </button>
-                    
-                    
-                        </div>
+                         </div>
                         <hr>
 
                     </div>

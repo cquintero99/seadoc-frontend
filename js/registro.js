@@ -1,5 +1,5 @@
 
-const urlBasic = "https://teacher-test.herokuapp.com"
+
 //"https://teacher2023.herokuapp.com"
 //"https://teacher-test-backend-production-e58a.up.railway.app"
 const r1 = document.getElementById("r1")
@@ -120,7 +120,7 @@ function paso2(usuario) {
     </div>
     
     <div class="align-items-center text-center mt-4 mb-0">
-        <a class="btn btn-danger" href="#" id="r2"  onclick="r2(${usuario.codigo})">Completar</a>
+        <a class="btn btn-danger bg-red" href="#" id="r2"  onclick="r2(${usuario.codigo})">Completar</a>
     </div>
 </form>
 <div class="small mt-2">
@@ -202,7 +202,7 @@ function paso3(){
     
     
     <div class="align-items-center text-center mt-4 mb-0">
-        <a class="btn btn-danger" href="./index.html"   >Finalizar</a>
+        <a class="btn btn-danger bg-red" href="./index.html"   >Finalizar</a>
     </div>
 </form>
 <div class="small mt-2">
