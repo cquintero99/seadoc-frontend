@@ -289,7 +289,8 @@ function mostraSemestres(lista) {
 
     }
 }
-//Funcion para unirse al semestre actual
+try {
+    //Funcion para unirse al semestre actual
 unirmeSemestre.addEventListener('click', () => {
     mostrarSpinner()
 
@@ -322,6 +323,9 @@ unirmeSemestre.addEventListener('click', () => {
 
 
 })
+} catch (error) {
+    
+}
 $(document).ready(function () {
     $('#semestresRegistrado').DataTable({
         "language": {

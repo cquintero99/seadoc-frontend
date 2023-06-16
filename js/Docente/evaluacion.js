@@ -7,7 +7,7 @@ function cargarDatosEvaluacionId() {
         .then(res => res.json())
         .then(data2 => {
             console.log(data2)
-            if (data2 == true) {
+            if (!data2) {
                 //categorias(id)
                 const evaluacion = JSON.parse(localStorage.getItem(id))
 
