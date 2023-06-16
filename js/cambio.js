@@ -41,7 +41,7 @@ function cambioPassword() {
                         button: "Ok!",
                     });
                     document.getElementById("formulario").innerHTML=`
-                    <h3 class="text-center p-5 mt-3">Su contrase se cambio con exito</h3>`
+                    <h5 class="text-center p-1 mt-3">CAMBIO REALIZADO</h5>`
                 } else {
                     localStorage.clear()
                     ocultarSpinner()

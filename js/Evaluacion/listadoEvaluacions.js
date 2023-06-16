@@ -18,6 +18,7 @@ async function listaSemestres() {
     return result
 
 }
+
 //OBTENER SEMESTRE POR ID 
 
 async function getSemestreId(id) {
@@ -68,11 +69,12 @@ function compararFechasRegistro(a, b) {
     return new Date(b.fechaRegistro) - new Date(a.fechaRegistro);
 }
 
-
-
+const selectSemestre = document.getElementById("selectSemestresDocentes")
 
 const selectSemestres = document.getElementById("selectSemestres")
 const dataSemestreActual = document.getElementById("dataSemestreActual")
+
+
 function listadoSemestre() {
     mostrarSpinner()
     listaSemestres()
@@ -129,10 +131,10 @@ try {
         getSemestreId(idSemestre)
             .then(response => response.json())
             .then(data => {
-    
-    
+
+
                 document.getElementById("fechaSemestre").innerHTML = `<p > ESTADO: ${data.estado}</p>`
-    
+
                 mostrarEvaluaciones(data.id)
             })
             .catch(err => {
@@ -141,7 +143,7 @@ try {
             .finally(final => {
                 // ocultarSpinner()
             })
-    
+
     })
 } catch (error) {
     console.log(error)
@@ -159,7 +161,7 @@ function mostrarEvaluaciones(id) {
             console.log(data)
             data.sort(compararFechasRegistro)
             //href="./editar/index.html"
-            
+
             for (let i = 0; i < data.length; i++) {
                 let acciones = ` <button type="button" class="btn btn-outline-info dropdown-toggle text-center  justify-content-center"  data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-cog" aria-hidden="true"></i>
@@ -190,7 +192,7 @@ function mostrarEvaluaciones(id) {
                     </li>
                 </ul>
                   `
-               
+
                 let nombreEstado = ""
                 const estadoCerradaPresente = data[i].estadosEvaluacion.some(item => item.estadoId.nombre === 'CERRADA');
                 if (estadoCerradaPresente) {
@@ -346,31 +348,4 @@ function ocultarSpinner() {
       </div>
     </div>`
 }
-$(document).ready(function () {
-    $('#tablaEvaluaciones').DataTable({
-        "language": {
-            "decimal": "",
-            "emptyTable": "No hay datos disponibles en la tabla",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-            "infoEmpty": "Mostrando 0 a 0 de 0 registros",
-            "infoFiltered": "(filtrado de _MAX_ registros totales)",
-            "infoPostFix": "",
-            "thousands": ",",
-            "lengthMenu": "Mostrar _MENU_ registros",
-            "loadingRecords": "Cargando...",
-            "processing": "Procesando...",
-            "search": "Buscar:",
-            "zeroRecords": "No se encontraron registros coincidentes",
-            "paginate": {
-                "first": "Primero",
-                "last": "Último",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            },
-            "aria": {
-                "sortAscending": ": activar para ordenar de manera ascendente",
-                "sortDescending": ": activar para ordenar de manera descendente"
-            }
-        }
-    });
-})
+
